@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#061c15">
+  <meta name="description" content="Explore every Goal-Scoring Moment sports card game and interactive experience.">
+  <title>GSM | Choose Your Game</title>
+  <style>
+    :root {
+      --bg: #041811;
+      --bg-soft: #09271d;
+      --panel: rgba(15, 55, 40, 0.72);
+      --panel-hover: rgba(22, 78, 56, 0.92);
+      --text: #fffaf0;
+      --muted: #bfd0c7;
+      --gold: #f4c95d;
+      --gold-deep: #bd8622;
+      --line: rgba(244, 201, 93, 0.24);
+      --shadow: 0 22px 60px rgba(0, 0, 0, 0.34);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 14% 8%, rgba(32, 128, 87, 0.28), transparent 34rem),
+        radial-gradient(circle at 90% 92%, rgba(184, 128, 28, 0.14), transparent 30rem),
+        linear-gradient(145deg, #03120d 0%, var(--bg) 48%, #071f17 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      content: "";
+      pointer-events: none;
+      opacity: 0.11;
+      background-image:
+        linear-gradient(rgba(255,255,255,.16) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.16) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, black, transparent 76%);
+    }
+
+    a { color: inherit; }
+
+    .page {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 86px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      color: #142017;
+      background: linear-gradient(145deg, #ffe08a, var(--gold-deep));
+      border: 1px solid rgba(255,255,255,.42);
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(189, 134, 34, .22);
+      font-size: 23px;
+    }
+
+    .brand-copy strong,
+    .brand-copy span { display: block; }
+
+    .brand-copy strong {
+      font-size: 15px;
+      letter-spacing: .2em;
+    }
+
+    .brand-copy span {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .header-label {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    main { padding: 78px 0 72px; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
+      align-items: end;
+      gap: 54px;
+      margin-bottom: 62px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 34px;
+      height: 2px;
+      content: "";
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(44px, 7vw, 90px);
+      line-height: .94;
+      letter-spacing: -.055em;
+      text-wrap: balance;
+    }
+
+    h1 span {
+      color: transparent;
+      background: linear-gradient(100deg, #fff1b2 0%, var(--gold) 56%, #c88c26 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .intro {
+      margin: 0;
+      padding: 24px 0 4px 28px;
+      color: var(--muted);
+      border-left: 1px solid var(--line);
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.7;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 22px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(24px, 4vw, 36px);
+      letter-spacing: -.035em;
+    }
+
+    .section-head p {
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .game-card {
+      position: relative;
+      display: flex;
+      min-height: 250px;
+      grid-column: span 4;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      padding: 25px;
+      color: var(--text);
+      background: linear-gradient(160deg, rgba(21, 70, 51, .86), var(--panel));
+      border: 1px solid rgba(255,255,255,.11);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      isolation: isolate;
+      transition: transform .24s ease, border-color .24s ease, background .24s ease;
+    }
+
+    .game-card:nth-child(4),
+    .game-card:nth-child(5) { grid-column: span 6; }
+
+    .game-card::after {
+      position: absolute;
+      right: -36px;
+      bottom: -62px;
+      z-index: -1;
+      width: 190px;
+      height: 190px;
+      content: "";
+      background: radial-gradient(circle, rgba(244, 201, 93, .18), transparent 68%);
+      border: 1px solid rgba(244, 201, 93, .08);
+      border-radius: 50%;
+    }
+
+    .game-card:hover,
+    .game-card:focus-visible {
+      background: linear-gradient(160deg, var(--panel-hover), rgba(11, 42, 31, .92));
+      border-color: rgba(244, 201, 93, .65);
+      outline: none;
+      transform: translateY(-5px);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .sport-icon {
+      font-size: 44px;
+      line-height: 1;
+      filter: drop-shadow(0 10px 14px rgba(0,0,0,.25));
+    }
+
+    .status {
+      padding: 7px 9px;
+      color: var(--gold);
+      background: rgba(244, 201, 93, .08);
+      border: 1px solid rgba(244, 201, 93, .2);
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 850;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .game-card h3 {
+      margin: 30px 0 7px;
+      font-size: 25px;
+      letter-spacing: -.03em;
+    }
+
+    .game-card p {
+      min-height: 42px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .card-action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 28px;
+      padding-top: 16px;
+      color: #fff3bd;
+      border-top: 1px solid rgba(255,255,255,.09);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .arrow {
+      font-size: 20px;
+      transition: transform .24s ease;
+    }
+
+    .game-card:hover .arrow,
+    .game-card:focus-visible .arrow { transform: translateX(4px); }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 92px;
+      color: #8eaaa0;
+      border-top: 1px solid rgba(255,255,255,.08);
+      font-size: 12px;
+    }
+
+    footer strong {
+      color: #dacd9d;
+      letter-spacing: .08em;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-bottom: 48px;
+      }
+
+      .intro {
+        max-width: 680px;
+        padding: 0;
+        border-left: 0;
+      }
+
+      .game-card,
+      .game-card:nth-child(4),
+      .game-card:nth-child(5) { grid-column: span 6; }
+    }
+
+    @media (max-width: 620px) {
+      .page { width: min(100% - 26px, 1180px); }
+      header { min-height: 74px; }
+      .brand-copy span, .header-label { display: none; }
+      main { padding: 52px 0 50px; }
+      .hero { margin-bottom: 42px; }
+      h1 { font-size: clamp(43px, 14vw, 64px); }
+      .section-head { display: block; }
+      .section-head p { margin-top: 8px; }
+      .game-grid { gap: 14px; }
+      .game-card,
+      .game-card:nth-child(4),
+      .game-card:nth-child(5) {
+        min-height: 220px;
+        grid-column: 1 / -1;
+        padding: 22px;
+        border-radius: 20px;
+      }
+      footer { align-items: flex-start; flex-direction: column; justify-content: center; gap: 7px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .game-card, .arrow { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <a class="brand" href="./" aria-label="GSM home">
+        <span class="brand-mark" aria-hidden="true">🏆</span>
+        <span class="brand-copy">
+          <strong>GSM</strong>
+          <span>Goal-Scoring Moment</span>
+        </span>
+      </a>
+      <span class="header-label">Official Game Hub</span>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Goal-Scoring Moment</p>
+          <h1 id="page-title">Choose your <span>game.</span></h1>
+        </div>
+        <p class="intro">One sports game universe. Pick your edition and jump directly into its tutorial or online experience.</p>
+      </section>
+
+      <section aria-labelledby="games-title">
+        <div class="section-head">
+          <h2 id="games-title">Explore GSM</h2>
+          <p>Every edition opens its own independent website.</p>
+        </div>
+
+        <div class="game-grid">
+          <a class="game-card" href="https://lu20140621-png.github.io/goal-scoring-moment/">
+            <div>
+              <div class="card-top">
+                <span class="sport-icon" aria-hidden="true">⚽</span>
+                <span class="status">Available now</span>
+              </div>
+              <h3>Soccer Edition</h3>
+              <p>Hidden roles, teamwork, bluffing and strategy.</p>
+            </div>
+            <span class="card-action">Enter website <span class="arrow" aria-hidden="true">→</span></span>
+          </a>
+
+          <a class="game-card" href="https://lu20140621-png.github.io/goal-scoring-moment-football/">
+            <div>
+              <div class="card-top">
+                <span class="sport-icon" aria-hidden="true">🏈</span>
+                <span class="status">Available now</span>
+              </div>
+              <h3>Football Edition</h3>
+              <p>Bring the excitement of game day to the table.</p>
+            </div>
+            <span class="card-action">Enter website <span class="arrow" aria-hidden="true">→</span></span>
+          </a>
+
+          <a class="game-card" href="https://lu20140621-png.github.io/goal-scoring-moment-football-online/">
+            <div>
+              <div class="card-top">
+                <span class="sport-icon" aria-hidden="true">🎮</span>
+                <span class="status">Play online</span>
+              </div>
+              <h3>Football Online</h3>
+              <p>Open the online football experience and play digitally.</p>
+            </div>
+            <span class="card-action">Play online <span class="arrow" aria-hidden="true">→</span></span>
+          </a>
+
+          <a class="game-card" href="https://lu20140621-png.github.io/goal-scoring-moment-basketball/">
+            <div>
+              <div class="card-top">
+                <span class="sport-icon" aria-hidden="true">🏀</span>
+                <span class="status">New project</span>
+              </div>
+              <h3>Basketball Edition</h3>
+              <p>A new way to bring basketball moments to game night.</p>
+            </div>
+            <span class="card-action">Enter website <span class="arrow" aria-hidden="true">→</span></span>
+          </a>
+
+          <a class="game-card" href="https://lu20140621-png.github.io/goal-scoring-moment-baseball/">
+            <div>
+              <div class="card-top">
+                <span class="sport-icon" aria-hidden="true">⚾</span>
+                <span class="status">New project</span>
+              </div>
+              <h3>Baseball Edition</h3>
+              <p>A fresh tabletop experience inspired by baseball.</p>
+            </div>
+            <span class="card-action">Enter website <span class="arrow" aria-hidden="true">→</span></span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <strong>GOAL-SCORING MOMENT</strong>
+      <span>One brand. Every sport. More ways to play.</span>
+    </footer>
+  </div>
+</body>
+</html>
