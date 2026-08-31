@@ -8,7 +8,7 @@
   <title>GSM | Choose Your Game</title>
   <style>
     :root {
-      --bg: #03150f;
+      --bg: #070a08;
       --text: #fffaf0;
       --muted: #b9c9c1;
       --gold: #f6ce68;
@@ -25,8 +25,8 @@
       margin: 0;
       color: var(--text);
       background:
-        radial-gradient(circle at 50% 0%, rgba(23, 99, 68, .35), transparent 44rem),
-        linear-gradient(145deg, #020d09, var(--bg) 52%, #061f16);
+        radial-gradient(circle at 50% 0%, rgba(31, 82, 59, .23), transparent 42rem),
+        linear-gradient(180deg, #050806, var(--bg));
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       -webkit-font-smoothing: antialiased;
     }
@@ -34,7 +34,7 @@
     a { color: inherit; }
 
     .page {
-      width: min(1380px, calc(100% - 36px));
+      width: min(1320px, calc(100% - 32px));
       margin: 0 auto;
     }
 
@@ -42,8 +42,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 82px;
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      min-height: 72px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
     }
 
     .brand {
@@ -55,75 +55,54 @@
 
     .brand-mark {
       display: grid;
-      width: 44px;
-      height: 44px;
+      width: auto;
+      height: 34px;
+      padding: 0 11px;
       place-items: center;
-      color: #142017;
-      background: linear-gradient(145deg, #ffe596, var(--gold-deep));
-      border: 1px solid rgba(255,255,255,.42);
-      border-radius: 14px;
-      box-shadow: 0 8px 24px rgba(189, 134, 34, .24);
-      font-size: 23px;
+      color: #171309;
+      background: var(--gold);
+      border: 0;
+      border-radius: 7px;
+      box-shadow: none;
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: .13em;
     }
 
     .brand-copy strong,
     .brand-copy span { display: block; }
 
     .brand-copy strong {
-      font-size: 15px;
-      letter-spacing: .2em;
+      font-size: 12px;
+      letter-spacing: .13em;
     }
 
     .brand-copy span {
       margin-top: 2px;
-      color: var(--muted);
-      font-size: 10px;
-      letter-spacing: .16em;
+      color: #87988f;
+      font-size: 9px;
+      letter-spacing: .13em;
       text-transform: uppercase;
     }
 
     .header-label {
-      color: var(--gold);
-      font-size: 11px;
-      font-weight: 850;
-      letter-spacing: .18em;
+      color: #9eaaa4;
+      font-size: 9px;
+      font-weight: 750;
+      letter-spacing: .15em;
       text-transform: uppercase;
     }
 
-    main { padding: 30px 0 48px; }
-
-    .instruction {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin: 0 0 16px;
-      color: #fbe4a3;
-      font-size: 11px;
-      font-weight: 850;
-      letter-spacing: .18em;
-      text-align: center;
-      text-transform: uppercase;
-    }
-
-    .instruction::before,
-    .instruction::after {
-      width: 34px;
-      height: 1px;
-      content: "";
-      background: linear-gradient(90deg, transparent, var(--gold));
-    }
-
-    .instruction::after { transform: rotate(180deg); }
+    main { padding: 18px 0 42px; }
 
     .arena {
       position: relative;
       overflow: hidden;
       aspect-ratio: 1672 / 941;
       background: #04120d;
-      border: 1px solid rgba(246, 206, 104, .28);
-      border-radius: 30px;
-      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      box-shadow: 0 24px 64px rgba(0,0,0,.5);
       isolation: isolate;
     }
 
@@ -147,7 +126,7 @@
 
     .hero-title {
       position: absolute;
-      top: 5.5%;
+      top: 5%;
       left: 50%;
       z-index: 3;
       width: min(76%, 860px);
@@ -159,20 +138,29 @@
 
     .hero-title small {
       display: block;
-      margin-bottom: 7px;
-      color: var(--gold);
-      font-size: clamp(8px, .9vw, 13px);
-      font-weight: 900;
-      letter-spacing: .28em;
+      margin-bottom: 5px;
+      color: #d8c58f;
+      font-size: clamp(8px, .75vw, 11px);
+      font-weight: 800;
+      letter-spacing: .2em;
       text-transform: uppercase;
     }
 
     .hero-title strong {
       display: block;
-      font-size: clamp(22px, 4.2vw, 64px);
-      line-height: .96;
-      letter-spacing: -.04em;
+      font-size: clamp(22px, 3.2vw, 46px);
+      line-height: 1;
+      letter-spacing: -.025em;
       text-transform: uppercase;
+    }
+
+    .hero-title span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255,255,255,.7);
+      font-size: clamp(8px, .72vw, 11px);
+      font-weight: 650;
+      letter-spacing: .08em;
     }
 
     .hotspot {
@@ -181,83 +169,77 @@
       z-index: 4;
       width: var(--size);
       height: var(--size);
-      border: 2px solid rgba(255, 223, 138, .84);
+      border: 0;
       border-radius: 50%;
       outline: none;
       transform: translate(-50%, -50%);
       transition: filter .2s ease, transform .2s ease;
     }
 
-    .hotspot::before,
-    .hotspot::after {
+    .hotspot::before {
       position: absolute;
-      inset: -8px;
+      inset: var(--ring-inset, 17%);
       content: "";
-      border: 1px solid rgba(246, 206, 104, .7);
+      border: 1px solid rgba(255, 218, 124, .64);
       border-radius: inherit;
-      box-shadow:
-        0 0 18px rgba(255, 196, 62, .8),
-        inset 0 0 12px rgba(255, 223, 138, .34);
-      animation: pulse 2.1s ease-out infinite;
-    }
-
-    .hotspot::after {
-      inset: -16px;
-      opacity: .42;
-      animation-delay: 1.05s;
+      box-shadow: 0 0 11px rgba(255, 196, 62, .42);
+      animation: breathe 2.8s ease-in-out infinite;
     }
 
     .hotspot:hover,
     .hotspot:focus-visible {
-      filter: brightness(1.24);
-      transform: translate(-50%, -50%) scale(1.1);
+      filter: brightness(1.12);
+      transform: translate(-50%, -50%) scale(1.04);
     }
 
     .hotspot:focus-visible {
       outline: 3px solid white;
-      outline-offset: 7px;
+      outline-offset: 3px;
     }
 
     .hotspot-label {
       position: absolute;
-      top: calc(100% + 13px);
+      top: calc(100% + 3px);
       left: 50%;
       min-width: max-content;
-      padding: 7px 11px;
-      color: #fff7dd;
-      background: rgba(3, 21, 15, .8);
-      border: 1px solid rgba(246, 206, 104, .45);
-      border-radius: 999px;
-      box-shadow: 0 8px 24px rgba(0,0,0,.36);
-      backdrop-filter: blur(8px);
-      font-size: clamp(8px, .76vw, 11px);
-      font-weight: 900;
-      letter-spacing: .12em;
-      text-transform: uppercase;
+      padding: 5px 8px;
+      color: rgba(255,255,255,.92);
+      background: rgba(4, 8, 6, .72);
+      border: 0;
+      border-radius: 5px;
+      box-shadow: none;
+      backdrop-filter: blur(6px);
+      font-size: clamp(8px, .7vw, 10px);
+      font-weight: 750;
+      letter-spacing: .05em;
       transform: translateX(-50%);
       white-space: nowrap;
     }
 
     .baseball {
       --size: clamp(50px, 5.6vw, 88px);
+      --ring-inset: 22%;
       top: 42.8%;
       left: 12%;
     }
 
     .soccer {
       --size: clamp(58px, 8.4vw, 132px);
+      --ring-inset: 16%;
       top: 44.3%;
       left: 37%;
     }
 
     .basketball {
       --size: clamp(58px, 8.4vw, 132px);
+      --ring-inset: 15%;
       top: 55%;
       left: 57.4%;
     }
 
     .football {
       --size: clamp(56px, 7.5vw, 118px);
+      --ring-inset: 18%;
       top: 42.6%;
       left: 84.5%;
     }
@@ -270,15 +252,15 @@
       display: inline-flex;
       align-items: center;
       gap: 9px;
-      padding: 12px 16px;
-      color: #17140b;
-      background: linear-gradient(135deg, #fff0b1, var(--gold));
-      border: 1px solid rgba(255,255,255,.7);
-      border-radius: 999px;
-      box-shadow: 0 0 28px rgba(246, 206, 104, .5);
+      padding: 10px 13px;
+      color: #f1e6c2;
+      background: rgba(4, 8, 6, .78);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 7px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.28);
       font-size: clamp(9px, .86vw, 12px);
-      font-weight: 950;
-      letter-spacing: .11em;
+      font-weight: 750;
+      letter-spacing: .06em;
       text-decoration: none;
       text-transform: uppercase;
       transition: transform .2s ease, box-shadow .2s ease;
@@ -287,8 +269,11 @@
     .online-link:hover,
     .online-link:focus-visible {
       outline: none;
-      box-shadow: 0 0 40px rgba(246, 206, 104, .78);
-      transform: translateY(-3px);
+      color: white;
+      background: rgba(4, 8, 6, .92);
+      border-color: rgba(246, 206, 104, .58);
+      box-shadow: 0 12px 34px rgba(0,0,0,.42);
+      transform: translateY(-2px);
     }
 
     .online-dot {
@@ -300,21 +285,23 @@
     }
 
     .quick-links {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: clamp(18px, 3vw, 42px);
+      margin-top: 17px;
     }
 
     .quick-links a {
-      padding: 13px 10px;
-      color: var(--muted);
-      background: rgba(8, 37, 27, .72);
-      border: 1px solid rgba(255,255,255,.09);
-      border-radius: 13px;
+      padding: 7px 0;
+      color: #8f9b95;
+      background: none;
+      border: 0;
+      border-bottom: 1px solid transparent;
+      border-radius: 0;
       font-size: 10px;
       font-weight: 850;
-      letter-spacing: .08em;
+      letter-spacing: .05em;
       text-align: center;
       text-decoration: none;
       text-transform: uppercase;
@@ -323,9 +310,9 @@
 
     .quick-links a:hover,
     .quick-links a:focus-visible {
-      color: #fff1bd;
-      background: #0d3b2b;
-      border-color: var(--line);
+      color: #f3d98e;
+      background: none;
+      border-color: #a88637;
       outline: none;
     }
 
@@ -345,24 +332,23 @@
       letter-spacing: .1em;
     }
 
-    @keyframes pulse {
-      0% { opacity: .82; transform: scale(.9); }
-      72%, 100% { opacity: 0; transform: scale(1.38); }
+    @keyframes breathe {
+      0%, 100% { opacity: .48; box-shadow: 0 0 7px rgba(255,196,62,.28); }
+      50% { opacity: .86; box-shadow: 0 0 13px rgba(255,196,62,.48); }
     }
 
     @media (max-width: 720px) {
-      .page { width: min(100% - 18px, 1380px); }
+      .page { width: min(100% - 16px, 1320px); }
       header { min-height: 68px; }
       .brand-copy span, .header-label { display: none; }
-      main { padding: 22px 0 34px; }
-      .instruction { font-size: 9px; letter-spacing: .12em; }
-      .arena { border-radius: 18px; }
-      .hero-title { top: 4.8%; width: 72%; }
+      main { padding: 12px 0 30px; }
+      .arena { border-radius: 11px; }
+      .hero-title { top: 4.5%; width: 72%; }
       .hero-title small { display: none; }
       .hero-title strong { font-size: clamp(17px, 6vw, 28px); }
       .hotspot-label {
-        top: calc(100% + 7px);
-        padding: 5px 7px;
+        top: calc(100% + 2px);
+        padding: 4px 6px;
         font-size: 7px;
         letter-spacing: .07em;
       }
@@ -374,14 +360,13 @@
         font-size: 7px;
       }
       .online-dot { width: 5px; height: 5px; box-shadow: 0 0 0 3px rgba(23,109,75,.16); }
-      .quick-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .quick-links a:last-child { grid-column: 1 / -1; }
+      .quick-links { gap: 8px 19px; }
       footer { align-items: flex-start; flex-direction: column; justify-content: center; gap: 6px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .hotspot::before, .hotspot::after { animation: none; }
+      .hotspot::before { animation: none; }
       .hotspot, .online-link, .quick-links a { transition: none; }
     }
   </style>
@@ -390,24 +375,23 @@
   <div class="page">
     <header>
       <a class="brand" href="./" aria-label="GSM home">
-        <span class="brand-mark" aria-hidden="true">🏆</span>
+        <span class="brand-mark" aria-hidden="true">GSM</span>
         <span class="brand-copy">
-          <strong>GSM</strong>
-          <span>Goal-Scoring Moment</span>
+          <strong>Goal-Scoring Moment</strong>
+          <span>Sports Game Series</span>
         </span>
       </a>
-      <span class="header-label">Official Sports Game Hub</span>
+      <span class="header-label">Soccer · Football · More</span>
     </header>
 
     <main>
-      <p class="instruction">Click a glowing ball to enter</p>
-
       <section class="arena" aria-labelledby="hero-heading">
         <img class="hero-image" src="assets/gsm-sports-hub-hero.webp" alt="Four athletes holding a baseball, soccer ball, basketball and American football in a stadium">
 
         <h1 class="hero-title" id="hero-heading">
-          <small>Goal-Scoring Moment</small>
-          <strong>Choose your game</strong>
+          <small>Select a sport</small>
+          <strong>Pick your sport</strong>
+          <span>Tap a highlighted ball to enter</span>
         </h1>
 
         <a class="hotspot baseball" href="https://lu20140621-png.github.io/goal-scoring-moment-baseball/" aria-label="Open Baseball Edition">
