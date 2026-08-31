@@ -3,25 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#061c15">
-  <meta name="description" content="Explore every Goal-Scoring Moment sports card game and interactive experience.">
+  <meta name="theme-color" content="#03150f">
+  <meta name="description" content="Choose your sport and enter the Goal-Scoring Moment game universe.">
   <title>GSM | Choose Your Game</title>
   <style>
     :root {
-      --bg: #041811;
-      --bg-soft: #09271d;
-      --panel: rgba(15, 55, 40, 0.72);
-      --panel-hover: rgba(22, 78, 56, 0.92);
+      --bg: #03150f;
       --text: #fffaf0;
-      --muted: #bfd0c7;
-      --gold: #f4c95d;
-      --gold-deep: #bd8622;
-      --line: rgba(244, 201, 93, 0.24);
-      --shadow: 0 22px 60px rgba(0, 0, 0, 0.34);
+      --muted: #b9c9c1;
+      --gold: #f6ce68;
+      --gold-deep: #bf8427;
+      --line: rgba(246, 206, 104, .3);
+      --shadow: 0 28px 80px rgba(0, 0, 0, .48);
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -29,31 +25,16 @@
       margin: 0;
       color: var(--text);
       background:
-        radial-gradient(circle at 14% 8%, rgba(32, 128, 87, 0.28), transparent 34rem),
-        radial-gradient(circle at 90% 92%, rgba(184, 128, 28, 0.14), transparent 30rem),
-        linear-gradient(145deg, #03120d 0%, var(--bg) 48%, #071f17 100%);
+        radial-gradient(circle at 50% 0%, rgba(23, 99, 68, .35), transparent 44rem),
+        linear-gradient(145deg, #020d09, var(--bg) 52%, #061f16);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       -webkit-font-smoothing: antialiased;
-    }
-
-    body::before {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      content: "";
-      pointer-events: none;
-      opacity: 0.11;
-      background-image:
-        linear-gradient(rgba(255,255,255,.16) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.16) 1px, transparent 1px);
-      background-size: 56px 56px;
-      mask-image: linear-gradient(to bottom, black, transparent 76%);
     }
 
     a { color: inherit; }
 
     .page {
-      width: min(1180px, calc(100% - 40px));
+      width: min(1380px, calc(100% - 36px));
       margin: 0 auto;
     }
 
@@ -61,7 +42,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 86px;
+      min-height: 82px;
       border-bottom: 1px solid rgba(255,255,255,.08);
     }
 
@@ -78,10 +59,10 @@
       height: 44px;
       place-items: center;
       color: #142017;
-      background: linear-gradient(145deg, #ffe08a, var(--gold-deep));
+      background: linear-gradient(145deg, #ffe596, var(--gold-deep));
       border: 1px solid rgba(255,255,255,.42);
       border-radius: 14px;
-      box-shadow: 0 8px 24px rgba(189, 134, 34, .22);
+      box-shadow: 0 8px 24px rgba(189, 134, 34, .24);
       font-size: 23px;
     }
 
@@ -103,256 +84,305 @@
 
     .header-label {
       color: var(--gold);
-      font-size: 12px;
-      font-weight: 800;
+      font-size: 11px;
+      font-weight: 850;
       letter-spacing: .18em;
       text-transform: uppercase;
     }
 
-    main { padding: 78px 0 72px; }
+    main { padding: 30px 0 48px; }
 
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
-      align-items: end;
-      gap: 54px;
-      margin-bottom: 62px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
+    .instruction {
+      display: flex;
       align-items: center;
+      justify-content: center;
       gap: 10px;
-      margin: 0 0 18px;
-      color: var(--gold);
-      font-size: 12px;
+      margin: 0 0 16px;
+      color: #fbe4a3;
+      font-size: 11px;
       font-weight: 850;
-      letter-spacing: .2em;
+      letter-spacing: .18em;
+      text-align: center;
       text-transform: uppercase;
     }
 
-    .eyebrow::before {
+    .instruction::before,
+    .instruction::after {
       width: 34px;
-      height: 2px;
+      height: 1px;
       content: "";
-      background: linear-gradient(90deg, var(--gold), transparent);
+      background: linear-gradient(90deg, transparent, var(--gold));
     }
 
-    h1 {
-      max-width: 760px;
-      margin: 0;
-      font-size: clamp(44px, 7vw, 90px);
-      line-height: .94;
-      letter-spacing: -.055em;
-      text-wrap: balance;
-    }
+    .instruction::after { transform: rotate(180deg); }
 
-    h1 span {
-      color: transparent;
-      background: linear-gradient(100deg, #fff1b2 0%, var(--gold) 56%, #c88c26 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-    }
-
-    .intro {
-      margin: 0;
-      padding: 24px 0 4px 28px;
-      color: var(--muted);
-      border-left: 1px solid var(--line);
-      font-size: clamp(16px, 2vw, 19px);
-      line-height: 1.7;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 24px;
-      margin-bottom: 22px;
-    }
-
-    .section-head h2 {
-      margin: 0;
-      font-size: clamp(24px, 4vw, 36px);
-      letter-spacing: -.035em;
-    }
-
-    .section-head p {
-      margin: 0 0 4px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .game-grid {
-      display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .game-card {
+    .arena {
       position: relative;
-      display: flex;
-      min-height: 250px;
-      grid-column: span 4;
-      flex-direction: column;
-      justify-content: space-between;
       overflow: hidden;
-      padding: 25px;
-      color: var(--text);
-      background: linear-gradient(160deg, rgba(21, 70, 51, .86), var(--panel));
-      border: 1px solid rgba(255,255,255,.11);
-      border-radius: 24px;
+      aspect-ratio: 1672 / 941;
+      background: #04120d;
+      border: 1px solid rgba(246, 206, 104, .28);
+      border-radius: 30px;
       box-shadow: var(--shadow);
-      text-decoration: none;
       isolation: isolate;
-      transition: transform .24s ease, border-color .24s ease, background .24s ease;
     }
 
-    .game-card:nth-child(4),
-    .game-card:nth-child(5) { grid-column: span 6; }
-
-    .game-card::after {
+    .arena::after {
       position: absolute;
-      right: -36px;
-      bottom: -62px;
-      z-index: -1;
-      width: 190px;
-      height: 190px;
+      inset: 0;
+      z-index: 1;
       content: "";
-      background: radial-gradient(circle, rgba(244, 201, 93, .18), transparent 68%);
-      border: 1px solid rgba(244, 201, 93, .08);
-      border-radius: 50%;
+      pointer-events: none;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.16), transparent 28%, transparent 78%, rgba(0,0,0,.2)),
+        radial-gradient(circle at 50% 0%, transparent 28%, rgba(0,0,0,.15) 100%);
     }
 
-    .game-card:hover,
-    .game-card:focus-visible {
-      background: linear-gradient(160deg, var(--panel-hover), rgba(11, 42, 31, .92));
-      border-color: rgba(244, 201, 93, .65);
-      outline: none;
-      transform: translateY(-5px);
+    .hero-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    .card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 18px;
+    .hero-title {
+      position: absolute;
+      top: 5.5%;
+      left: 50%;
+      z-index: 3;
+      width: min(76%, 860px);
+      margin: 0;
+      text-align: center;
+      text-shadow: 0 4px 22px rgba(0,0,0,.7);
+      transform: translateX(-50%);
     }
 
-    .sport-icon {
-      font-size: 44px;
-      line-height: 1;
-      filter: drop-shadow(0 10px 14px rgba(0,0,0,.25));
-    }
-
-    .status {
-      padding: 7px 9px;
+    .hero-title small {
+      display: block;
+      margin-bottom: 7px;
       color: var(--gold);
-      background: rgba(244, 201, 93, .08);
-      border: 1px solid rgba(244, 201, 93, .2);
-      border-radius: 999px;
-      font-size: 9px;
-      font-weight: 850;
-      letter-spacing: .13em;
+      font-size: clamp(8px, .9vw, 13px);
+      font-weight: 900;
+      letter-spacing: .28em;
       text-transform: uppercase;
+    }
+
+    .hero-title strong {
+      display: block;
+      font-size: clamp(22px, 4.2vw, 64px);
+      line-height: .96;
+      letter-spacing: -.04em;
+      text-transform: uppercase;
+    }
+
+    .hotspot {
+      --size: clamp(52px, 7vw, 110px);
+      position: absolute;
+      z-index: 4;
+      width: var(--size);
+      height: var(--size);
+      border: 2px solid rgba(255, 223, 138, .84);
+      border-radius: 50%;
+      outline: none;
+      transform: translate(-50%, -50%);
+      transition: filter .2s ease, transform .2s ease;
+    }
+
+    .hotspot::before,
+    .hotspot::after {
+      position: absolute;
+      inset: -8px;
+      content: "";
+      border: 1px solid rgba(246, 206, 104, .7);
+      border-radius: inherit;
+      box-shadow:
+        0 0 18px rgba(255, 196, 62, .8),
+        inset 0 0 12px rgba(255, 223, 138, .34);
+      animation: pulse 2.1s ease-out infinite;
+    }
+
+    .hotspot::after {
+      inset: -16px;
+      opacity: .42;
+      animation-delay: 1.05s;
+    }
+
+    .hotspot:hover,
+    .hotspot:focus-visible {
+      filter: brightness(1.24);
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    .hotspot:focus-visible {
+      outline: 3px solid white;
+      outline-offset: 7px;
+    }
+
+    .hotspot-label {
+      position: absolute;
+      top: calc(100% + 13px);
+      left: 50%;
+      min-width: max-content;
+      padding: 7px 11px;
+      color: #fff7dd;
+      background: rgba(3, 21, 15, .8);
+      border: 1px solid rgba(246, 206, 104, .45);
+      border-radius: 999px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.36);
+      backdrop-filter: blur(8px);
+      font-size: clamp(8px, .76vw, 11px);
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      transform: translateX(-50%);
       white-space: nowrap;
     }
 
-    .game-card h3 {
-      margin: 30px 0 7px;
-      font-size: 25px;
-      letter-spacing: -.03em;
+    .baseball {
+      --size: clamp(50px, 5.6vw, 88px);
+      top: 42.8%;
+      left: 12%;
     }
 
-    .game-card p {
-      min-height: 42px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
+    .soccer {
+      --size: clamp(58px, 8.4vw, 132px);
+      top: 44.3%;
+      left: 37%;
     }
 
-    .card-action {
-      display: flex;
+    .basketball {
+      --size: clamp(58px, 8.4vw, 132px);
+      top: 55%;
+      left: 57.4%;
+    }
+
+    .football {
+      --size: clamp(56px, 7.5vw, 118px);
+      top: 42.6%;
+      left: 84.5%;
+    }
+
+    .online-link {
+      position: absolute;
+      right: 3%;
+      bottom: 4.5%;
+      z-index: 4;
+      display: inline-flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-top: 28px;
-      padding-top: 16px;
-      color: #fff3bd;
-      border-top: 1px solid rgba(255,255,255,.09);
-      font-size: 12px;
-      font-weight: 850;
-      letter-spacing: .12em;
+      gap: 9px;
+      padding: 12px 16px;
+      color: #17140b;
+      background: linear-gradient(135deg, #fff0b1, var(--gold));
+      border: 1px solid rgba(255,255,255,.7);
+      border-radius: 999px;
+      box-shadow: 0 0 28px rgba(246, 206, 104, .5);
+      font-size: clamp(9px, .86vw, 12px);
+      font-weight: 950;
+      letter-spacing: .11em;
+      text-decoration: none;
       text-transform: uppercase;
+      transition: transform .2s ease, box-shadow .2s ease;
     }
 
-    .arrow {
-      font-size: 20px;
-      transition: transform .24s ease;
+    .online-link:hover,
+    .online-link:focus-visible {
+      outline: none;
+      box-shadow: 0 0 40px rgba(246, 206, 104, .78);
+      transform: translateY(-3px);
     }
 
-    .game-card:hover .arrow,
-    .game-card:focus-visible .arrow { transform: translateX(4px); }
+    .online-dot {
+      width: 8px;
+      height: 8px;
+      background: #176d4b;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(23, 109, 75, .15);
+    }
+
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .quick-links a {
+      padding: 13px 10px;
+      color: var(--muted);
+      background: rgba(8, 37, 27, .72);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 13px;
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color .2s ease, border-color .2s ease, background .2s ease;
+    }
+
+    .quick-links a:hover,
+    .quick-links a:focus-visible {
+      color: #fff1bd;
+      background: #0d3b2b;
+      border-color: var(--line);
+      outline: none;
+    }
 
     footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
-      min-height: 92px;
-      color: #8eaaa0;
+      gap: 20px;
+      min-height: 82px;
+      color: #8da69c;
       border-top: 1px solid rgba(255,255,255,.08);
-      font-size: 12px;
+      font-size: 11px;
     }
 
     footer strong {
-      color: #dacd9d;
-      letter-spacing: .08em;
+      color: #dbc990;
+      letter-spacing: .1em;
     }
 
-    @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        margin-bottom: 48px;
-      }
-
-      .intro {
-        max-width: 680px;
-        padding: 0;
-        border-left: 0;
-      }
-
-      .game-card,
-      .game-card:nth-child(4),
-      .game-card:nth-child(5) { grid-column: span 6; }
+    @keyframes pulse {
+      0% { opacity: .82; transform: scale(.9); }
+      72%, 100% { opacity: 0; transform: scale(1.38); }
     }
 
-    @media (max-width: 620px) {
-      .page { width: min(100% - 26px, 1180px); }
-      header { min-height: 74px; }
+    @media (max-width: 720px) {
+      .page { width: min(100% - 18px, 1380px); }
+      header { min-height: 68px; }
       .brand-copy span, .header-label { display: none; }
-      main { padding: 52px 0 50px; }
-      .hero { margin-bottom: 42px; }
-      h1 { font-size: clamp(43px, 14vw, 64px); }
-      .section-head { display: block; }
-      .section-head p { margin-top: 8px; }
-      .game-grid { gap: 14px; }
-      .game-card,
-      .game-card:nth-child(4),
-      .game-card:nth-child(5) {
-        min-height: 220px;
-        grid-column: 1 / -1;
-        padding: 22px;
-        border-radius: 20px;
+      main { padding: 22px 0 34px; }
+      .instruction { font-size: 9px; letter-spacing: .12em; }
+      .arena { border-radius: 18px; }
+      .hero-title { top: 4.8%; width: 72%; }
+      .hero-title small { display: none; }
+      .hero-title strong { font-size: clamp(17px, 6vw, 28px); }
+      .hotspot-label {
+        top: calc(100% + 7px);
+        padding: 5px 7px;
+        font-size: 7px;
+        letter-spacing: .07em;
       }
-      footer { align-items: flex-start; flex-direction: column; justify-content: center; gap: 7px; }
+      .online-link {
+        right: 2.6%;
+        bottom: 3.5%;
+        gap: 5px;
+        padding: 7px 9px;
+        font-size: 7px;
+      }
+      .online-dot { width: 5px; height: 5px; box-shadow: 0 0 0 3px rgba(23,109,75,.16); }
+      .quick-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .quick-links a:last-child { grid-column: 1 / -1; }
+      footer { align-items: flex-start; flex-direction: column; justify-content: center; gap: 6px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .game-card, .arrow { transition: none; }
+      .hotspot::before, .hotspot::after { animation: none; }
+      .hotspot, .online-link, .quick-links a { transition: none; }
     }
   </style>
 </head>
@@ -366,86 +396,49 @@
           <span>Goal-Scoring Moment</span>
         </span>
       </a>
-      <span class="header-label">Official Game Hub</span>
+      <span class="header-label">Official Sports Game Hub</span>
     </header>
 
     <main>
-      <section class="hero" aria-labelledby="page-title">
-        <div>
-          <p class="eyebrow">Goal-Scoring Moment</p>
-          <h1 id="page-title">Choose your <span>game.</span></h1>
-        </div>
-        <p class="intro">One sports game universe. Pick your edition and jump directly into its tutorial or online experience.</p>
+      <p class="instruction">Click a glowing ball to enter</p>
+
+      <section class="arena" aria-labelledby="hero-heading">
+        <img class="hero-image" src="assets/gsm-sports-hub-hero.webp" alt="Four athletes holding a baseball, soccer ball, basketball and American football in a stadium">
+
+        <h1 class="hero-title" id="hero-heading">
+          <small>Goal-Scoring Moment</small>
+          <strong>Choose your game</strong>
+        </h1>
+
+        <a class="hotspot baseball" href="https://lu20140621-png.github.io/goal-scoring-moment-baseball/" aria-label="Open Baseball Edition">
+          <span class="hotspot-label">Baseball</span>
+        </a>
+
+        <a class="hotspot soccer" href="https://lu20140621-png.github.io/goal-scoring-moment/" aria-label="Open Soccer Edition">
+          <span class="hotspot-label">Soccer</span>
+        </a>
+
+        <a class="hotspot basketball" href="https://lu20140621-png.github.io/goal-scoring-moment-basketball/" aria-label="Open Basketball Edition">
+          <span class="hotspot-label">Basketball</span>
+        </a>
+
+        <a class="hotspot football" href="https://lu20140621-png.github.io/goal-scoring-moment-football/" aria-label="Open American Football Edition">
+          <span class="hotspot-label">Football</span>
+        </a>
+
+        <a class="online-link" href="https://lu20140621-png.github.io/goal-scoring-moment-football-online/" aria-label="Play Football Online">
+          <span class="online-dot" aria-hidden="true"></span>
+          Play Football Online
+        </a>
       </section>
 
-      <section aria-labelledby="games-title">
-        <div class="section-head">
-          <h2 id="games-title">Explore GSM</h2>
-          <p>Every edition opens its own independent website.</p>
-        </div>
-
-        <div class="game-grid">
-          <a class="game-card" href="https://lu20140621-png.github.io/goal-scoring-moment/">
-            <div>
-              <div class="card-top">
-                <span class="sport-icon" aria-hidden="true">⚽</span>
-                <span class="status">Available now</span>
-              </div>
-              <h3>Soccer Edition</h3>
-              <p>Hidden roles, teamwork, bluffing and strategy.</p>
-            </div>
-            <span class="card-action">Enter website <span class="arrow" aria-hidden="true">→</span></span>
-          </a>
-
-          <a class="game-card" href="https://lu20140621-png.github.io/goal-scoring-moment-football/">
-            <div>
-              <div class="card-top">
-                <span class="sport-icon" aria-hidden="true">🏈</span>
-                <span class="status">Available now</span>
-              </div>
-              <h3>Football Edition</h3>
-              <p>Bring the excitement of game day to the table.</p>
-            </div>
-            <span class="card-action">Enter website <span class="arrow" aria-hidden="true">→</span></span>
-          </a>
-
-          <a class="game-card" href="https://lu20140621-png.github.io/goal-scoring-moment-football-online/">
-            <div>
-              <div class="card-top">
-                <span class="sport-icon" aria-hidden="true">🎮</span>
-                <span class="status">Play online</span>
-              </div>
-              <h3>Football Online</h3>
-              <p>Open the online football experience and play digitally.</p>
-            </div>
-            <span class="card-action">Play online <span class="arrow" aria-hidden="true">→</span></span>
-          </a>
-
-          <a class="game-card" href="https://lu20140621-png.github.io/goal-scoring-moment-basketball/">
-            <div>
-              <div class="card-top">
-                <span class="sport-icon" aria-hidden="true">🏀</span>
-                <span class="status">New project</span>
-              </div>
-              <h3>Basketball Edition</h3>
-              <p>A new way to bring basketball moments to game night.</p>
-            </div>
-            <span class="card-action">Enter website <span class="arrow" aria-hidden="true">→</span></span>
-          </a>
-
-          <a class="game-card" href="https://lu20140621-png.github.io/goal-scoring-moment-baseball/">
-            <div>
-              <div class="card-top">
-                <span class="sport-icon" aria-hidden="true">⚾</span>
-                <span class="status">New project</span>
-              </div>
-              <h3>Baseball Edition</h3>
-              <p>A fresh tabletop experience inspired by baseball.</p>
-            </div>
-            <span class="card-action">Enter website <span class="arrow" aria-hidden="true">→</span></span>
-          </a>
-        </div>
-      </section>
+      <nav class="quick-links" aria-label="All GSM websites">
+        <a href="https://lu20140621-png.github.io/goal-scoring-moment/">⚽ Soccer</a>
+        <a href="https://lu20140621-png.github.io/goal-scoring-moment-football/">🏈 Football</a>
+        <a href="https://lu20140621-png.github.io/goal-scoring-moment-football-online/">🎮 Football Online</a>
+        <a href="https://lu20140621-png.github.io/goal-scoring-moment-basketball/">🏀 Basketball</a>
+        <a href="https://lu20140621-png.github.io/goal-scoring-moment-baseball/">⚾ Baseball</a>
+      </nav>
     </main>
 
     <footer>
