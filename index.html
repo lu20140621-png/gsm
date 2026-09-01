@@ -346,42 +346,206 @@
       box-shadow: 0 0 0 3px rgba(244,201,93,.14);
     }
 
-    .online-link {
+    .feature-grid {
+      display: grid;
+      padding-top: 34px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .feature-card {
+      --feature-accent: var(--gold);
+      position: relative;
+      min-height: 320px;
+      overflow: hidden;
+      background: #0b1a13;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 21px;
+      box-shadow: 0 22px 52px rgba(0,0,0,.32);
+      isolation: isolate;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .feature-card::before {
       position: absolute;
-      top: 69px;
-      right: 20px;
-      bottom: auto;
-      z-index: 15;
-      display: inline-flex;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 4;
+      height: 4px;
+      content: "";
+      background: var(--feature-accent);
+    }
+
+    .feature-card::after {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      content: "";
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(4,13,8,.98) 0%, rgba(4,13,8,.93) 49%, rgba(4,13,8,.42) 73%, rgba(4,13,8,.2));
+    }
+
+    .feature-card > img {
+      position: absolute;
+      inset: 0 0 0 auto;
+      width: 58%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 28%;
+      filter: saturate(.82) brightness(.82);
+      transition: transform .45s cubic-bezier(.2,.75,.2,1), filter .25s ease;
+    }
+
+    .feature-card:hover {
+      border-color: var(--feature-accent);
+      box-shadow: 0 30px 66px rgba(0,0,0,.46);
+      transform: translateY(-4px);
+    }
+
+    .feature-card:hover > img { filter: saturate(1) brightness(.92); transform: scale(1.04); }
+
+    .tutorial-feature { --feature-accent: #e4c354; }
+    .multiplayer-feature { --feature-accent: #61d99c; }
+
+    .feature-content {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      width: 68%;
+      min-height: 320px;
+      padding: 28px;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .feature-eyebrow {
+      display: flex;
       align-items: center;
-      gap: 9px;
-      padding: 10px 13px;
-      color: #172118;
-      background: var(--cream);
+      gap: 8px;
+      margin-bottom: 10px;
+      color: var(--feature-accent);
+      font-size: 8px;
+      font-weight: 950;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .feature-eyebrow::before {
+      width: 19px;
+      height: 2px;
+      content: "";
+      background: var(--feature-accent);
+    }
+
+    .feature-card h2 {
+      max-width: 430px;
+      margin: 0;
+      font-size: clamp(28px, 3vw, 44px);
+      line-height: .96;
+      letter-spacing: -.045em;
+      text-transform: uppercase;
+    }
+
+    .feature-card p {
+      max-width: 420px;
+      margin: 14px 0 21px;
+      color: #b6c4bc;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .feature-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .feature-button {
+      display: inline-flex;
+      min-height: 38px;
+      padding: 0 13px;
+      align-items: center;
+      justify-content: center;
+      color: #101811;
+      background: var(--feature-accent);
+      border: 1px solid var(--feature-accent);
       border-radius: 7px;
-      box-shadow: 0 12px 30px rgba(0,0,0,.34);
-      font-size: 10px;
-      font-weight: 900;
+      font-size: 8px;
+      font-weight: 950;
       letter-spacing: .07em;
       text-decoration: none;
       text-transform: uppercase;
-      transition: transform .18s ease, background .18s ease;
+      transition: transform .18s ease, background .18s ease, color .18s ease;
     }
 
-    .online-link::before {
-      width: 7px;
-      height: 7px;
-      content: "";
-      background: #239a63;
-      border-radius: 50%;
-      box-shadow: 0 0 0 3px rgba(35, 154, 99, .15);
+    .feature-button.secondary {
+      color: #eef3ef;
+      background: rgba(255,255,255,.05);
+      border-color: rgba(255,255,255,.22);
+      backdrop-filter: blur(8px);
     }
 
-    .online-link:hover,
-    .online-link:focus-visible {
-      background: var(--gold);
-      outline: none;
-      transform: translateY(-2px);
+    .feature-button:hover,
+    .feature-button:focus-visible { outline: none; transform: translateY(-2px); }
+    .feature-button.secondary:hover,
+    .feature-button.secondary:focus-visible { color: var(--gold); border-color: var(--gold); }
+
+    .feature-demo {
+      position: absolute;
+      right: 22px;
+      bottom: 22px;
+      z-index: 3;
+      width: 142px;
+      padding: 12px;
+      background: rgba(4,12,7,.72);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 12px;
+      box-shadow: 0 16px 36px rgba(0,0,0,.38);
+      backdrop-filter: blur(10px);
+    }
+
+    .demo-label {
+      display: block;
+      margin-bottom: 9px;
+      color: var(--feature-accent);
+      font-size: 7px;
+      font-weight: 950;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .lesson-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+    .lesson-steps i {
+      display: grid;
+      aspect-ratio: 1;
+      place-items: center;
+      color: #101811;
+      background: var(--feature-accent);
+      border-radius: 6px;
+      font-size: 8px;
+      font-style: normal;
+      font-weight: 950;
+    }
+
+    .room-code {
+      display: flex;
+      justify-content: space-between;
+      gap: 4px;
+    }
+
+    .room-code i {
+      display: grid;
+      width: 16px;
+      height: 21px;
+      place-items: center;
+      color: #b8efd2;
+      background: rgba(97,217,156,.14);
+      border: 1px solid rgba(97,217,156,.45);
+      border-radius: 4px;
+      font-size: 7px;
+      font-style: normal;
+      font-weight: 900;
     }
 
     .editions { padding-top: 54px; }
@@ -649,6 +813,7 @@
 
     @media (max-width: 1000px) {
       .lead { grid-template-columns: 1.25fr .75fr; gap: 30px; }
+      .feature-grid { grid-template-columns: 1fr; }
       .edition-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
 
@@ -679,7 +844,15 @@
       .sport-panel:hover,
       .sport-panel:focus-visible { transform: none; }
       .arena-kicker { top: 22px; left: 10px; padding: 6px 8px; font-size: 7px; }
-      .online-link { display: none; }
+      .feature-grid { padding-top: 25px; gap: 10px; }
+      .feature-card { min-height: 420px; }
+      .feature-card::after { background: linear-gradient(0deg, rgba(4,13,8,.98) 0%, rgba(4,13,8,.91) 45%, rgba(4,13,8,.16) 78%); }
+      .feature-card > img { width: 100%; }
+      .feature-card:hover { transform: none; }
+      .feature-content { width: 100%; min-height: 420px; padding: 22px; justify-content: flex-end; }
+      .feature-card h2 { font-size: 34px; }
+      .feature-card p { max-width: none; margin: 11px 0 17px; }
+      .feature-demo { top: 20px; right: 16px; bottom: auto; }
       .editions { padding-top: 38px; }
       .section-head { display: block; }
       .section-head p { margin-top: 10px; }
@@ -692,7 +865,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .sport-panel, .sport-panel img, a.edition, .online-link { transition: none; }
+      .sport-panel, .sport-panel img, .feature-card, .feature-card > img, .feature-button, a.edition { transition: none; }
     }
   </style>
 </head>
@@ -769,8 +942,41 @@
             </span>
           </a>
         </div>
+      </section>
 
-        <a class="online-link" href="https://lu20140621-png.github.io/goal-scoring-moment-football-online/">Play Football Online</a>
+      <section class="feature-grid" aria-label="Learn the game and play online">
+        <article class="feature-card tutorial-feature">
+          <img src="assets/edition-soccer.webp" alt="Soccer player in a stadium representing the interactive game tutorials" loading="lazy">
+          <div class="feature-content">
+            <span class="feature-eyebrow">Learn the game</span>
+            <h2>Interactive Tutorials</h2>
+            <p>Learn the rules by playing through guided, step-by-step lessons in your browser. No app. No account required.</p>
+            <div class="feature-actions">
+              <a class="feature-button" href="https://lu20140621-png.github.io/goal-scoring-moment/strategy-cards.html">Soccer Tutorial</a>
+              <a class="feature-button secondary" href="https://lu20140621-png.github.io/goal-scoring-moment-football/strategy-tutorial-en.html">Football Tutorial</a>
+            </div>
+          </div>
+          <div class="feature-demo" aria-hidden="true">
+            <span class="demo-label">Step-by-step</span>
+            <span class="lesson-steps"><i>1</i><i>2</i><i>3</i></span>
+          </div>
+        </article>
+
+        <article class="feature-card multiplayer-feature">
+          <img src="assets/edition-football.webp" alt="American football player representing online multiplayer" loading="lazy">
+          <div class="feature-content">
+            <span class="feature-eyebrow">Play with a friend</span>
+            <h2>Online Multiplayer</h2>
+            <p>Create a private game, share the 6-digit room code, and play Goal-Scoring Moment Football head-to-head with a friend.</p>
+            <div class="feature-actions">
+              <a class="feature-button" href="https://lu20140621-png.github.io/goal-scoring-moment-football-online/">Play Online</a>
+            </div>
+          </div>
+          <div class="feature-demo" aria-hidden="true">
+            <span class="demo-label">Private room</span>
+            <span class="room-code"><i>•</i><i>•</i><i>•</i><i>•</i><i>•</i><i>•</i></span>
+          </div>
+        </article>
       </section>
 
       <section class="editions" aria-labelledby="editions-heading">
