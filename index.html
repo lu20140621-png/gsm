@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#08110d">
+  <meta name="theme-color" content="#174c36">
   <meta name="description" content="Goal-Scoring Moment is a collection of sports-themed card games built for game night. Choose a sport and enter the game.">
   <title>GSM | Sports Card Games</title>
   <style>
     :root {
-      --ink: #08110d;
-      --ink-soft: #0d1a14;
-      --panel: #12231b;
+      --ink: #174c36;
+      --ink-soft: #1d5941;
+      --panel: #215e46;
       --cream: #f6f1e6;
       --cream-dim: #cfc8b9;
       --gold: #f4c95d;
@@ -27,7 +27,9 @@
       margin: 0;
       color: var(--cream);
       background:
-        radial-gradient(circle at 52% -12%, rgba(50, 127, 91, .25), transparent 38rem),
+        radial-gradient(circle at 10% 2%, rgba(255, 218, 113, .2), transparent 30rem),
+        radial-gradient(circle at 92% 24%, rgba(89, 225, 166, .22), transparent 34rem),
+        linear-gradient(180deg, rgba(255,255,255,.045), transparent 38rem),
         var(--ink);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -350,71 +352,74 @@
       display: grid;
       padding-top: 34px;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 13px;
+      gap: 16px;
     }
 
     .feature-card {
       --feature-accent: var(--gold);
       position: relative;
-      min-height: 320px;
+      display: block;
+      width: 100%;
+      min-height: 340px;
+      padding: 0;
       overflow: hidden;
-      background: #0b1a13;
-      border: 1px solid rgba(255,255,255,.13);
+      color: #10271c;
+      background: #f1d56f;
+      border: 1px solid rgba(255,255,255,.56);
       border-radius: 21px;
-      box-shadow: 0 22px 52px rgba(0,0,0,.32);
+      box-shadow: 0 22px 52px rgba(5, 36, 23, .25);
+      cursor: pointer;
+      font: inherit;
       isolation: isolate;
+      text-align: left;
       transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
     }
 
     .feature-card::before {
       position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      z-index: 4;
-      height: 4px;
+      inset: 0;
+      z-index: 0;
       content: "";
-      background: var(--feature-accent);
+      background:
+        radial-gradient(circle at 84% 16%, rgba(255,255,255,.5), transparent 13rem),
+        repeating-linear-gradient(135deg, transparent 0 36px, rgba(255,255,255,.07) 36px 38px);
     }
 
     .feature-card::after {
       position: absolute;
-      inset: 0;
-      z-index: 1;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 5;
+      height: 5px;
       content: "";
       pointer-events: none;
-      background: linear-gradient(90deg, rgba(4,13,8,.98) 0%, rgba(4,13,8,.93) 49%, rgba(4,13,8,.42) 73%, rgba(4,13,8,.2));
-    }
-
-    .feature-card > img {
-      position: absolute;
-      inset: 0 0 0 auto;
-      width: 58%;
-      height: 100%;
-      object-fit: cover;
-      object-position: 50% 28%;
-      filter: saturate(.82) brightness(.82);
-      transition: transform .45s cubic-bezier(.2,.75,.2,1), filter .25s ease;
+      background: var(--feature-accent);
     }
 
     .feature-card:hover {
-      border-color: var(--feature-accent);
-      box-shadow: 0 30px 66px rgba(0,0,0,.46);
-      transform: translateY(-4px);
+      border-color: rgba(255,255,255,.92);
+      box-shadow: 0 30px 66px rgba(5, 36, 23, .34);
+      transform: translateY(-7px) scale(1.01);
     }
 
-    .feature-card:hover > img { filter: saturate(1) brightness(.92); transform: scale(1.04); }
-
-    .tutorial-feature { --feature-accent: #e4c354; }
-    .multiplayer-feature { --feature-accent: #61d99c; }
+    .feature-card:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+    .tutorial-feature {
+      --feature-accent: #b78413;
+      background: linear-gradient(135deg, #ffe69a 0%, #f4ca55 100%);
+    }
+    .multiplayer-feature {
+      --feature-accent: #12845a;
+      background: linear-gradient(135deg, #b9f3d5 0%, #58d69b 100%);
+    }
 
     .feature-content {
       position: relative;
       z-index: 3;
       display: flex;
-      width: 68%;
-      min-height: 320px;
-      padding: 28px;
+      width: 58%;
+      min-height: 340px;
+      padding: 32px;
       flex-direction: column;
       justify-content: center;
     }
@@ -424,7 +429,7 @@
       align-items: center;
       gap: 8px;
       margin-bottom: 10px;
-      color: var(--feature-accent);
+      color: #2c4e3d;
       font-size: 8px;
       font-weight: 950;
       letter-spacing: .15em;
@@ -435,7 +440,7 @@
       width: 19px;
       height: 2px;
       content: "";
-      background: var(--feature-accent);
+      background: #183e2c;
     }
 
     .feature-card h2 {
@@ -449,104 +454,230 @@
 
     .feature-card p {
       max-width: 420px;
-      margin: 14px 0 21px;
-      color: #b6c4bc;
+      margin: 14px 0 23px;
+      color: #315344;
       font-size: 12px;
       line-height: 1.55;
     }
 
-    .feature-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .feature-button {
+    .feature-open {
       display: inline-flex;
-      min-height: 38px;
-      padding: 0 13px;
+      width: fit-content;
+      min-height: 42px;
+      padding: 0 15px;
       align-items: center;
       justify-content: center;
-      color: #101811;
-      background: var(--feature-accent);
-      border: 1px solid var(--feature-accent);
-      border-radius: 7px;
-      font-size: 8px;
+      gap: 9px;
+      color: #fff;
+      background: #153d2b;
+      border-radius: 9px;
+      box-shadow: 0 10px 24px rgba(8, 45, 29, .2);
+      font-size: 9px;
       font-weight: 950;
-      letter-spacing: .07em;
-      text-decoration: none;
+      letter-spacing: .09em;
       text-transform: uppercase;
-      transition: transform .18s ease, background .18s ease, color .18s ease;
     }
 
-    .feature-button.secondary {
-      color: #eef3ef;
-      background: rgba(255,255,255,.05);
-      border-color: rgba(255,255,255,.22);
-      backdrop-filter: blur(8px);
+    .feature-open::after {
+      content: "→";
+      font-size: 14px;
+      transition: transform .2s ease;
     }
 
-    .feature-button:hover,
-    .feature-button:focus-visible { outline: none; transform: translateY(-2px); }
-    .feature-button.secondary:hover,
-    .feature-button.secondary:focus-visible { color: var(--gold); border-color: var(--gold); }
+    .feature-card:hover .feature-open::after { transform: translateX(4px); }
 
-    .feature-demo {
+    .portal-preview {
       position: absolute;
-      right: 22px;
-      bottom: 22px;
+      top: 28px;
+      right: 26px;
+      bottom: 28px;
       z-index: 3;
-      width: 142px;
-      padding: 12px;
-      background: rgba(4,12,7,.72);
-      border: 1px solid rgba(255,255,255,.22);
-      border-radius: 12px;
-      box-shadow: 0 16px 36px rgba(0,0,0,.38);
+      display: flex;
+      width: 36%;
+      padding: 16px;
+      flex-direction: column;
+      background: rgba(255,255,255,.58);
+      border: 1px solid rgba(255,255,255,.72);
+      border-radius: 16px;
+      box-shadow: 0 18px 38px rgba(21, 61, 43, .18);
       backdrop-filter: blur(10px);
+      transform: rotate(1.5deg);
+      transition: transform .25s ease;
     }
 
-    .demo-label {
+    .feature-card:hover .portal-preview { transform: rotate(0) translateY(-3px); }
+
+    .preview-label {
       display: block;
-      margin-bottom: 9px;
-      color: var(--feature-accent);
-      font-size: 7px;
+      margin-bottom: 10px;
+      color: #214c38;
+      font-size: 8px;
       font-weight: 950;
       letter-spacing: .12em;
       text-transform: uppercase;
     }
 
-    .lesson-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
-    .lesson-steps i {
+    .preview-sports {
       display: grid;
-      aspect-ratio: 1;
-      place-items: center;
-      color: #101811;
-      background: var(--feature-accent);
-      border-radius: 6px;
+      min-height: 0;
+      flex: 1;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .preview-sport {
+      position: relative;
+      display: flex;
+      min-height: 0;
+      overflow: hidden;
+      align-items: flex-end;
+      color: #fff;
+      background: #153d2b;
+      border-radius: 10px;
+      font-size: 7px;
+      font-weight: 900;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .preview-sport img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 65%;
+      filter: brightness(.74) saturate(.86);
+      transition: transform .3s ease;
+    }
+
+    .feature-card:hover .preview-sport img { transform: scale(1.08); }
+
+    .preview-sport span {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: 8px;
+      background: linear-gradient(0deg, rgba(5,22,14,.88), transparent);
+    }
+
+    .portal-dialog {
+      width: min(880px, calc(100% - 28px));
+      max-height: min(820px, calc(100vh - 28px));
+      padding: 0;
+      overflow: auto;
+      color: #153326;
+      background: #fbf8ef;
+      border: 0;
+      border-radius: 24px;
+      box-shadow: 0 40px 100px rgba(0, 0, 0, .45);
+    }
+
+    .portal-dialog::backdrop {
+      background: rgba(4, 24, 15, .72);
+      backdrop-filter: blur(7px);
+    }
+
+    .dialog-inner { position: relative; padding: 34px; }
+
+    .dialog-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      display: flex;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      color: #17382a;
+      background: #e7eee8;
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 22px;
+    }
+
+    .dialog-kicker {
+      display: block;
+      margin-bottom: 9px;
+      color: #277755;
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .portal-dialog h2 { max-width: 680px; padding-right: 50px; color: #10291d; }
+    .portal-dialog > .dialog-inner > p {
+      max-width: 650px;
+      margin: 12px 0 24px;
+      color: #567064;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .sport-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
+
+    .sport-choice {
+      position: relative;
+      display: grid;
+      min-height: 126px;
+      padding: 13px;
+      overflow: hidden;
+      grid-template-columns: 92px 1fr auto;
+      align-items: center;
+      gap: 14px;
+      color: #153326;
+      background: #eef3ec;
+      border: 1px solid #d9e4dc;
+      border-radius: 15px;
+      text-decoration: none;
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+
+    a.sport-choice:hover,
+    a.sport-choice:focus-visible {
+      border-color: #47a679;
+      box-shadow: 0 15px 32px rgba(25, 83, 57, .14);
+      outline: none;
+      transform: translateY(-3px);
+    }
+
+    .sport-choice img {
+      width: 92px;
+      height: 98px;
+      object-fit: cover;
+      object-position: 50% 66%;
+      border-radius: 11px;
+    }
+
+    .choice-copy small,
+    .choice-copy strong { display: block; }
+    .choice-copy small {
+      margin-bottom: 6px;
+      color: #668074;
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+    .choice-copy strong { font-size: 22px; letter-spacing: -.03em; text-transform: uppercase; }
+    .choice-action {
+      padding: 8px 10px;
+      color: #fff;
+      background: #1d6848;
+      border-radius: 8px;
       font-size: 8px;
       font-style: normal;
       font-weight: 950;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
     }
 
-    .room-code {
-      display: flex;
-      justify-content: space-between;
-      gap: 4px;
-    }
-
-    .room-code i {
-      display: grid;
-      width: 16px;
-      height: 21px;
-      place-items: center;
-      color: #b8efd2;
-      background: rgba(97,217,156,.14);
-      border: 1px solid rgba(97,217,156,.45);
-      border-radius: 4px;
-      font-size: 7px;
-      font-style: normal;
-      font-weight: 900;
-    }
+    .sport-choice.coming { opacity: .58; }
+    .sport-choice.coming .choice-action { color: #617268; background: #dbe4de; }
 
     .editions { padding-top: 54px; }
 
@@ -899,14 +1030,28 @@
       .sport-panel:focus-visible { transform: none; }
       .arena-kicker { top: 22px; left: 10px; padding: 6px 8px; font-size: 7px; }
       .feature-grid { padding-top: 25px; gap: 10px; }
-      .feature-card { min-height: 420px; }
-      .feature-card::after { background: linear-gradient(0deg, rgba(4,13,8,.98) 0%, rgba(4,13,8,.91) 45%, rgba(4,13,8,.16) 78%); }
-      .feature-card > img { width: 100%; }
+      .feature-card { min-height: 555px; }
       .feature-card:hover { transform: none; }
-      .feature-content { width: 100%; min-height: 420px; padding: 22px; justify-content: flex-end; }
+      .feature-content { width: 100%; min-height: 0; padding: 26px 22px 20px; }
       .feature-card h2 { font-size: 34px; }
       .feature-card p { max-width: none; margin: 11px 0 17px; }
-      .feature-demo { top: 20px; right: 16px; bottom: auto; }
+      .portal-preview {
+        position: relative;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        width: auto;
+        height: 278px;
+        margin: 0 18px 18px;
+        transform: none;
+      }
+      .dialog-inner { padding: 27px 17px 20px; }
+      .portal-dialog h2 { padding-right: 42px; font-size: 32px; }
+      .sport-choice-grid { grid-template-columns: 1fr; }
+      .sport-choice { min-height: 104px; grid-template-columns: 74px 1fr; gap: 11px; }
+      .sport-choice img { width: 74px; height: 78px; }
+      .choice-copy strong { font-size: 19px; }
+      .choice-action { grid-column: 2; width: fit-content; margin-top: -4px; }
       .editions { padding-top: 38px; }
       .section-head { display: block; }
       .section-head p { margin-top: 10px; }
@@ -918,8 +1063,8 @@
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .sport-panel, .sport-panel img, .feature-card, .feature-card > img, .feature-button,
-      .edition, .edition-visual img, .edition-body { transition: none; }
+      .sport-panel, .sport-panel img, .feature-card, .portal-preview, .preview-sport img,
+      .sport-choice, .edition, .edition-visual img, .edition-body { transition: none; }
     }
   </style>
 </head>
@@ -999,39 +1144,104 @@
       </section>
 
       <section class="feature-grid" aria-label="Learn the game and play online">
-        <article class="feature-card tutorial-feature">
-          <img src="assets/edition-soccer.webp" alt="Soccer player in a stadium representing the interactive game tutorials" loading="lazy">
+        <button class="feature-card tutorial-feature" type="button" data-open-dialog="tutorial-dialog" aria-haspopup="dialog">
           <div class="feature-content">
             <span class="feature-eyebrow">Learn the game</span>
             <h2>Interactive Tutorials</h2>
-            <p>Learn the rules by playing through guided, step-by-step lessons in your browser. No app. No account required.</p>
-            <div class="feature-actions">
-              <a class="feature-button" href="https://lu20140621-png.github.io/goal-scoring-moment/strategy-cards.html">Soccer Tutorial</a>
-              <a class="feature-button secondary" href="https://lu20140621-png.github.io/goal-scoring-moment-football/strategy-tutorial-en.html">Football Tutorial</a>
+            <p>Choose your sport, then learn by playing through guided, step-by-step lessons. No app or account required.</p>
+            <span class="feature-open">Choose a tutorial</span>
+          </div>
+          <div class="portal-preview" aria-hidden="true">
+            <span class="preview-label">Tutorial hub</span>
+            <div class="preview-sports">
+              <span class="preview-sport"><img src="assets/edition-soccer-ball.webp" alt=""><span>Soccer</span></span>
+              <span class="preview-sport"><img src="assets/edition-basketball-ball.webp" alt=""><span>Basketball</span></span>
+              <span class="preview-sport"><img src="assets/edition-football-ball.webp" alt=""><span>Football</span></span>
+              <span class="preview-sport"><img src="assets/edition-baseball-ball.webp" alt=""><span>Baseball</span></span>
             </div>
           </div>
-          <div class="feature-demo" aria-hidden="true">
-            <span class="demo-label">Step-by-step</span>
-            <span class="lesson-steps"><i>1</i><i>2</i><i>3</i></span>
-          </div>
-        </article>
+        </button>
 
-        <article class="feature-card multiplayer-feature">
-          <img src="assets/edition-football.webp" alt="American football player representing online multiplayer" loading="lazy">
+        <button class="feature-card multiplayer-feature" type="button" data-open-dialog="multiplayer-dialog" aria-haspopup="dialog">
           <div class="feature-content">
             <span class="feature-eyebrow">Play with a friend</span>
             <h2>Online Multiplayer</h2>
-            <p>Create a private game, share the 6-digit room code, and play Goal-Scoring Moment Football head-to-head with a friend.</p>
-            <div class="feature-actions">
-              <a class="feature-button" href="https://lu20140621-png.github.io/goal-scoring-moment-football-online/">Play Online</a>
+            <p>Choose a sport, create a private room, and share the room code to play head-to-head with a friend.</p>
+            <span class="feature-open">Choose multiplayer</span>
+          </div>
+          <div class="portal-preview" aria-hidden="true">
+            <span class="preview-label">Multiplayer lobby</span>
+            <div class="preview-sports">
+              <span class="preview-sport"><img src="assets/edition-soccer-ball.webp" alt=""><span>Soccer</span></span>
+              <span class="preview-sport"><img src="assets/edition-basketball-ball.webp" alt=""><span>Basketball</span></span>
+              <span class="preview-sport"><img src="assets/edition-football-ball.webp" alt=""><span>Football</span></span>
+              <span class="preview-sport"><img src="assets/edition-baseball-ball.webp" alt=""><span>Baseball</span></span>
             </div>
           </div>
-          <div class="feature-demo" aria-hidden="true">
-            <span class="demo-label">Private room</span>
-            <span class="room-code"><i>•</i><i>•</i><i>•</i><i>•</i><i>•</i><i>•</i></span>
-          </div>
-        </article>
+        </button>
       </section>
+
+      <dialog class="portal-dialog" id="tutorial-dialog" aria-labelledby="tutorial-dialog-title">
+        <div class="dialog-inner">
+          <button class="dialog-close" type="button" data-close-dialog aria-label="Close tutorial selection">×</button>
+          <span class="dialog-kicker">Learn by playing</span>
+          <h2 id="tutorial-dialog-title">Choose a Tutorial</h2>
+          <p>Select a sport to open its interactive, step-by-step tutorial.</p>
+          <div class="sport-choice-grid">
+            <a class="sport-choice" href="https://lu20140621-png.github.io/goal-scoring-moment/strategy-cards.html">
+              <img src="assets/edition-soccer-ball.webp" alt="Soccer ball on a soccer field">
+              <span class="choice-copy"><small>Interactive Tutorial</small><strong>Soccer</strong></span>
+              <em class="choice-action">Open →</em>
+            </a>
+            <article class="sport-choice coming" aria-label="Basketball tutorial coming soon">
+              <img src="assets/edition-basketball-ball.webp" alt="Basketball on a basketball court">
+              <span class="choice-copy"><small>Interactive Tutorial</small><strong>Basketball</strong></span>
+              <em class="choice-action">Coming Soon</em>
+            </article>
+            <a class="sport-choice" href="https://lu20140621-png.github.io/goal-scoring-moment-football/strategy-tutorial-en.html">
+              <img src="assets/edition-football-ball.webp" alt="American football on a football field">
+              <span class="choice-copy"><small>Interactive Tutorial</small><strong>Football</strong></span>
+              <em class="choice-action">Open →</em>
+            </a>
+            <article class="sport-choice coming" aria-label="Baseball tutorial coming soon">
+              <img src="assets/edition-baseball-ball.webp" alt="Baseball on a baseball field">
+              <span class="choice-copy"><small>Interactive Tutorial</small><strong>Baseball</strong></span>
+              <em class="choice-action">Coming Soon</em>
+            </article>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog class="portal-dialog" id="multiplayer-dialog" aria-labelledby="multiplayer-dialog-title">
+        <div class="dialog-inner">
+          <button class="dialog-close" type="button" data-close-dialog aria-label="Close multiplayer selection">×</button>
+          <span class="dialog-kicker">Create a private room</span>
+          <h2 id="multiplayer-dialog-title">Choose Multiplayer</h2>
+          <p>Select a sport, create a private room, and share the room code with a friend.</p>
+          <div class="sport-choice-grid">
+            <article class="sport-choice coming" aria-label="Soccer multiplayer coming soon">
+              <img src="assets/edition-soccer-ball.webp" alt="Soccer ball on a soccer field">
+              <span class="choice-copy"><small>Online Multiplayer</small><strong>Soccer</strong></span>
+              <em class="choice-action">Coming Soon</em>
+            </article>
+            <article class="sport-choice coming" aria-label="Basketball multiplayer coming soon">
+              <img src="assets/edition-basketball-ball.webp" alt="Basketball on a basketball court">
+              <span class="choice-copy"><small>Online Multiplayer</small><strong>Basketball</strong></span>
+              <em class="choice-action">Coming Soon</em>
+            </article>
+            <a class="sport-choice" href="https://lu20140621-png.github.io/goal-scoring-moment-football-online/">
+              <img src="assets/edition-football-ball.webp" alt="American football on a football field">
+              <span class="choice-copy"><small>Online Multiplayer</small><strong>Football</strong></span>
+              <em class="choice-action">Create Room →</em>
+            </a>
+            <article class="sport-choice coming" aria-label="Baseball multiplayer coming soon">
+              <img src="assets/edition-baseball-ball.webp" alt="Baseball on a baseball field">
+              <span class="choice-copy"><small>Online Multiplayer</small><strong>Baseball</strong></span>
+              <em class="choice-action">Coming Soon</em>
+            </article>
+          </div>
+        </div>
+      </dialog>
 
       <section class="editions" aria-labelledby="editions-heading">
         <div class="section-head">
@@ -1134,6 +1344,20 @@
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') closeEditionCards();
+    });
+
+    document.querySelectorAll('[data-open-dialog]').forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const dialog = document.getElementById(trigger.dataset.openDialog);
+        if (dialog && !dialog.open) dialog.showModal();
+      });
+    });
+
+    document.querySelectorAll('.portal-dialog').forEach((dialog) => {
+      dialog.querySelector('[data-close-dialog]')?.addEventListener('click', () => dialog.close());
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) dialog.close();
+      });
     });
   </script>
 </body>
