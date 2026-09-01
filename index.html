@@ -582,16 +582,15 @@
 
     .edition {
       position: relative;
-      display: flex;
-      min-height: 390px;
+      aspect-ratio: 2 / 3;
       padding: 0;
       overflow: hidden;
-      flex-direction: column;
       color: var(--cream);
-      background: var(--panel);
+      background: #08120d;
       border: 1px solid var(--line);
       border-radius: 17px;
-      text-decoration: none;
+      box-shadow: 0 16px 34px rgba(0, 0, 0, .18);
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
     }
 
     .edition::before {
@@ -606,21 +605,27 @@
       z-index: 5;
     }
 
-    a.edition { transition: transform .18s ease, border-color .18s ease, background .18s ease; }
-    a.edition:hover,
-    a.edition:focus-visible {
-      background-color: #172b21;
+    .edition:hover,
+    .edition:focus-within {
       border-color: rgba(244, 201, 93, .52);
-      outline: none;
       transform: translateY(-4px);
+      box-shadow: 0 22px 44px rgba(0, 0, 0, .3);
     }
 
     .edition-visual {
-      position: relative;
-      height: 190px;
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 0;
       overflow: hidden;
-      flex: 0 0 auto;
+      color: inherit;
       background: #0a160f;
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+      text-align: left;
     }
 
     .edition-visual::after {
@@ -630,8 +635,9 @@
       content: "";
       pointer-events: none;
       background:
-        linear-gradient(180deg, rgba(2,8,5,.2), transparent 48%),
-        linear-gradient(0deg, rgba(9,21,15,.95), transparent 50%);
+        linear-gradient(180deg, rgba(2,8,5,.24), transparent 30%),
+        linear-gradient(0deg, rgba(2,8,5,.28), transparent 30%);
+      transition: background .25s ease;
     }
 
     .edition-visual img {
@@ -639,23 +645,40 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 50% 31%;
       transition: transform .35s ease, filter .25s ease;
     }
 
-    .soccer-ball-art img,
-    .basketball-ball-art img { object-position: 50% 44%; }
-    .football-ball-art img { object-position: 50% 36%; }
-    .baseball-ball-art img { object-position: 50% 52%; }
-
-    a.edition:hover .edition-visual img,
-    a.edition:focus-visible .edition-visual img { transform: scale(1.045); }
+    .edition:hover .edition-visual img,
+    .edition:focus-within .edition-visual img { transform: scale(1.025); }
 
     .edition-body {
-      display: flex;
-      padding: 17px 18px 19px;
-      flex: 1;
-      flex-direction: column;
+      position: absolute;
+      right: 13px;
+      bottom: 13px;
+      left: 13px;
+      z-index: 6;
+      padding: 20px;
+      color: #102118;
+      background: rgba(255, 255, 255, .88);
+      border: 1px solid rgba(255, 255, 255, .72);
+      border-radius: 14px;
+      box-shadow: 0 16px 35px rgba(0, 0, 0, .28);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(18px);
+      backdrop-filter: blur(14px) saturate(1.15);
+      -webkit-backdrop-filter: blur(14px) saturate(1.15);
+      transition: opacity .24s ease, transform .24s ease;
+    }
+
+    .edition.is-open .edition-body {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .edition.is-open .edition-visual::after {
+      background: rgba(2, 8, 5, .12);
     }
 
     .edition-top {
@@ -716,6 +739,7 @@
       border-radius: 4px;
       box-shadow: -6px 3px 0 rgba(5,13,8,.76), -6px 3px 0 1px rgba(255,255,255,.34);
       transform: rotate(6deg);
+      transition: opacity .2s ease;
     }
 
     .card-stack::after {
@@ -730,39 +754,31 @@
       transform: translate(-50%, -50%);
     }
 
-    .online-card .edition-visual::before {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      content: "";
-      pointer-events: none;
-      background:
-        repeating-linear-gradient(90deg, transparent 0 23px, rgba(98, 233, 169, .1) 24px),
-        repeating-linear-gradient(0deg, transparent 0 23px, rgba(98, 233, 169, .08) 24px);
-      box-shadow: inset 0 0 38px rgba(48, 196, 129, .2);
-    }
-
-    .play-mark {
+    .tap-hint {
       position: absolute;
       bottom: 14px;
       left: 16px;
       z-index: 3;
-      display: grid;
-      width: 32px;
-      height: 32px;
-      place-items: center;
-      color: #0b1a11;
-      background: #79dfab;
-      border: 2px solid rgba(255,255,255,.78);
-      border-radius: 50%;
-      box-shadow: 0 7px 18px rgba(0,0,0,.3);
-      font-size: 10px;
+      padding: 7px 9px;
+      color: #fff;
+      background: rgba(3, 10, 6, .62);
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      font-size: 7px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: opacity .2s ease;
     }
+
+    .edition.is-open .tap-hint,
+    .edition.is-open .card-stack { opacity: 0; }
 
     .edition small {
       display: block;
       margin: 0 0 7px;
-      color: #9caf9f;
+      color: #52665b;
       font-size: 9px;
       font-weight: 850;
       letter-spacing: .12em;
@@ -778,25 +794,36 @@
     }
 
     .edition p {
-      min-height: 40px;
-      margin: 12px 0 20px;
-      color: #a9b8b0;
+      min-height: 0;
+      margin: 10px 0 17px;
+      color: #42564b;
       font-size: 11px;
       line-height: 1.5;
     }
 
     .edition-cta {
-      margin-top: auto;
-      color: var(--gold);
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 9px 11px;
+      color: #fff;
+      background: #102c1e;
+      border-radius: 8px;
+      text-decoration: none;
       font-size: 9px;
       font-weight: 900;
       letter-spacing: .08em;
       text-transform: uppercase;
     }
 
+    a.edition-cta:hover,
+    a.edition-cta:focus-visible { background: #1d5639; outline: none; }
+
     .edition.soon-card { border-color: rgba(255,255,255,.1); }
-    .edition.soon-card .edition-visual img { filter: saturate(.72) brightness(.78); }
-    .edition.soon-card .edition-body { opacity: .76; }
+    .edition.soon-card .edition-cta {
+      color: #6a5743;
+      background: rgba(200, 134, 70, .15);
+    }
     .edition.soccer-card { --accent: #e4c354; }
     .edition.football-card { --accent: #c86f45; }
     .edition.online-card { --accent: #59b887; }
@@ -862,15 +889,15 @@
       .section-head { display: block; }
       .section-head p { margin-top: 10px; }
       .edition-grid { grid-template-columns: 1fr; gap: 9px; }
-      .edition { min-height: 390px; }
-      .edition-visual { height: 230px; }
-      .edition p { min-height: 0; }
+      .edition { width: 100%; max-width: 430px; min-height: 0; margin: 0 auto; }
+      .edition-body { right: 11px; bottom: 11px; left: 11px; }
       footer { align-items: flex-start; flex-direction: column; justify-content: center; gap: 6px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .sport-panel, .sport-panel img, .feature-card, .feature-card > img, .feature-button, a.edition { transition: none; }
+      .sport-panel, .sport-panel img, .feature-card, .feature-card > img, .feature-button,
+      .edition, .edition-visual img, .edition-body { transition: none; }
     }
   </style>
 </head>
@@ -991,27 +1018,29 @@
         </div>
 
         <div class="edition-grid">
-          <a class="edition soccer-card" href="https://lu20140621-png.github.io/goal-scoring-moment/">
-            <div class="edition-visual soccer-ball-art">
+          <article class="edition soccer-card">
+            <button class="edition-visual" type="button" aria-expanded="false" aria-controls="soccer-details">
               <img src="assets/edition-soccer-ball.webp" alt="Soccer ball on a floodlit soccer field with a goal in the background" loading="lazy">
               <span class="edition-top"><span class="edition-number">01</span><span class="status">Live</span></span>
+              <span class="tap-hint">View details</span>
               <span class="card-stack" aria-hidden="true"></span>
-            </div>
-            <div class="edition-body">
+            </button>
+            <div class="edition-body" id="soccer-details">
               <small>Sports Card Game</small>
               <h3>Soccer</h3>
               <p>Hidden roles, teamwork and bluffing around the world’s game.</p>
-              <span class="edition-cta">Explore the edition →</span>
+              <a class="edition-cta" href="https://lu20140621-png.github.io/goal-scoring-moment/">Explore the edition →</a>
             </div>
-          </a>
+          </article>
 
           <article class="edition soon-card basketball-card" aria-label="Basketball Card Game coming soon">
-            <div class="edition-visual basketball-ball-art">
+            <button class="edition-visual" type="button" aria-expanded="false" aria-controls="basketball-details">
               <img src="assets/edition-basketball-ball.webp" alt="Basketball on a polished indoor court with a hoop in the background" loading="lazy">
               <span class="edition-top"><span class="edition-number">02</span><span class="status soon">Coming soon</span></span>
+              <span class="tap-hint">View details</span>
               <span class="card-stack" aria-hidden="true"></span>
-            </div>
-            <div class="edition-body">
+            </button>
+            <div class="edition-body" id="basketball-details">
               <small>Sports Card Game</small>
               <h3>Basketball</h3>
               <p>The next competitive sport to join the GSM card-game collection.</p>
@@ -1019,27 +1048,29 @@
             </div>
           </article>
 
-          <a class="edition football-card" href="https://lu20140621-png.github.io/goal-scoring-moment-football/">
-            <div class="edition-visual football-ball-art">
+          <article class="edition football-card">
+            <button class="edition-visual" type="button" aria-expanded="false" aria-controls="football-details">
               <img src="assets/edition-football-ball.webp" alt="American football on a marked field with goalposts in the background" loading="lazy">
               <span class="edition-top"><span class="edition-number">03</span><span class="status">Live</span></span>
+              <span class="tap-hint">View details</span>
               <span class="card-stack" aria-hidden="true"></span>
-            </div>
-            <div class="edition-body">
+            </button>
+            <div class="edition-body" id="football-details">
               <small>Sports Card Game</small>
               <h3>Football</h3>
               <p>A tactical card-game experience inspired by American football.</p>
-              <span class="edition-cta">Explore the edition →</span>
+              <a class="edition-cta" href="https://lu20140621-png.github.io/goal-scoring-moment-football/">Explore the edition →</a>
             </div>
-          </a>
+          </article>
 
           <article class="edition soon-card baseball-card" aria-label="Baseball Card Game coming soon">
-            <div class="edition-visual baseball-ball-art">
+            <button class="edition-visual" type="button" aria-expanded="false" aria-controls="baseball-details">
               <img src="assets/edition-baseball-ball.webp" alt="Baseball on home plate beside a bat and glove in a floodlit stadium" loading="lazy">
               <span class="edition-top"><span class="edition-number">04</span><span class="status soon">Coming soon</span></span>
+              <span class="tap-hint">View details</span>
               <span class="card-stack" aria-hidden="true"></span>
-            </div>
-            <div class="edition-body">
+            </button>
+            <div class="edition-body" id="baseball-details">
               <small>Sports Card Game</small>
               <h3>Baseball</h3>
               <p>A future GSM edition built around baseball strategy and rivalry.</p>
@@ -1055,5 +1086,34 @@
       <span>One sports card-game universe. More ways to play.</span>
     </footer>
   </div>
+  <script>
+    const editionCards = [...document.querySelectorAll('.edition')];
+
+    function closeEditionCards(except = null) {
+      editionCards.forEach((card) => {
+        if (card === except) return;
+        card.classList.remove('is-open');
+        card.querySelector('.edition-visual')?.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    editionCards.forEach((card) => {
+      const trigger = card.querySelector('.edition-visual');
+      trigger?.addEventListener('click', () => {
+        const shouldOpen = !card.classList.contains('is-open');
+        closeEditionCards(card);
+        card.classList.toggle('is-open', shouldOpen);
+        trigger.setAttribute('aria-expanded', String(shouldOpen));
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.edition')) closeEditionCards();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeEditionCards();
+    });
+  </script>
 </body>
 </html>
