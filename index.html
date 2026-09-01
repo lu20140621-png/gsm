@@ -201,6 +201,22 @@
       height: 100%;
       object-fit: cover;
       object-position: 50% 48%;
+      transform: scale(1.012);
+      transform-origin: 50% 48%;
+      animation: camera-drift 12s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    .motion-light {
+      position: absolute;
+      inset: -40% -25%;
+      z-index: 2;
+      content: "";
+      pointer-events: none;
+      background: linear-gradient(112deg, transparent 42%, rgba(255, 219, 127, .11) 49%, transparent 56%);
+      mix-blend-mode: screen;
+      transform: translateX(-45%);
+      animation: light-sweep 9s ease-in-out infinite;
     }
 
     .arena-kicker {
@@ -494,6 +510,17 @@
       50% { opacity: .95; box-shadow: 0 0 12px rgba(255, 192, 49, .36); }
     }
 
+    @keyframes camera-drift {
+      from { transform: translate3d(-.18%, -.08%, 0) scale(1.012); }
+      to { transform: translate3d(.18%, .08%, 0) scale(1.024); }
+    }
+
+    @keyframes light-sweep {
+      0%, 18% { opacity: 0; transform: translateX(-45%); }
+      42%, 62% { opacity: .72; }
+      82%, 100% { opacity: 0; transform: translateX(45%); }
+    }
+
     @media (max-width: 1000px) {
       .lead { grid-template-columns: 1.25fr .75fr; gap: 30px; }
       .edition-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -526,6 +553,7 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .hotspot::before { animation: none; }
+      .hero-image, .motion-light { animation: none; }
       .hotspot, a.edition, .online-link { transition: none; }
     }
   </style>
@@ -560,7 +588,8 @@
       </section>
 
       <section class="arena" aria-label="Choose a sport from the stadium">
-        <img class="hero-image" src="assets/gsm-sports-hub-hero.webp" alt="Four athletes holding a baseball, soccer ball, basketball and American football in a stadium">
+        <img class="hero-image" src="assets/gsm-sports-hub-hero-men.webp" alt="Four male athletes holding a baseball, soccer ball, basketball and American football in a stadium">
+        <span class="motion-light" aria-hidden="true"></span>
         <span class="arena-kicker">Select a highlighted ball</span>
 
         <span class="hotspot baseball coming" aria-label="Baseball card game coming soon">
