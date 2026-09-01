@@ -576,7 +576,7 @@
 
     .edition-grid {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 12px;
     }
 
@@ -642,6 +642,11 @@
       object-position: 50% 31%;
       transition: transform .35s ease, filter .25s ease;
     }
+
+    .soccer-ball-art img,
+    .basketball-ball-art img { object-position: 50% 44%; }
+    .football-ball-art img { object-position: 50% 36%; }
+    .baseball-ball-art img { object-position: 50% 52%; }
 
     a.edition:hover .edition-visual img,
     a.edition:focus-visible .edition-visual img { transform: scale(1.045); }
@@ -814,7 +819,7 @@
     @media (max-width: 1000px) {
       .lead { grid-template-columns: 1.25fr .75fr; gap: 30px; }
       .feature-grid { grid-template-columns: 1fr; }
-      .edition-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .edition-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 720px) {
@@ -982,13 +987,13 @@
       <section class="editions" aria-labelledby="editions-heading">
         <div class="section-head">
           <h2 id="editions-heading">Choose your edition</h2>
-          <p>Open a live game page or preview which sport is joining the GSM collection next.</p>
+          <p>Explore a live edition or see which sport is coming next.</p>
         </div>
 
         <div class="edition-grid">
           <a class="edition soccer-card" href="https://lu20140621-png.github.io/goal-scoring-moment/">
-            <div class="edition-visual">
-              <img src="assets/edition-soccer.webp" alt="Male soccer player holding a soccer ball in a floodlit soccer stadium" loading="lazy">
+            <div class="edition-visual soccer-ball-art">
+              <img src="assets/edition-soccer-ball.webp" alt="Soccer ball on a floodlit soccer field with a goal in the background" loading="lazy">
               <span class="edition-top"><span class="edition-number">01</span><span class="status">Live</span></span>
               <span class="card-stack" aria-hidden="true"></span>
             </div>
@@ -1000,38 +1005,10 @@
             </div>
           </a>
 
-          <a class="edition football-card" href="https://lu20140621-png.github.io/goal-scoring-moment-football/">
-            <div class="edition-visual">
-              <img src="assets/edition-football.webp" alt="Male American football player on a field with yard lines and goalposts" loading="lazy">
-              <span class="edition-top"><span class="edition-number">02</span><span class="status">Live</span></span>
-              <span class="card-stack" aria-hidden="true"></span>
-            </div>
-            <div class="edition-body">
-              <small>Sports Card Game</small>
-              <h3>Football</h3>
-              <p>A tactical card-game experience inspired by American football.</p>
-              <span class="edition-cta">Explore the edition →</span>
-            </div>
-          </a>
-
-          <a class="edition online-card" href="https://lu20140621-png.github.io/goal-scoring-moment-football-online/">
-            <div class="edition-visual">
-              <img src="assets/edition-football.webp" alt="American football player inside a digital game-style football field" loading="lazy">
-              <span class="edition-top"><span class="edition-number">03</span><span class="status">Play</span></span>
-              <span class="play-mark" aria-hidden="true">▶</span>
-            </div>
-            <div class="edition-body">
-              <small>Browser Game</small>
-              <h3>Football Online</h3>
-              <p>Enter the interactive football experience directly in your browser.</p>
-              <span class="edition-cta">Play online →</span>
-            </div>
-          </a>
-
           <article class="edition soon-card basketball-card" aria-label="Basketball Card Game coming soon">
-            <div class="edition-visual">
-              <img src="assets/edition-basketball.webp" alt="Male basketball player holding a basketball on an indoor court" loading="lazy">
-              <span class="edition-top"><span class="edition-number">04</span><span class="status soon">Coming soon</span></span>
+            <div class="edition-visual basketball-ball-art">
+              <img src="assets/edition-basketball-ball.webp" alt="Basketball on a polished indoor court with a hoop in the background" loading="lazy">
+              <span class="edition-top"><span class="edition-number">02</span><span class="status soon">Coming soon</span></span>
               <span class="card-stack" aria-hidden="true"></span>
             </div>
             <div class="edition-body">
@@ -1042,10 +1019,24 @@
             </div>
           </article>
 
+          <a class="edition football-card" href="https://lu20140621-png.github.io/goal-scoring-moment-football/">
+            <div class="edition-visual football-ball-art">
+              <img src="assets/edition-football-ball.webp" alt="American football on a marked field with goalposts in the background" loading="lazy">
+              <span class="edition-top"><span class="edition-number">03</span><span class="status">Live</span></span>
+              <span class="card-stack" aria-hidden="true"></span>
+            </div>
+            <div class="edition-body">
+              <small>Sports Card Game</small>
+              <h3>Football</h3>
+              <p>A tactical card-game experience inspired by American football.</p>
+              <span class="edition-cta">Explore the edition →</span>
+            </div>
+          </a>
+
           <article class="edition soon-card baseball-card" aria-label="Baseball Card Game coming soon">
-            <div class="edition-visual">
-              <img src="assets/edition-baseball.webp" alt="Male baseball player holding a baseball and bat on a baseball diamond" loading="lazy">
-              <span class="edition-top"><span class="edition-number">05</span><span class="status soon">Coming soon</span></span>
+            <div class="edition-visual baseball-ball-art">
+              <img src="assets/edition-baseball-ball.webp" alt="Baseball on home plate beside a bat and glove in a floodlit stadium" loading="lazy">
+              <span class="edition-top"><span class="edition-number">04</span><span class="status soon">Coming soon</span></span>
               <span class="card-stack" aria-hidden="true"></span>
             </div>
             <div class="edition-body">
