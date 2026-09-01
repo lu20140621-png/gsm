@@ -553,7 +553,7 @@
     .section-head {
       display: flex;
       align-items: end;
-      justify-content: space-between;
+      justify-content: flex-start;
       gap: 30px;
       margin-bottom: 20px;
     }
@@ -590,7 +590,8 @@
       border: 1px solid var(--line);
       border-radius: 17px;
       box-shadow: 0 16px 34px rgba(0, 0, 0, .18);
-      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease,
+        filter .25s ease, opacity .25s ease;
     }
 
     .edition::before {
@@ -606,10 +607,13 @@
     }
 
     .edition:hover,
-    .edition:focus-within {
-      border-color: rgba(244, 201, 93, .52);
-      transform: translateY(-4px);
-      box-shadow: 0 22px 44px rgba(0, 0, 0, .3);
+    .edition.is-open,
+    .edition:has(.edition-visual:focus-visible),
+    .edition:has(.edition-body:focus-within) {
+      z-index: 8;
+      border-color: rgba(255, 225, 139, .92);
+      transform: translateY(-10px) scale(1.04);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, .55), 0 0 0 2px rgba(244, 201, 93, .18);
     }
 
     .edition-visual {
@@ -657,12 +661,12 @@
       bottom: 13px;
       left: 13px;
       z-index: 6;
-      padding: 20px;
+      padding: 21px;
       color: #102118;
-      background: rgba(255, 255, 255, .88);
-      border: 1px solid rgba(255, 255, 255, .72);
+      background: rgba(255, 255, 255, .92);
+      border: 1px solid rgba(255, 255, 255, .94);
       border-radius: 14px;
-      box-shadow: 0 16px 35px rgba(0, 0, 0, .28);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .38);
       opacity: 0;
       pointer-events: none;
       transform: translateY(18px);
@@ -671,12 +675,17 @@
       transition: opacity .24s ease, transform .24s ease;
     }
 
+    .edition:hover .edition-body,
+    .edition-visual:focus-visible + .edition-body,
+    .edition-body:focus-within,
     .edition.is-open .edition-body {
       opacity: 1;
       pointer-events: auto;
       transform: translateY(0);
     }
 
+    .edition:hover .edition-visual::after,
+    .edition:has(.edition-visual:focus-visible) .edition-visual::after,
     .edition.is-open .edition-visual::after {
       background: rgba(2, 8, 5, .12);
     }
@@ -772,6 +781,10 @@
       transition: opacity .2s ease;
     }
 
+    .edition:hover .tap-hint,
+    .edition:hover .card-stack,
+    .edition:has(.edition-visual:focus-visible) .tap-hint,
+    .edition:has(.edition-visual:focus-visible) .card-stack,
     .edition.is-open .tap-hint,
     .edition.is-open .card-stack { opacity: 0; }
 
@@ -829,6 +842,15 @@
     .edition.online-card { --accent: #59b887; }
     .edition.basketball-card { --accent: #d98146; }
     .edition.baseball-card { --accent: #9eb6c9; }
+
+    @media (hover: hover) and (pointer: fine) {
+      .edition-grid:has(.edition:hover) .edition:not(:hover) {
+        z-index: 1;
+        filter: brightness(.48) saturate(.52);
+        opacity: .67;
+        transform: scale(.955);
+      }
+    }
 
     footer {
       display: flex;
@@ -1014,7 +1036,6 @@
       <section class="editions" aria-labelledby="editions-heading">
         <div class="section-head">
           <h2 id="editions-heading">Choose your edition</h2>
-          <p>Explore a live edition or see which sport is coming next.</p>
         </div>
 
         <div class="edition-grid">
