@@ -390,16 +390,14 @@
     .edition {
       position: relative;
       display: flex;
-      min-height: 250px;
-      padding: 19px;
+      min-height: 390px;
+      padding: 0;
       overflow: hidden;
       flex-direction: column;
       color: var(--cream);
-      background:
-        linear-gradient(145deg, rgba(255,255,255,.035), transparent 48%),
-        var(--panel);
+      background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 15px;
+      border-radius: 17px;
       text-decoration: none;
     }
 
@@ -412,6 +410,7 @@
       content: "";
       background: var(--accent, var(--gold));
       opacity: .9;
+      z-index: 5;
     }
 
     a.edition { transition: transform .18s ease, border-color .18s ease, background .18s ease; }
@@ -423,17 +422,67 @@
       transform: translateY(-4px);
     }
 
+    .edition-visual {
+      position: relative;
+      height: 190px;
+      overflow: hidden;
+      flex: 0 0 auto;
+      background: #0a160f;
+    }
+
+    .edition-visual::after {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      content: "";
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(2,8,5,.2), transparent 48%),
+        linear-gradient(0deg, rgba(9,21,15,.95), transparent 50%);
+    }
+
+    .edition-visual img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 31%;
+      transition: transform .35s ease, filter .25s ease;
+    }
+
+    a.edition:hover .edition-visual img,
+    a.edition:focus-visible .edition-visual img { transform: scale(1.045); }
+
+    .edition-body {
+      display: flex;
+      padding: 17px 18px 19px;
+      flex: 1;
+      flex-direction: column;
+    }
+
     .edition-top {
+      position: absolute;
+      top: 13px;
+      right: 13px;
+      left: 13px;
+      z-index: 3;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: auto;
     }
 
     .edition-number {
-      color: #7e9287;
-      font-size: 11px;
+      display: grid;
+      width: 29px;
+      height: 29px;
+      place-items: center;
+      color: white;
+      background: rgba(3, 10, 6, .65);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 7px;
+      backdrop-filter: blur(7px);
+      font-size: 9px;
       font-weight: 900;
       letter-spacing: .08em;
     }
@@ -443,17 +492,78 @@
       color: #0a1c12;
       background: #7cd9a8;
       border-radius: 999px;
+      box-shadow: 0 5px 15px rgba(0,0,0,.24);
       font-size: 7px;
       font-weight: 950;
       letter-spacing: .1em;
       text-transform: uppercase;
     }
 
-    .status.soon { color: #b6c0ba; background: rgba(255,255,255,.08); }
+    .status.soon {
+      color: #e4e9e6;
+      background: rgba(5, 11, 7, .7);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(7px);
+    }
+
+    .card-stack {
+      position: absolute;
+      right: 16px;
+      bottom: 14px;
+      z-index: 3;
+      width: 23px;
+      height: 32px;
+      background: var(--accent, var(--gold));
+      border: 2px solid rgba(255,255,255,.78);
+      border-radius: 4px;
+      box-shadow: -6px 3px 0 rgba(5,13,8,.76), -6px 3px 0 1px rgba(255,255,255,.34);
+      transform: rotate(6deg);
+    }
+
+    .card-stack::after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 7px;
+      height: 7px;
+      content: "";
+      background: #152219;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .online-card .edition-visual::before {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      content: "";
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(90deg, transparent 0 23px, rgba(98, 233, 169, .1) 24px),
+        repeating-linear-gradient(0deg, transparent 0 23px, rgba(98, 233, 169, .08) 24px);
+      box-shadow: inset 0 0 38px rgba(48, 196, 129, .2);
+    }
+
+    .play-mark {
+      position: absolute;
+      bottom: 14px;
+      left: 16px;
+      z-index: 3;
+      display: grid;
+      width: 32px;
+      height: 32px;
+      place-items: center;
+      color: #0b1a11;
+      background: #79dfab;
+      border: 2px solid rgba(255,255,255,.78);
+      border-radius: 50%;
+      box-shadow: 0 7px 18px rgba(0,0,0,.3);
+      font-size: 10px;
+    }
 
     .edition small {
       display: block;
-      margin: 24px 0 7px;
+      margin: 0 0 7px;
       color: #9caf9f;
       font-size: 9px;
       font-weight: 850;
@@ -478,6 +588,7 @@
     }
 
     .edition-cta {
+      margin-top: auto;
       color: var(--gold);
       font-size: 9px;
       font-weight: 900;
@@ -485,7 +596,9 @@
       text-transform: uppercase;
     }
 
-    .edition.soon-card { opacity: .68; }
+    .edition.soon-card { border-color: rgba(255,255,255,.1); }
+    .edition.soon-card .edition-visual img { filter: saturate(.72) brightness(.78); }
+    .edition.soon-card .edition-body { opacity: .76; }
     .edition.soccer-card { --accent: #e4c354; }
     .edition.football-card { --accent: #c86f45; }
     .edition.online-card { --accent: #59b887; }
@@ -545,7 +658,8 @@
       .section-head { display: block; }
       .section-head p { margin-top: 10px; }
       .edition-grid { grid-template-columns: 1fr; gap: 9px; }
-      .edition { min-height: 190px; }
+      .edition { min-height: 390px; }
+      .edition-visual { height: 230px; }
       .edition p { min-height: 0; }
       footer { align-items: flex-start; flex-direction: column; justify-content: center; gap: 6px; }
     }
@@ -619,43 +733,73 @@
 
         <div class="edition-grid">
           <a class="edition soccer-card" href="https://lu20140621-png.github.io/goal-scoring-moment/">
-            <span class="edition-top"><span class="edition-number">01</span><span class="status">Live</span></span>
-            <small>Sports Card Game</small>
-            <h3>Soccer</h3>
-            <p>Hidden roles, teamwork and bluffing around the world’s game.</p>
-            <span class="edition-cta">Explore the edition →</span>
+            <div class="edition-visual">
+              <img src="assets/edition-soccer.webp" alt="Male soccer player holding a soccer ball in a floodlit soccer stadium" loading="lazy">
+              <span class="edition-top"><span class="edition-number">01</span><span class="status">Live</span></span>
+              <span class="card-stack" aria-hidden="true"></span>
+            </div>
+            <div class="edition-body">
+              <small>Sports Card Game</small>
+              <h3>Soccer</h3>
+              <p>Hidden roles, teamwork and bluffing around the world’s game.</p>
+              <span class="edition-cta">Explore the edition →</span>
+            </div>
           </a>
 
           <a class="edition football-card" href="https://lu20140621-png.github.io/goal-scoring-moment-football/">
-            <span class="edition-top"><span class="edition-number">02</span><span class="status">Live</span></span>
-            <small>Sports Card Game</small>
-            <h3>Football</h3>
-            <p>A tactical card-game experience inspired by American football.</p>
-            <span class="edition-cta">Explore the edition →</span>
+            <div class="edition-visual">
+              <img src="assets/edition-football.webp" alt="Male American football player on a field with yard lines and goalposts" loading="lazy">
+              <span class="edition-top"><span class="edition-number">02</span><span class="status">Live</span></span>
+              <span class="card-stack" aria-hidden="true"></span>
+            </div>
+            <div class="edition-body">
+              <small>Sports Card Game</small>
+              <h3>Football</h3>
+              <p>A tactical card-game experience inspired by American football.</p>
+              <span class="edition-cta">Explore the edition →</span>
+            </div>
           </a>
 
           <a class="edition online-card" href="https://lu20140621-png.github.io/goal-scoring-moment-football-online/">
-            <span class="edition-top"><span class="edition-number">03</span><span class="status">Play</span></span>
-            <small>Browser Game</small>
-            <h3>Football Online</h3>
-            <p>Enter the interactive football experience directly in your browser.</p>
-            <span class="edition-cta">Play online →</span>
+            <div class="edition-visual">
+              <img src="assets/edition-football.webp" alt="American football player inside a digital game-style football field" loading="lazy">
+              <span class="edition-top"><span class="edition-number">03</span><span class="status">Play</span></span>
+              <span class="play-mark" aria-hidden="true">▶</span>
+            </div>
+            <div class="edition-body">
+              <small>Browser Game</small>
+              <h3>Football Online</h3>
+              <p>Enter the interactive football experience directly in your browser.</p>
+              <span class="edition-cta">Play online →</span>
+            </div>
           </a>
 
           <article class="edition soon-card basketball-card" aria-label="Basketball Card Game coming soon">
-            <span class="edition-top"><span class="edition-number">04</span><span class="status soon">Coming soon</span></span>
-            <small>Sports Card Game</small>
-            <h3>Basketball</h3>
-            <p>The next competitive sport to join the GSM card-game collection.</p>
-            <span class="edition-cta">In development</span>
+            <div class="edition-visual">
+              <img src="assets/edition-basketball.webp" alt="Male basketball player holding a basketball on an indoor court" loading="lazy">
+              <span class="edition-top"><span class="edition-number">04</span><span class="status soon">Coming soon</span></span>
+              <span class="card-stack" aria-hidden="true"></span>
+            </div>
+            <div class="edition-body">
+              <small>Sports Card Game</small>
+              <h3>Basketball</h3>
+              <p>The next competitive sport to join the GSM card-game collection.</p>
+              <span class="edition-cta">In development</span>
+            </div>
           </article>
 
           <article class="edition soon-card baseball-card" aria-label="Baseball Card Game coming soon">
-            <span class="edition-top"><span class="edition-number">05</span><span class="status soon">Coming soon</span></span>
-            <small>Sports Card Game</small>
-            <h3>Baseball</h3>
-            <p>A future GSM edition built around baseball strategy and rivalry.</p>
-            <span class="edition-cta">In development</span>
+            <div class="edition-visual">
+              <img src="assets/edition-baseball.webp" alt="Male baseball player holding a baseball and bat on a baseball diamond" loading="lazy">
+              <span class="edition-top"><span class="edition-number">05</span><span class="status soon">Coming soon</span></span>
+              <span class="card-stack" aria-hidden="true"></span>
+            </div>
+            <div class="edition-body">
+              <small>Sports Card Game</small>
+              <h3>Baseball</h3>
+              <p>A future GSM edition built around baseball strategy and rivalry.</p>
+              <span class="edition-cta">In development</span>
+            </div>
           </article>
         </div>
       </section>
