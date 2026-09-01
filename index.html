@@ -3,18 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#03150f">
-  <meta name="description" content="Choose your sport and enter the Goal-Scoring Moment game universe.">
-  <title>GSM | Choose Your Game</title>
+  <meta name="theme-color" content="#08110d">
+  <meta name="description" content="Goal-Scoring Moment is a collection of sports-themed card games built for game night. Choose a sport and enter the game.">
+  <title>GSM | Sports Card Games</title>
   <style>
     :root {
-      --bg: #070a08;
-      --text: #fffaf0;
-      --muted: #b9c9c1;
-      --gold: #f6ce68;
-      --gold-deep: #bf8427;
-      --line: rgba(246, 206, 104, .3);
-      --shadow: 0 28px 80px rgba(0, 0, 0, .48);
+      --ink: #08110d;
+      --ink-soft: #0d1a14;
+      --panel: #12231b;
+      --cream: #f6f1e6;
+      --cream-dim: #cfc8b9;
+      --gold: #f4c95d;
+      --gold-deep: #b77922;
+      --green: #42a477;
+      --line: rgba(246, 241, 230, .13);
     }
 
     * { box-sizing: border-box; }
@@ -23,86 +25,162 @@
     body {
       min-height: 100vh;
       margin: 0;
-      color: var(--text);
+      color: var(--cream);
       background:
-        radial-gradient(circle at 50% 0%, rgba(31, 82, 59, .23), transparent 42rem),
-        linear-gradient(180deg, #050806, var(--bg));
+        radial-gradient(circle at 52% -12%, rgba(50, 127, 91, .25), transparent 38rem),
+        var(--ink);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       -webkit-font-smoothing: antialiased;
     }
 
     a { color: inherit; }
-
-    .page {
-      width: min(1320px, calc(100% - 32px));
-      margin: 0 auto;
-    }
+    .shell { width: min(1380px, calc(100% - 40px)); margin: 0 auto; }
 
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       min-height: 72px;
-      border-bottom: 1px solid rgba(255,255,255,.07);
+      border-bottom: 1px solid var(--line);
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
       gap: 12px;
+      color: inherit;
       text-decoration: none;
     }
 
-    .brand-mark {
+    .brand-card {
+      position: relative;
       display: grid;
-      width: auto;
-      height: 34px;
-      padding: 0 11px;
+      width: 42px;
+      height: 50px;
       place-items: center;
-      color: #171309;
-      background: var(--gold);
-      border: 0;
+      overflow: hidden;
+      color: #161207;
+      background: linear-gradient(145deg, #ffe38d, var(--gold));
       border-radius: 7px;
-      box-shadow: none;
-      font-size: 12px;
+      box-shadow: 5px 5px 0 rgba(183, 121, 34, .45);
+      font-size: 11px;
       font-weight: 950;
-      letter-spacing: .13em;
+      letter-spacing: .08em;
+    }
+
+    .brand-card::after {
+      position: absolute;
+      right: 5px;
+      bottom: 5px;
+      width: 5px;
+      height: 5px;
+      content: "";
+      background: #18271f;
+      border-radius: 50%;
     }
 
     .brand-copy strong,
     .brand-copy span { display: block; }
 
     .brand-copy strong {
-      font-size: 12px;
-      letter-spacing: .13em;
-    }
-
-    .brand-copy span {
-      margin-top: 2px;
-      color: #87988f;
-      font-size: 9px;
-      letter-spacing: .13em;
+      font-size: 13px;
+      letter-spacing: .11em;
       text-transform: uppercase;
     }
 
-    .header-label {
-      color: #9eaaa4;
+    .brand-copy span {
+      margin-top: 3px;
+      color: #95aa9f;
       font-size: 9px;
-      font-weight: 750;
+      font-weight: 700;
       letter-spacing: .15em;
       text-transform: uppercase;
     }
 
-    main { padding: 18px 0 42px; }
+    .header-note {
+      color: #afbaaf;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    main { padding: 0 0 52px; }
+
+    .lead {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(300px, .55fr);
+      align-items: end;
+      gap: 60px;
+      padding: 48px 0 32px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 13px;
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .19em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 28px;
+      height: 2px;
+      content: "";
+      background: var(--gold);
+    }
+
+    h1 {
+      max-width: 920px;
+      margin: 0;
+      font-size: clamp(44px, 6.2vw, 88px);
+      line-height: .88;
+      letter-spacing: -.06em;
+      text-transform: uppercase;
+    }
+
+    h1 span { color: var(--gold); }
+
+    .lead-copy {
+      margin: 0 0 20px;
+      color: var(--cream-dim);
+      font-size: clamp(14px, 1.2vw, 17px);
+      line-height: 1.55;
+    }
+
+    .traits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .traits li {
+      padding: 7px 10px;
+      color: #d8e1d8;
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 850;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
 
     .arena {
       position: relative;
       overflow: hidden;
-      aspect-ratio: 1672 / 941;
-      background: #04120d;
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 18px;
-      box-shadow: 0 24px 64px rgba(0,0,0,.5);
+      aspect-ratio: 2.16 / 1;
+      background: #06110c;
+      border: 1px solid rgba(246, 201, 93, .26);
+      border-radius: 22px;
+      box-shadow: 0 28px 76px rgba(0, 0, 0, .46);
       isolation: isolate;
     }
 
@@ -113,8 +191,8 @@
       content: "";
       pointer-events: none;
       background:
-        linear-gradient(to bottom, rgba(0,0,0,.16), transparent 28%, transparent 78%, rgba(0,0,0,.2)),
-        radial-gradient(circle at 50% 0%, transparent 28%, rgba(0,0,0,.15) 100%);
+        linear-gradient(180deg, rgba(2, 9, 6, .12), transparent 38%, rgba(2, 8, 5, .14)),
+        linear-gradient(90deg, rgba(2, 9, 6, .16), transparent 22%, transparent 78%, rgba(2, 9, 6, .16));
     }
 
     .hero-image {
@@ -122,312 +200,441 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: 50% 48%;
     }
 
-    .hero-title {
+    .arena-kicker {
       position: absolute;
-      top: 5%;
-      left: 50%;
+      top: 18px;
+      left: 20px;
       z-index: 3;
-      width: min(76%, 860px);
-      margin: 0;
-      text-align: center;
-      text-shadow: 0 4px 22px rgba(0,0,0,.7);
-      transform: translateX(-50%);
-    }
-
-    .hero-title small {
-      display: block;
-      margin-bottom: 5px;
-      color: #d8c58f;
-      font-size: clamp(8px, .75vw, 11px);
-      font-weight: 800;
-      letter-spacing: .2em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      color: rgba(255,255,255,.88);
+      background: rgba(4, 11, 7, .62);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 6px;
+      backdrop-filter: blur(10px);
+      font-size: 9px;
+      font-weight: 850;
+      letter-spacing: .12em;
       text-transform: uppercase;
     }
 
-    .hero-title strong {
-      display: block;
-      font-size: clamp(22px, 3.2vw, 46px);
-      line-height: 1;
-      letter-spacing: -.025em;
-      text-transform: uppercase;
-    }
-
-    .hero-title span {
-      display: block;
-      margin-top: 8px;
-      color: rgba(255,255,255,.7);
-      font-size: clamp(8px, .72vw, 11px);
-      font-weight: 650;
-      letter-spacing: .08em;
+    .arena-kicker::before {
+      width: 6px;
+      height: 6px;
+      content: "";
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(244, 201, 93, .14);
     }
 
     .hotspot {
-      --size: clamp(52px, 7vw, 110px);
+      --size: clamp(54px, 7.2vw, 104px);
       position: absolute;
       z-index: 4;
       width: var(--size);
       height: var(--size);
-      border: 0;
       border-radius: 50%;
       outline: none;
       transform: translate(-50%, -50%);
-      transition: filter .2s ease, transform .2s ease;
+      transition: transform .18s ease;
     }
 
     .hotspot::before {
       position: absolute;
-      inset: var(--ring-inset, 17%);
+      inset: 20%;
       content: "";
-      border: 1px solid rgba(255, 218, 124, .64);
+      border: 1px solid rgba(255, 218, 125, .82);
       border-radius: inherit;
-      box-shadow: 0 0 11px rgba(255, 196, 62, .42);
-      animation: breathe 2.8s ease-in-out infinite;
+      box-shadow: 0 0 10px rgba(255, 192, 49, .3);
+      animation: breathe 2.6s ease-in-out infinite;
     }
 
     .hotspot:hover,
-    .hotspot:focus-visible {
-      filter: brightness(1.12);
-      transform: translate(-50%, -50%) scale(1.04);
-    }
+    .hotspot:focus-visible { transform: translate(-50%, -50%) scale(1.035); }
 
-    .hotspot:focus-visible {
-      outline: 3px solid white;
+    .hotspot:focus-visible::before {
+      outline: 2px solid white;
       outline-offset: 3px;
     }
 
     .hotspot-label {
       position: absolute;
-      top: calc(100% + 3px);
+      top: calc(100% - 2px);
       left: 50%;
       min-width: max-content;
-      padding: 5px 8px;
-      color: rgba(255,255,255,.92);
-      background: rgba(4, 8, 6, .72);
-      border: 0;
-      border-radius: 5px;
-      box-shadow: none;
-      backdrop-filter: blur(6px);
-      font-size: clamp(8px, .7vw, 10px);
-      font-weight: 750;
-      letter-spacing: .05em;
+      padding: 6px 9px;
+      color: white;
+      background: rgba(4, 10, 7, .78);
+      border: 1px solid rgba(255,255,255,.19);
+      border-radius: 6px;
+      backdrop-filter: blur(8px);
+      font-size: clamp(7px, .68vw, 10px);
+      font-weight: 900;
+      letter-spacing: .07em;
+      text-transform: uppercase;
       transform: translateX(-50%);
       white-space: nowrap;
     }
 
-    .baseball {
-      --size: clamp(50px, 5.6vw, 88px);
-      --ring-inset: 22%;
-      top: 42.8%;
-      left: 12%;
+    .hotspot-label small {
+      margin-left: 5px;
+      color: var(--gold);
+      font: inherit;
+      font-size: .82em;
     }
 
-    .soccer {
-      --size: clamp(58px, 8.4vw, 132px);
-      --ring-inset: 16%;
-      top: 44.3%;
-      left: 37%;
+    .hotspot.coming { cursor: default; }
+    .hotspot.coming::before {
+      border-color: rgba(255,255,255,.35);
+      box-shadow: none;
+      animation: none;
     }
+    .hotspot.coming .hotspot-label { color: #d0d4d1; }
+    .hotspot.coming .hotspot-label small { color: #9ca9a2; }
 
-    .basketball {
-      --size: clamp(58px, 8.4vw, 132px);
-      --ring-inset: 15%;
-      top: 55%;
-      left: 57.4%;
-    }
-
-    .football {
-      --size: clamp(56px, 7.5vw, 118px);
-      --ring-inset: 18%;
-      top: 42.6%;
-      left: 84.5%;
-    }
+    .baseball { --size: clamp(50px, 5.4vw, 78px); top: 41.5%; left: 12%; }
+    .soccer { --size: clamp(58px, 7.9vw, 114px); top: 42.8%; left: 37%; }
+    .basketball { --size: clamp(58px, 8vw, 116px); top: 56.5%; left: 57.4%; }
+    .football { --size: clamp(58px, 7.3vw, 106px); top: 41.2%; left: 84.5%; }
 
     .online-link {
       position: absolute;
-      right: 3%;
-      bottom: 4.5%;
+      right: 20px;
+      bottom: 18px;
       z-index: 4;
       display: inline-flex;
       align-items: center;
       gap: 9px;
       padding: 10px 13px;
-      color: #f1e6c2;
-      background: rgba(4, 8, 6, .78);
-      border: 1px solid rgba(255,255,255,.22);
+      color: #172118;
+      background: var(--cream);
       border-radius: 7px;
-      box-shadow: 0 10px 28px rgba(0,0,0,.28);
-      font-size: clamp(9px, .86vw, 12px);
-      font-weight: 750;
-      letter-spacing: .06em;
+      box-shadow: 0 12px 30px rgba(0,0,0,.34);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .07em;
       text-decoration: none;
       text-transform: uppercase;
-      transition: transform .2s ease, box-shadow .2s ease;
+      transition: transform .18s ease, background .18s ease;
+    }
+
+    .online-link::before {
+      width: 7px;
+      height: 7px;
+      content: "";
+      background: #239a63;
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(35, 154, 99, .15);
     }
 
     .online-link:hover,
     .online-link:focus-visible {
+      background: var(--gold);
       outline: none;
-      color: white;
-      background: rgba(4, 8, 6, .92);
-      border-color: rgba(246, 206, 104, .58);
-      box-shadow: 0 12px 34px rgba(0,0,0,.42);
       transform: translateY(-2px);
     }
 
-    .online-dot {
-      width: 8px;
-      height: 8px;
-      background: #176d4b;
-      border-radius: 50%;
-      box-shadow: 0 0 0 4px rgba(23, 109, 75, .15);
-    }
+    .editions { padding-top: 54px; }
 
-    .quick-links {
+    .section-head {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: clamp(18px, 3vw, 42px);
-      margin-top: 17px;
+      align-items: end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 20px;
     }
 
-    .quick-links a {
-      padding: 7px 0;
-      color: #8f9b95;
-      background: none;
-      border: 0;
-      border-bottom: 1px solid transparent;
-      border-radius: 0;
-      font-size: 10px;
-      font-weight: 850;
-      letter-spacing: .05em;
-      text-align: center;
-      text-decoration: none;
+    .section-head p {
+      max-width: 430px;
+      margin: 0;
+      color: #9aaca2;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(27px, 3.4vw, 45px);
+      line-height: 1;
+      letter-spacing: -.035em;
       text-transform: uppercase;
-      transition: color .2s ease, border-color .2s ease, background .2s ease;
     }
 
-    .quick-links a:hover,
-    .quick-links a:focus-visible {
-      color: #f3d98e;
-      background: none;
-      border-color: #a88637;
-      outline: none;
+    .edition-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
     }
+
+    .edition {
+      position: relative;
+      display: flex;
+      min-height: 250px;
+      padding: 19px;
+      overflow: hidden;
+      flex-direction: column;
+      color: var(--cream);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.035), transparent 48%),
+        var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      text-decoration: none;
+    }
+
+    .edition::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      content: "";
+      background: var(--accent, var(--gold));
+      opacity: .9;
+    }
+
+    a.edition { transition: transform .18s ease, border-color .18s ease, background .18s ease; }
+    a.edition:hover,
+    a.edition:focus-visible {
+      background-color: #172b21;
+      border-color: rgba(244, 201, 93, .52);
+      outline: none;
+      transform: translateY(-4px);
+    }
+
+    .edition-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: auto;
+    }
+
+    .edition-number {
+      color: #7e9287;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+
+    .status {
+      padding: 5px 7px;
+      color: #0a1c12;
+      background: #7cd9a8;
+      border-radius: 999px;
+      font-size: 7px;
+      font-weight: 950;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .status.soon { color: #b6c0ba; background: rgba(255,255,255,.08); }
+
+    .edition small {
+      display: block;
+      margin: 24px 0 7px;
+      color: #9caf9f;
+      font-size: 9px;
+      font-weight: 850;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .edition h3 {
+      margin: 0;
+      font-size: clamp(21px, 2vw, 28px);
+      line-height: 1;
+      letter-spacing: -.035em;
+      text-transform: uppercase;
+    }
+
+    .edition p {
+      min-height: 40px;
+      margin: 12px 0 20px;
+      color: #a9b8b0;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .edition-cta {
+      color: var(--gold);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .edition.soon-card { opacity: .68; }
+    .edition.soccer-card { --accent: #e4c354; }
+    .edition.football-card { --accent: #c86f45; }
+    .edition.online-card { --accent: #59b887; }
+    .edition.basketball-card { --accent: #d98146; }
+    .edition.baseball-card { --accent: #9eb6c9; }
 
     footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-      min-height: 82px;
-      color: #8da69c;
-      border-top: 1px solid rgba(255,255,255,.08);
-      font-size: 11px;
+      min-height: 92px;
+      color: #81958a;
+      border-top: 1px solid var(--line);
+      font-size: 10px;
     }
 
-    footer strong {
-      color: #dbc990;
-      letter-spacing: .1em;
-    }
+    footer strong { color: #caba86; letter-spacing: .12em; }
 
     @keyframes breathe {
-      0%, 100% { opacity: .48; box-shadow: 0 0 7px rgba(255,196,62,.28); }
-      50% { opacity: .86; box-shadow: 0 0 13px rgba(255,196,62,.48); }
+      0%, 100% { opacity: .58; box-shadow: 0 0 7px rgba(255, 192, 49, .22); }
+      50% { opacity: .95; box-shadow: 0 0 12px rgba(255, 192, 49, .36); }
+    }
+
+    @media (max-width: 1000px) {
+      .lead { grid-template-columns: 1.25fr .75fr; gap: 30px; }
+      .edition-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
 
     @media (max-width: 720px) {
-      .page { width: min(100% - 16px, 1320px); }
-      header { min-height: 68px; }
-      .brand-copy span, .header-label { display: none; }
-      main { padding: 12px 0 30px; }
-      .arena { border-radius: 11px; }
-      .hero-title { top: 4.5%; width: 72%; }
-      .hero-title small { display: none; }
-      .hero-title strong { font-size: clamp(17px, 6vw, 28px); }
-      .hotspot-label {
-        top: calc(100% + 2px);
-        padding: 4px 6px;
-        font-size: 7px;
-        letter-spacing: .07em;
-      }
-      .online-link {
-        right: 2.6%;
-        bottom: 3.5%;
-        gap: 5px;
-        padding: 7px 9px;
-        font-size: 7px;
-      }
-      .online-dot { width: 5px; height: 5px; box-shadow: 0 0 0 3px rgba(23,109,75,.16); }
-      .quick-links { gap: 8px 19px; }
+      .shell { width: min(100% - 20px, 1380px); }
+      header { min-height: 66px; }
+      .brand-card { width: 35px; height: 42px; box-shadow: 4px 4px 0 rgba(183,121,34,.38); }
+      .brand-copy strong { font-size: 11px; }
+      .brand-copy span, .header-note { display: none; }
+      .lead { display: block; padding: 35px 0 23px; }
+      h1 { max-width: 580px; font-size: clamp(42px, 14vw, 66px); }
+      .lead-side { margin-top: 24px; }
+      .lead-copy { max-width: 560px; margin-bottom: 15px; }
+      .arena { aspect-ratio: 1.72 / 1; border-radius: 13px; }
+      .hero-image { object-position: 50% 47%; }
+      .arena-kicker { top: 10px; left: 10px; padding: 6px 8px; font-size: 7px; }
+      .hotspot { display: none; }
+      .online-link { display: none; }
+      .editions { padding-top: 38px; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 10px; }
+      .edition-grid { grid-template-columns: 1fr; gap: 9px; }
+      .edition { min-height: 190px; }
+      .edition p { min-height: 0; }
       footer { align-items: flex-start; flex-direction: column; justify-content: center; gap: 6px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .hotspot::before { animation: none; }
-      .hotspot, .online-link, .quick-links a { transition: none; }
+      .hotspot, a.edition, .online-link { transition: none; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
+  <div class="shell">
     <header>
-      <a class="brand" href="./" aria-label="GSM home">
-        <span class="brand-mark" aria-hidden="true">GSM</span>
+      <a class="brand" href="./" aria-label="Goal-Scoring Moment home">
+        <span class="brand-card" aria-hidden="true">GSM</span>
         <span class="brand-copy">
           <strong>Goal-Scoring Moment</strong>
-          <span>Sports Game Series</span>
+          <span>Sports Card Game Series</span>
         </span>
       </a>
-      <span class="header-label">Soccer · Football · More</span>
+      <span class="header-note">The official game collection</span>
     </header>
 
     <main>
-      <section class="arena" aria-labelledby="hero-heading">
-        <img class="hero-image" src="assets/gsm-sports-hub-hero.webp" alt="Four athletes holding a baseball, soccer ball, basketball and American football in a stadium">
-
-        <h1 class="hero-title" id="hero-heading">
-          <small>Select a sport</small>
-          <strong>Pick your sport</strong>
-          <span>Tap a highlighted ball to enter</span>
-        </h1>
-
-        <a class="hotspot baseball" href="https://lu20140621-png.github.io/goal-scoring-moment-baseball/" aria-label="Open Baseball Edition">
-          <span class="hotspot-label">Baseball</span>
-        </a>
-
-        <a class="hotspot soccer" href="https://lu20140621-png.github.io/goal-scoring-moment/" aria-label="Open Soccer Edition">
-          <span class="hotspot-label">Soccer</span>
-        </a>
-
-        <a class="hotspot basketball" href="https://lu20140621-png.github.io/goal-scoring-moment-basketball/" aria-label="Open Basketball Edition">
-          <span class="hotspot-label">Basketball</span>
-        </a>
-
-        <a class="hotspot football" href="https://lu20140621-png.github.io/goal-scoring-moment-football/" aria-label="Open American Football Edition">
-          <span class="hotspot-label">Football</span>
-        </a>
-
-        <a class="online-link" href="https://lu20140621-png.github.io/goal-scoring-moment-football-online/" aria-label="Play Football Online">
-          <span class="online-dot" aria-hidden="true"></span>
-          Play Football Online
-        </a>
+      <section class="lead" aria-labelledby="main-heading">
+        <div>
+          <div class="eyebrow">Goal-Scoring Moment</div>
+          <h1 id="main-heading">Sports card games.<br><span>Built for game night.</span></h1>
+        </div>
+        <div class="lead-side">
+          <p class="lead-copy">Choose a sport and enter a world of strategy, bluffing, teamwork and big game-night moments.</p>
+          <ul class="traits" aria-label="Game styles">
+            <li>Strategy</li>
+            <li>Bluffing</li>
+            <li>Teamwork</li>
+          </ul>
+        </div>
       </section>
 
-      <nav class="quick-links" aria-label="All GSM websites">
-        <a href="https://lu20140621-png.github.io/goal-scoring-moment/">⚽ Soccer</a>
-        <a href="https://lu20140621-png.github.io/goal-scoring-moment-football/">🏈 Football</a>
-        <a href="https://lu20140621-png.github.io/goal-scoring-moment-football-online/">🎮 Football Online</a>
-        <a href="https://lu20140621-png.github.io/goal-scoring-moment-basketball/">🏀 Basketball</a>
-        <a href="https://lu20140621-png.github.io/goal-scoring-moment-baseball/">⚾ Baseball</a>
-      </nav>
+      <section class="arena" aria-label="Choose a sport from the stadium">
+        <img class="hero-image" src="assets/gsm-sports-hub-hero.webp" alt="Four athletes holding a baseball, soccer ball, basketball and American football in a stadium">
+        <span class="arena-kicker">Select a highlighted ball</span>
+
+        <span class="hotspot baseball coming" aria-label="Baseball card game coming soon">
+          <span class="hotspot-label">Baseball <small>Coming soon</small></span>
+        </span>
+
+        <a class="hotspot soccer" href="https://lu20140621-png.github.io/goal-scoring-moment/" aria-label="Open the Soccer Card Game">
+          <span class="hotspot-label">Soccer <small>Enter</small></span>
+        </a>
+
+        <span class="hotspot basketball coming" aria-label="Basketball card game coming soon">
+          <span class="hotspot-label">Basketball <small>Coming soon</small></span>
+        </span>
+
+        <a class="hotspot football" href="https://lu20140621-png.github.io/goal-scoring-moment-football/" aria-label="Open the Football Card Game">
+          <span class="hotspot-label">Football <small>Enter</small></span>
+        </a>
+
+        <a class="online-link" href="https://lu20140621-png.github.io/goal-scoring-moment-football-online/">Play Football Online</a>
+      </section>
+
+      <section class="editions" aria-labelledby="editions-heading">
+        <div class="section-head">
+          <h2 id="editions-heading">Choose your edition</h2>
+          <p>Open a live game page or preview which sport is joining the GSM collection next.</p>
+        </div>
+
+        <div class="edition-grid">
+          <a class="edition soccer-card" href="https://lu20140621-png.github.io/goal-scoring-moment/">
+            <span class="edition-top"><span class="edition-number">01</span><span class="status">Live</span></span>
+            <small>Sports Card Game</small>
+            <h3>Soccer</h3>
+            <p>Hidden roles, teamwork and bluffing around the world’s game.</p>
+            <span class="edition-cta">Explore the edition →</span>
+          </a>
+
+          <a class="edition football-card" href="https://lu20140621-png.github.io/goal-scoring-moment-football/">
+            <span class="edition-top"><span class="edition-number">02</span><span class="status">Live</span></span>
+            <small>Sports Card Game</small>
+            <h3>Football</h3>
+            <p>A tactical card-game experience inspired by American football.</p>
+            <span class="edition-cta">Explore the edition →</span>
+          </a>
+
+          <a class="edition online-card" href="https://lu20140621-png.github.io/goal-scoring-moment-football-online/">
+            <span class="edition-top"><span class="edition-number">03</span><span class="status">Play</span></span>
+            <small>Browser Game</small>
+            <h3>Football Online</h3>
+            <p>Enter the interactive football experience directly in your browser.</p>
+            <span class="edition-cta">Play online →</span>
+          </a>
+
+          <article class="edition soon-card basketball-card" aria-label="Basketball Card Game coming soon">
+            <span class="edition-top"><span class="edition-number">04</span><span class="status soon">Coming soon</span></span>
+            <small>Sports Card Game</small>
+            <h3>Basketball</h3>
+            <p>The next competitive sport to join the GSM card-game collection.</p>
+            <span class="edition-cta">In development</span>
+          </article>
+
+          <article class="edition soon-card baseball-card" aria-label="Baseball Card Game coming soon">
+            <span class="edition-top"><span class="edition-number">05</span><span class="status soon">Coming soon</span></span>
+            <small>Sports Card Game</small>
+            <h3>Baseball</h3>
+            <p>A future GSM edition built around baseball strategy and rivalry.</p>
+            <span class="edition-cta">In development</span>
+          </article>
+        </div>
+      </section>
     </main>
 
     <footer>
       <strong>GOAL-SCORING MOMENT</strong>
-      <span>One brand. Every sport. More ways to play.</span>
+      <span>One sports card-game universe. More ways to play.</span>
     </footer>
   </div>
 </body>
