@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#174c36">
+  <meta name="theme-color" content="#0b3041">
   <meta name="description" content="Goal-Scoring Moment is a collection of sports-themed card games built for game night. Choose a sport and enter the game.">
   <title>GSM | Sports Card Games</title>
   <style>
     :root {
-      --ink: #174c36;
-      --ink-soft: #1d5941;
-      --panel: #215e46;
+      --ink: #0b3041;
+      --ink-soft: #104653;
+      --panel: #185449;
       --cream: #f6f1e6;
       --cream-dim: #cfc8b9;
       --gold: #f4c95d;
@@ -23,20 +23,36 @@
     html { scroll-behavior: smooth; }
 
     body {
+      position: relative;
       min-height: 100vh;
       margin: 0;
       color: var(--cream);
       background:
-        radial-gradient(circle at 10% 2%, rgba(255, 218, 113, .2), transparent 30rem),
-        radial-gradient(circle at 92% 24%, rgba(89, 225, 166, .22), transparent 34rem),
-        linear-gradient(180deg, rgba(255,255,255,.045), transparent 38rem),
-        var(--ink);
+        radial-gradient(circle at 8% 7%, rgba(39, 202, 241, .38), transparent 31rem),
+        radial-gradient(circle at 90% 16%, rgba(255, 164, 77, .34), transparent 34rem),
+        radial-gradient(circle at 58% 78%, rgba(76, 221, 150, .3), transparent 38rem),
+        radial-gradient(circle at 18% 92%, rgba(158, 102, 224, .28), transparent 31rem),
+        linear-gradient(135deg, #0b2635 0%, #0d4658 36%, #205b49 68%, #3b294d 100%);
+      background-attachment: fixed;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       -webkit-font-smoothing: antialiased;
     }
 
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      content: "";
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, transparent 49.9%, rgba(255,255,255,.055) 50%, transparent 50.1%),
+        radial-gradient(circle at 50% 53%, transparent 0 7.4rem, rgba(255,255,255,.05) 7.45rem 7.55rem, transparent 7.6rem),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.014) 0 9rem, rgba(0,0,0,.018) 9rem 18rem);
+      opacity: .72;
+    }
+
     a { color: inherit; }
-    .shell { width: min(1380px, calc(100% - 40px)); margin: 0 auto; }
+    .shell { position: relative; z-index: 1; width: min(1380px, calc(100% - 40px)); margin: 0 auto; }
 
     header {
       display: flex;
@@ -363,26 +379,23 @@
       min-height: 340px;
       padding: 0;
       overflow: hidden;
-      color: #10271c;
-      background: #f1d56f;
-      border: 1px solid rgba(255,255,255,.56);
+      color: #fff;
+      background: #071722;
+      border: 1px solid rgba(255,255,255,.25);
       border-radius: 21px;
-      box-shadow: 0 22px 52px rgba(5, 36, 23, .25);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, .34);
       cursor: pointer;
-      font: inherit;
       isolation: isolate;
-      text-align: left;
       transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
     }
 
     .feature-card::before {
       position: absolute;
       inset: 0;
-      z-index: 0;
+      z-index: 2;
       content: "";
-      background:
-        radial-gradient(circle at 84% 16%, rgba(255,255,255,.5), transparent 13rem),
-        repeating-linear-gradient(135deg, transparent 0 36px, rgba(255,255,255,.07) 36px 38px);
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(4,15,21,.97) 0%, rgba(4,15,21,.9) 43%, rgba(4,15,21,.48) 66%, rgba(4,15,21,.08) 100%);
     }
 
     .feature-card::after {
@@ -399,25 +412,43 @@
 
     .feature-card:hover {
       border-color: rgba(255,255,255,.92);
-      box-shadow: 0 30px 66px rgba(5, 36, 23, .34);
+      box-shadow: 0 32px 72px rgba(0, 0, 0, .46), 0 0 42px color-mix(in srgb, var(--feature-accent) 28%, transparent);
       transform: translateY(-7px) scale(1.01);
     }
 
-    .feature-card:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
-    .tutorial-feature {
-      --feature-accent: #b78413;
-      background: linear-gradient(135deg, #ffe69a 0%, #f4ca55 100%);
+    .feature-card:has(.feature-hitbox:focus-visible) { outline: 3px solid #fff; outline-offset: 3px; }
+    .tutorial-feature { --feature-accent: #ffd65a; }
+    .multiplayer-feature { --feature-accent: #4de3f1; }
+
+    .feature-art {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform .6s cubic-bezier(.2,.72,.2,1), filter .3s ease;
     }
-    .multiplayer-feature {
-      --feature-accent: #12845a;
-      background: linear-gradient(135deg, #b9f3d5 0%, #58d69b 100%);
+
+    .feature-card:hover .feature-art { filter: saturate(1.08) contrast(1.03); transform: scale(1.035); }
+
+    .feature-hitbox {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      border-radius: inherit;
+      cursor: pointer;
     }
 
     .feature-content {
       position: relative;
       z-index: 3;
       display: flex;
-      width: 58%;
+      width: 62%;
       min-height: 340px;
       padding: 32px;
       flex-direction: column;
@@ -429,7 +460,7 @@
       align-items: center;
       gap: 8px;
       margin-bottom: 10px;
-      color: #2c4e3d;
+      color: var(--feature-accent);
       font-size: 8px;
       font-weight: 950;
       letter-spacing: .15em;
@@ -440,7 +471,7 @@
       width: 19px;
       height: 2px;
       content: "";
-      background: #183e2c;
+      background: var(--feature-accent);
     }
 
     .feature-card h2 {
@@ -455,7 +486,7 @@
     .feature-card p {
       max-width: 420px;
       margin: 14px 0 23px;
-      color: #315344;
+      color: #d3dfdb;
       font-size: 12px;
       line-height: 1.55;
     }
@@ -468,10 +499,10 @@
       align-items: center;
       justify-content: center;
       gap: 9px;
-      color: #fff;
-      background: #153d2b;
+      color: #071722;
+      background: var(--feature-accent);
       border-radius: 9px;
-      box-shadow: 0 10px 24px rgba(8, 45, 29, .2);
+      box-shadow: 0 10px 26px color-mix(in srgb, var(--feature-accent) 24%, transparent);
       font-size: 9px;
       font-weight: 950;
       letter-spacing: .09em;
@@ -485,81 +516,6 @@
     }
 
     .feature-card:hover .feature-open::after { transform: translateX(4px); }
-
-    .portal-preview {
-      position: absolute;
-      top: 28px;
-      right: 26px;
-      bottom: 28px;
-      z-index: 3;
-      display: flex;
-      width: 36%;
-      padding: 16px;
-      flex-direction: column;
-      background: rgba(255,255,255,.58);
-      border: 1px solid rgba(255,255,255,.72);
-      border-radius: 16px;
-      box-shadow: 0 18px 38px rgba(21, 61, 43, .18);
-      backdrop-filter: blur(10px);
-      transform: rotate(1.5deg);
-      transition: transform .25s ease;
-    }
-
-    .feature-card:hover .portal-preview { transform: rotate(0) translateY(-3px); }
-
-    .preview-label {
-      display: block;
-      margin-bottom: 10px;
-      color: #214c38;
-      font-size: 8px;
-      font-weight: 950;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .preview-sports {
-      display: grid;
-      min-height: 0;
-      flex: 1;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 7px;
-    }
-
-    .preview-sport {
-      position: relative;
-      display: flex;
-      min-height: 0;
-      overflow: hidden;
-      align-items: flex-end;
-      color: #fff;
-      background: #153d2b;
-      border-radius: 10px;
-      font-size: 7px;
-      font-weight: 900;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-    }
-
-    .preview-sport img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: 50% 65%;
-      filter: brightness(.74) saturate(.86);
-      transition: transform .3s ease;
-    }
-
-    .feature-card:hover .preview-sport img { transform: scale(1.08); }
-
-    .preview-sport span {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      padding: 8px;
-      background: linear-gradient(0deg, rgba(5,22,14,.88), transparent);
-    }
 
     .portal-dialog {
       width: min(880px, calc(100% - 28px));
@@ -1030,21 +986,15 @@
       .sport-panel:focus-visible { transform: none; }
       .arena-kicker { top: 22px; left: 10px; padding: 6px 8px; font-size: 7px; }
       .feature-grid { padding-top: 25px; gap: 10px; }
-      .feature-card { min-height: 555px; }
+      .feature-card { min-height: 520px; }
+      .feature-card::before {
+        background: linear-gradient(0deg, rgba(4,15,21,.98) 0%, rgba(4,15,21,.9) 47%, rgba(4,15,21,.54) 68%, rgba(4,15,21,.08) 100%);
+      }
       .feature-card:hover { transform: none; }
-      .feature-content { width: 100%; min-height: 0; padding: 26px 22px 20px; }
+      .feature-art { object-position: 68% center; }
+      .feature-content { width: 100%; min-height: 520px; padding: 26px 22px; justify-content: flex-end; }
       .feature-card h2 { font-size: 34px; }
       .feature-card p { max-width: none; margin: 11px 0 17px; }
-      .portal-preview {
-        position: relative;
-        top: auto;
-        right: auto;
-        bottom: auto;
-        width: auto;
-        height: 278px;
-        margin: 0 18px 18px;
-        transform: none;
-      }
       .dialog-inner { padding: 27px 17px 20px; }
       .portal-dialog h2 { padding-right: 42px; font-size: 32px; }
       .sport-choice-grid { grid-template-columns: 1fr; }
@@ -1063,7 +1013,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .sport-panel, .sport-panel img, .feature-card, .portal-preview, .preview-sport img,
+      .sport-panel, .sport-panel img, .feature-card, .feature-art,
       .sport-choice, .edition, .edition-visual img, .edition-body { transition: none; }
     }
   </style>
@@ -1144,41 +1094,27 @@
       </section>
 
       <section class="feature-grid" aria-label="Learn the game and play online">
-        <button class="feature-card tutorial-feature" type="button" data-open-dialog="tutorial-dialog" aria-haspopup="dialog">
+        <article class="feature-card tutorial-feature">
+          <img class="feature-art" src="assets/tutorial-hub-v2.webp" alt="Sports tutorial command center with tactical playbooks, game cards and four sports balls" loading="lazy">
           <div class="feature-content">
             <span class="feature-eyebrow">Learn the game</span>
-            <h2>Interactive Tutorials</h2>
+            <h2 id="tutorial-card-title">Interactive Tutorials</h2>
             <p>Choose your sport, then learn by playing through guided, step-by-step lessons. No app or account required.</p>
             <span class="feature-open">Choose a tutorial</span>
           </div>
-          <div class="portal-preview" aria-hidden="true">
-            <span class="preview-label">Tutorial hub</span>
-            <div class="preview-sports">
-              <span class="preview-sport"><img src="assets/edition-soccer-ball.webp" alt=""><span>Soccer</span></span>
-              <span class="preview-sport"><img src="assets/edition-basketball-ball.webp" alt=""><span>Basketball</span></span>
-              <span class="preview-sport"><img src="assets/edition-football-ball.webp" alt=""><span>Football</span></span>
-              <span class="preview-sport"><img src="assets/edition-baseball-ball.webp" alt=""><span>Baseball</span></span>
-            </div>
-          </div>
-        </button>
+          <button class="feature-hitbox" type="button" data-open-dialog="tutorial-dialog" aria-haspopup="dialog" aria-labelledby="tutorial-card-title"></button>
+        </article>
 
-        <button class="feature-card multiplayer-feature" type="button" data-open-dialog="multiplayer-dialog" aria-haspopup="dialog">
+        <article class="feature-card multiplayer-feature">
+          <img class="feature-art" src="assets/multiplayer-hub-v2.webp" alt="Online sports multiplayer lobby with four sport portals, connected game tables and room-code slots" loading="lazy">
           <div class="feature-content">
             <span class="feature-eyebrow">Play with a friend</span>
-            <h2>Online Multiplayer</h2>
+            <h2 id="multiplayer-card-title">Online Multiplayer</h2>
             <p>Choose a sport, create a private room, and share the room code to play head-to-head with a friend.</p>
             <span class="feature-open">Choose multiplayer</span>
           </div>
-          <div class="portal-preview" aria-hidden="true">
-            <span class="preview-label">Multiplayer lobby</span>
-            <div class="preview-sports">
-              <span class="preview-sport"><img src="assets/edition-soccer-ball.webp" alt=""><span>Soccer</span></span>
-              <span class="preview-sport"><img src="assets/edition-basketball-ball.webp" alt=""><span>Basketball</span></span>
-              <span class="preview-sport"><img src="assets/edition-football-ball.webp" alt=""><span>Football</span></span>
-              <span class="preview-sport"><img src="assets/edition-baseball-ball.webp" alt=""><span>Baseball</span></span>
-            </div>
-          </div>
-        </button>
+          <button class="feature-hitbox" type="button" data-open-dialog="multiplayer-dialog" aria-haspopup="dialog" aria-labelledby="multiplayer-card-title"></button>
+        </article>
       </section>
 
       <dialog class="portal-dialog" id="tutorial-dialog" aria-labelledby="tutorial-dialog-title">
