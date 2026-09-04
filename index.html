@@ -1,1957 +1,278 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fff8e9">
-  <meta name="description" content="Goal-Scoring Moment is a collection of sports-themed card games built for game night. Choose a sport and enter the game.">
-  <title>GSM | Sports Card Games</title>
-  <style>
-    :root {
-      --ink: #0b3041;
-      --ink-soft: #104653;
-      --panel: #185449;
-      --cream: #f6f1e6;
-      --cream-dim: #cfc8b9;
-      --gold: #f4c95d;
-      --gold-deep: #b77922;
-      --green: #42a477;
-      --line: rgba(246, 241, 230, .13);
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      position: relative;
-      min-height: 100vh;
-      margin: 0;
-      overflow-x: hidden;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 5% 14%, rgba(255, 197, 61, .32), transparent 24rem),
-        radial-gradient(circle at 94% 20%, rgba(31, 189, 209, .24), transparent 29rem),
-        radial-gradient(circle at 76% 84%, rgba(124, 89, 219, .18), transparent 31rem),
-        radial-gradient(circle at 16% 91%, rgba(255, 105, 71, .18), transparent 27rem),
-        linear-gradient(135deg, #fffaf0 0%, #f9f2df 42%, #eaf8f3 74%, #f3edff 100%);
-      background-attachment: fixed;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    body::before {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      content: "";
-      pointer-events: none;
-      background:
-        linear-gradient(90deg, transparent 49.92%, rgba(11,48,65,.035) 50%, transparent 50.08%),
-        radial-gradient(circle at 50% 53%, transparent 0 7.4rem, rgba(11,48,65,.035) 7.45rem 7.55rem, transparent 7.6rem),
-        repeating-linear-gradient(90deg, rgba(255,255,255,.16) 0 9rem, rgba(11,48,65,.012) 9rem 18rem);
-      opacity: .85;
-    }
-
-    a { color: inherit; }
-    .shell { position: relative; z-index: 1; width: min(1440px, calc(100% - 40px)); margin: 0 auto; }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 76px;
-      padding: 0 4px;
-      border-bottom: 1px solid rgba(11,48,65,.14);
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .brand-card {
-      position: relative;
-      display: grid;
-      width: 42px;
-      height: 42px;
-      place-items: center;
-      overflow: hidden;
-      color: #0b3041;
-      background: linear-gradient(145deg, #ffe798, #f4bd43);
-      border: 1px solid rgba(255,255,255,.58);
-      border-radius: 10px;
-      box-shadow: 0 7px 16px rgba(4, 18, 24, .2);
-      font-size: 10px;
-      font-weight: 950;
-      letter-spacing: .08em;
-      transform: rotate(-2deg);
-    }
-
-    .brand-card::after {
-      position: absolute;
-      right: 5px;
-      bottom: 5px;
-      width: 5px;
-      height: 5px;
-      content: "";
-      background: #18271f;
-      border-radius: 50%;
-    }
-
-    .brand-copy strong,
-    .brand-copy span { display: block; }
-
-    .brand-copy strong {
-      font-size: 13px;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-    }
-
-    .brand-copy span {
-      margin-top: 3px;
-      color: #5d7880;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-    }
-
-    .site-nav {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-    }
-
-    .site-nav a {
-      position: relative;
-      padding: 29px 0 25px;
-      color: #315765;
-      text-decoration: none;
-      font-size: 9px;
-      font-weight: 900;
-      letter-spacing: .13em;
-      text-transform: uppercase;
-    }
-
-    .site-nav a::after {
-      position: absolute;
-      right: 0;
-      bottom: -1px;
-      left: 0;
-      height: 2px;
-      content: "";
-      background: #ffd15d;
-      transform: scaleX(0);
-      transform-origin: center;
-      transition: transform .2s ease;
-    }
-
-    .site-nav a:hover::after,
-    .site-nav a:focus-visible::after { transform: scaleX(1); }
-
-    .site-nav a:hover,
-    .site-nav a:focus-visible { outline: none; color: #081f2a; }
-
-    main { padding: 0 0 52px; }
-
-    .lead {
-      position: relative;
-      display: grid;
-      min-height: 302px;
-      margin-top: 18px;
-      padding: 42px 48px;
-      overflow: hidden;
-      align-items: center;
-      grid-template-columns: minmax(0, 1fr) 390px;
-      gap: 34px;
-      color: #fff;
-      background:
-        radial-gradient(circle at 74% 16%, rgba(126,232,202,.42), transparent 17rem),
-        radial-gradient(circle at 100% 100%, rgba(255,190,82,.42), transparent 22rem),
-        linear-gradient(118deg, #095268 0%, #0b7480 55%, #df6b3a 100%);
-      border: 1px solid rgba(255,255,255,.3);
-      border-radius: 20px;
-      box-shadow: 0 24px 55px rgba(2, 19, 27, .25);
-      isolation: isolate;
-    }
-
-    .lead::before {
-      position: absolute;
-      top: -176px;
-      right: 42px;
-      z-index: -1;
-      width: 500px;
-      height: 500px;
-      content: "";
-      border: 2px solid rgba(255,255,255,.14);
-      border-radius: 50%;
-      box-shadow: inset 0 0 0 82px rgba(255,255,255,.025), inset 0 0 0 164px rgba(255,255,255,.018);
-    }
-
-    .lead::after {
-      position: absolute;
-      bottom: -32px;
-      left: -28px;
-      z-index: -1;
-      width: 285px;
-      height: 88px;
-      content: "";
-      background: repeating-linear-gradient(135deg, rgba(255,255,255,.1) 0 8px, transparent 8px 19px);
-      transform: rotate(-4deg);
-    }
-
-    .lead-primary { position: relative; z-index: 2; }
-
-    .eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 13px;
-      color: #ffe19a;
-      font-size: 9px;
-      font-weight: 900;
-      letter-spacing: .19em;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before {
-      width: 28px;
-      height: 2px;
-      content: "";
-      background: #ffe19a;
-    }
-
-    h1 {
-      max-width: 760px;
-      margin: 0;
-      color: #fff;
-      font-size: clamp(48px, 5.6vw, 78px);
-      line-height: .94;
-      letter-spacing: -.06em;
-      text-transform: uppercase;
-    }
-
-    .lead-summary {
-      max-width: 530px;
-      margin: 15px 0 0;
-      color: rgba(255,255,255,.79);
-      font-size: clamp(13px, 1.05vw, 15px);
-      line-height: 1.55;
-    }
-
-    .lead-actions {
-      display: flex;
-      align-items: center;
-      margin-top: 21px;
-    }
-
-    .lead-cta {
-      display: inline-flex;
-      min-height: 44px;
-      padding: 0 18px;
-      align-items: center;
-      gap: 11px;
-      color: #123944;
-      background: #ffd15d;
-      border-radius: 10px;
-      box-shadow: 0 12px 26px rgba(3,35,45,.22);
-      text-decoration: none;
-      font-size: 9px;
-      font-weight: 950;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-      transition: transform .22s ease, background .22s ease, box-shadow .22s ease;
-    }
-
-    .lead-cta::after { content: "→"; font-size: 15px; }
-    .lead-cta:hover,
-    .lead-cta:focus-visible {
-      color: #fff;
-      background: #133f4b;
-      box-shadow: 0 14px 30px rgba(3,35,45,.28);
-      outline: none;
-      transform: translateY(-2px);
-    }
-
-    .hero-deck {
-      position: relative;
-      z-index: 2;
-      width: 370px;
-      height: 224px;
-      margin-left: auto;
-    }
-
-    .hero-card {
-      position: absolute;
-      top: 5px;
-      left: 115px;
-      display: grid;
-      width: 142px;
-      height: 205px;
-      place-items: center;
-      color: #0a3b47;
-      background: #f9f4e8;
-      border: 1px solid rgba(255,255,255,.8);
-      border-radius: 15px;
-      box-shadow: 0 20px 34px rgba(1,27,35,.28);
-      font-size: 17px;
-      font-weight: 950;
-      letter-spacing: .08em;
-      transform-origin: 50% 90%;
-      transition: transform .35s cubic-bezier(.2,.75,.2,1);
-    }
-
-    .hero-card::before {
-      position: absolute;
-      inset: 9px;
-      content: "";
-      border: 1px solid currentColor;
-      border-radius: 10px;
-      opacity: .28;
-    }
-
-    .hero-card::after {
-      position: absolute;
-      width: 58px;
-      height: 58px;
-      content: "";
-      border: 2px solid currentColor;
-      border-radius: 50%;
-      opacity: .22;
-    }
-
-    .hero-card:nth-child(1) { color: #18536c; background: #d9eff5; transform: translateX(-86px) translateY(13px) rotate(-18deg); }
-    .hero-card:nth-child(2) { color: #795812; background: #ffe18b; transform: translateX(-30px) rotate(-7deg); }
-    .hero-card:nth-child(3) { color: #125944; background: #aee8cb; transform: translateX(30px) rotate(7deg); }
-    .hero-card:nth-child(4) { color: #7d321f; background: #f5a17d; transform: translateX(86px) translateY(13px) rotate(18deg); }
-
-    .lead:hover .hero-card:nth-child(1) { transform: translateX(-98px) translateY(10px) rotate(-21deg); }
-    .lead:hover .hero-card:nth-child(2) { transform: translateX(-34px) translateY(-4px) rotate(-8deg); }
-    .lead:hover .hero-card:nth-child(3) { transform: translateX(34px) translateY(-4px) rotate(8deg); }
-    .lead:hover .hero-card:nth-child(4) { transform: translateX(98px) translateY(10px) rotate(21deg); }
-
-    .arena {
-      position: relative;
-      height: clamp(470px, 44vw, 620px);
-      margin-top: 4px;
-      isolation: isolate;
-    }
-
-    .sport-panels {
-      display: grid;
-      height: 100%;
-      padding: 11px 0;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 9px;
-    }
-
-    .sport-panel {
-      --panel-accent: var(--gold);
-      position: relative;
-      display: block;
-      min-width: 0;
-      overflow: hidden;
-      color: white;
-      background: #07120c;
-      border: 1px solid rgba(255,255,255,.13);
-      border-radius: 18px;
-      box-shadow: 0 18px 42px rgba(0,0,0,.34);
-      text-decoration: none;
-      transform: translateZ(0);
-      transform-origin: center;
-      transition: transform .3s cubic-bezier(.2,.75,.2,1), box-shadow .3s ease, filter .3s ease, border-color .3s ease;
-      will-change: transform;
-    }
-
-    .sport-panel::before {
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      z-index: 4;
-      height: 4px;
-      content: "";
-      background: var(--panel-accent);
-    }
-
-    .sport-panel::after {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      content: "";
-      pointer-events: none;
-      background:
-        linear-gradient(180deg, rgba(1,7,4,.12) 15%, transparent 48%),
-        linear-gradient(0deg, rgba(2,10,6,.96), rgba(2,10,6,.1) 50%, transparent 72%);
-    }
-
-    .sport-panel img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: 50% 31%;
-      transition: transform .48s cubic-bezier(.2,.75,.2,1), filter .3s ease;
-    }
-
-    .sport-panels:hover .sport-panel:not(:hover) { filter: brightness(.66) saturate(.72); }
-
-    .sport-panel:hover,
-    .sport-panel:focus-visible {
-      z-index: 8;
-      border-color: var(--panel-accent);
-      box-shadow: 0 34px 70px rgba(0,0,0,.62), 0 0 0 1px var(--panel-accent);
-      outline: none;
-      transform: translateY(-9px) scale(1.028);
-    }
-
-    .sport-panel:hover img,
-    .sport-panel:focus-visible img { transform: scale(1.055); }
-
-    .panel-baseball { --panel-accent: #a8c5d4; }
-    .panel-soccer { --panel-accent: #e4c354; }
-    .panel-basketball { --panel-accent: #df8348; }
-    .panel-football { --panel-accent: #c86f45; }
-
-    .sport-panel.coming { cursor: default; }
-    .sport-panel.coming img { filter: saturate(.76) brightness(.82); }
-
-    .sport-copy {
-      position: absolute;
-      right: 17px;
-      bottom: 18px;
-      left: 17px;
-      z-index: 3;
-    }
-
-    .sport-copy small,
-    .sport-copy strong,
-    .sport-copy span { display: block; }
-
-    .sport-copy small {
-      margin-bottom: 6px;
-      color: var(--panel-accent);
-      font-size: 8px;
-      font-weight: 900;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-
-    .sport-copy strong {
-      font-size: clamp(22px, 2.4vw, 36px);
-      line-height: .94;
-      letter-spacing: -.045em;
-      text-transform: uppercase;
-    }
-
-    .sport-copy span {
-      margin-top: 10px;
-      color: rgba(255,255,255,.7);
-      font-size: 8px;
-      font-weight: 850;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-    }
-
-    .sport-panel:not(.coming) .sport-copy span { color: #f5d780; }
-
-    .panel-number {
-      position: absolute;
-      top: 17px;
-      right: 16px;
-      z-index: 3;
-      display: grid;
-      width: 31px;
-      height: 31px;
-      place-items: center;
-      color: white;
-      background: rgba(3,10,6,.58);
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 8px;
-      backdrop-filter: blur(8px);
-      font-size: 9px;
-      font-weight: 900;
-    }
-
-    .arena-kicker {
-      position: absolute;
-      top: 28px;
-      left: 16px;
-      z-index: 12;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 10px;
-      color: rgba(255,255,255,.9);
-      background: rgba(4,11,7,.7);
-      border: 1px solid rgba(255,255,255,.16);
-      border-radius: 7px;
-      backdrop-filter: blur(10px);
-      font-size: 8px;
-      font-weight: 900;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      pointer-events: none;
-    }
-
-    .arena-kicker::before {
-      width: 6px;
-      height: 6px;
-      content: "";
-      background: var(--gold);
-      border-radius: 50%;
-      box-shadow: 0 0 0 3px rgba(244,201,93,.14);
-    }
-
-    .hero-carousel {
-      position: relative;
-      margin-top: 18px;
-      overflow: hidden;
-      background: #087b79;
-      border: 1px solid rgba(255,255,255,.78);
-      border-radius: 26px;
-      box-shadow: 0 28px 70px rgba(23, 72, 87, .24);
-      isolation: isolate;
-    }
-
-    .hero-viewport {
-      overflow: hidden;
-      cursor: grab;
-      touch-action: pan-y;
-      user-select: none;
-    }
-
-    .hero-viewport.is-dragging { cursor: grabbing; }
-
-    .hero-track {
-      display: flex;
-      transform: translate3d(calc(var(--hero-index, 0) * -100%), 0, 0);
-      transition: transform .72s cubic-bezier(.22,.76,.24,1);
-      will-change: transform;
-    }
-
-    .hero-viewport.is-dragging .hero-track { transition: none; }
-
-    .hero-slide {
-      --hero-a: #097a72;
-      --hero-b: #24bda1;
-      --hero-c: #f8d552;
-      position: relative;
-      display: grid;
-      min-width: 100%;
-      min-height: clamp(520px, 42vw, 600px);
-      padding: 64px 76px 74px;
-      overflow: hidden;
-      align-items: center;
-      grid-template-columns: minmax(0, 1.08fr) minmax(360px, .92fr);
-      gap: 38px;
-      color: #fff;
-      background:
-        radial-gradient(circle at 83% 22%, rgba(255,255,255,.25), transparent 15rem),
-        radial-gradient(circle at 96% 92%, var(--hero-c), transparent 27rem),
-        linear-gradient(118deg, var(--hero-a) 0%, var(--hero-b) 65%, color-mix(in srgb, var(--hero-c) 72%, white) 100%);
-      isolation: isolate;
-    }
-
-    .hero-slide::before {
-      position: absolute;
-      top: 50%;
-      right: -70px;
-      z-index: -1;
-      width: 570px;
-      height: 570px;
-      content: "";
-      border: 2px solid rgba(255,255,255,.2);
-      border-radius: 50%;
-      box-shadow: inset 0 0 0 92px rgba(255,255,255,.045), inset 0 0 0 184px rgba(255,255,255,.025);
-      transform: translateY(-50%);
-    }
-
-    .hero-slide::after {
-      position: absolute;
-      right: 0;
-      bottom: -18px;
-      left: 0;
-      z-index: -1;
-      content: attr(data-sport);
-      color: rgba(255,255,255,.09);
-      font-size: clamp(90px, 13vw, 186px);
-      font-weight: 950;
-      line-height: .72;
-      letter-spacing: -.07em;
-      text-align: center;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .slide-soccer { --hero-a: #006d70; --hero-b: #12ac91; --hero-c: #f8d64e; }
-    .slide-football { --hero-a: #123779; --hero-b: #4061c5; --hero-c: #bce45a; }
-    .slide-basketball { --hero-a: #8b2b75; --hero-b: #dc4d38; --hero-c: #ffb34d; }
-    .slide-baseball { --hero-a: #0b64a2; --hero-b: #21a7be; --hero-c: #ff7258; }
-
-    .hero-copy {
-      position: relative;
-      z-index: 3;
-      max-width: 670px;
-      opacity: 0;
-      transform: translateX(-30px);
-      transition: opacity .46s ease .18s, transform .58s cubic-bezier(.2,.75,.2,1) .12s;
-    }
-
-    .hero-slide.is-active .hero-copy { opacity: 1; transform: translateX(0); }
-
-    .hero-kicker {
-      display: inline-flex;
-      min-height: 28px;
-      padding: 0 11px;
-      align-items: center;
-      gap: 8px;
-      color: #123845;
-      background: rgba(255,255,255,.92);
-      border: 1px solid rgba(255,255,255,.94);
-      border-radius: 999px;
-      box-shadow: 0 8px 22px rgba(4,40,53,.14);
-      font-size: 8px;
-      font-weight: 950;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-
-    .hero-kicker::before {
-      width: 7px;
-      height: 7px;
-      content: "";
-      background: var(--hero-c);
-      border: 2px solid #123845;
-      border-radius: 50%;
-    }
-
-    .hero-title {
-      max-width: 720px;
-      margin: 18px 0 0;
-      color: #fff;
-      font-size: clamp(52px, 6.25vw, 86px);
-      line-height: .87;
-      letter-spacing: -.065em;
-      text-shadow: 0 5px 25px rgba(2,30,38,.16);
-    }
-
-    .hero-description {
-      max-width: 560px;
-      margin: 21px 0 0;
-      color: rgba(255,255,255,.88);
-      font-size: clamp(13px, 1.15vw, 16px);
-      font-weight: 560;
-      line-height: 1.55;
-    }
-
-    .hero-actions {
-      display: flex;
-      margin-top: 25px;
-      align-items: center;
-      gap: 13px;
-    }
-
-    .hero-button,
-    .hero-coming {
-      display: inline-flex;
-      min-height: 47px;
-      padding: 0 19px;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      color: #0b3041;
-      background: #fff;
-      border: 2px solid #fff;
-      border-radius: 10px;
-      box-shadow: 0 14px 28px rgba(2,35,45,.2);
-      text-decoration: none;
-      font-size: 9px;
-      font-weight: 950;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-    }
-
-    .hero-button::after { content: "→"; font-size: 15px; transition: transform .2s ease; }
-    .hero-button:hover,
-    .hero-button:focus-visible { color: #fff; background: #0b3041; border-color: #0b3041; outline: none; }
-    .hero-button:hover::after,
-    .hero-button:focus-visible::after { transform: translateX(4px); }
-
-    .hero-coming { color: rgba(255,255,255,.88); background: rgba(7,34,45,.22); border-color: rgba(255,255,255,.5); box-shadow: none; }
-
-    .hero-art {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      min-height: 450px;
-      place-items: center;
-      opacity: 0;
-      transform: translateX(40px) scale(.96);
-      transition: opacity .5s ease .12s, transform .68s cubic-bezier(.2,.75,.2,1) .08s;
-    }
-
-    .hero-slide.is-active .hero-art { opacity: 1; transform: translateX(0) scale(1); }
-
-    .hero-athlete-card {
-      position: relative;
-      z-index: 3;
-      width: min(318px, 78%);
-      aspect-ratio: 2 / 3;
-      padding: 7px;
-      overflow: hidden;
-      background: #fff;
-      border: 1px solid rgba(255,255,255,.86);
-      border-radius: 22px;
-      box-shadow: 0 30px 55px rgba(4,36,47,.3), 14px 16px 0 rgba(255,255,255,.18);
-      transform: rotate(2.5deg);
-      animation: hero-card-float 4.8s ease-in-out infinite;
-    }
-
-    .hero-athlete-card img { display: block; width: 100%; height: 100%; object-fit: contain; background: #0c1e20; border-radius: 16px; pointer-events: none; }
-
-    .hero-athlete-label {
-      position: absolute;
-      right: 20px;
-      bottom: 20px;
-      left: 20px;
-      z-index: 4;
-      display: flex;
-      min-height: 42px;
-      padding: 0 13px;
-      align-items: center;
-      justify-content: space-between;
-      color: #0b3041;
-      background: rgba(255,255,255,.88);
-      border: 1px solid rgba(255,255,255,.9);
-      border-radius: 9px;
-      box-shadow: 0 10px 25px rgba(3,22,28,.2);
-      backdrop-filter: blur(9px);
-      font-size: 8px;
-      font-weight: 950;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-    }
-
-    .hero-athlete-label em { color: #2e706d; font-size: 7px; font-style: normal; }
-
-    .hero-back-card {
-      position: absolute;
-      z-index: 1;
-      display: grid;
-      width: 196px;
-      aspect-ratio: 2 / 3;
-      place-items: center;
-      color: rgba(11,48,65,.72);
-      background: color-mix(in srgb, var(--hero-c) 72%, white);
-      border: 6px solid rgba(255,255,255,.86);
-      border-radius: 17px;
-      box-shadow: 0 22px 42px rgba(3,31,41,.22);
-      font-size: 15px;
-      font-weight: 950;
-      letter-spacing: .1em;
-    }
-
-    .hero-back-card::before { position: absolute; inset: 10px; content: ""; border: 2px solid currentColor; border-radius: 10px; opacity: .28; }
-    .hero-back-card.card-left { left: 2%; transform: rotate(-16deg) translateY(22px); }
-    .hero-back-card.card-right { right: 0; transform: rotate(15deg) translateY(28px); }
-
-    @keyframes hero-card-float {
-      0%, 100% { translate: 0 0; }
-      50% { translate: 0 -8px; }
-    }
-
-    .hero-arrow {
-      position: absolute;
-      top: 50%;
-      z-index: 8;
-      display: grid;
-      width: 45px;
-      height: 45px;
-      padding: 0;
-      place-items: center;
-      color: #0b3041;
-      background: rgba(255,255,255,.9);
-      border: 1px solid rgba(255,255,255,.95);
-      border-radius: 50%;
-      box-shadow: 0 14px 30px rgba(4,32,42,.2);
-      cursor: pointer;
-      font-size: 21px;
-      transform: translateY(-50%);
-      transition: transform .2s ease, background .2s ease;
-    }
-
-    .hero-arrow:hover,
-    .hero-arrow:focus-visible { color: #fff; background: #0b3041; outline: none; transform: translateY(-50%) scale(1.08); }
-    .hero-arrow.prev { left: 17px; }
-    .hero-arrow.next { right: 17px; }
-
-    .hero-navigation {
-      position: absolute;
-      bottom: 22px;
-      left: 50%;
-      z-index: 9;
-      display: flex;
-      min-height: 34px;
-      padding: 0 11px;
-      align-items: center;
-      gap: 8px;
-      background: rgba(6,37,48,.38);
-      border: 1px solid rgba(255,255,255,.28);
-      border-radius: 999px;
-      backdrop-filter: blur(10px);
-      transform: translateX(-50%);
-    }
-
-    .hero-dot {
-      width: 7px;
-      height: 7px;
-      padding: 0;
-      background: rgba(255,255,255,.48);
-      border: 0;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: width .25s ease, background .25s ease;
-    }
-
-    .hero-dot.is-active { width: 27px; background: #fff; }
-    .hero-dot:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-
-    .hero-counter {
-      position: absolute;
-      right: 27px;
-      bottom: 25px;
-      z-index: 8;
-      color: rgba(255,255,255,.9);
-      font-size: 8px;
-      font-weight: 950;
-      letter-spacing: .14em;
-    }
-
-    .feature-grid {
-      display: grid;
-      padding-top: 34px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .feature-card {
-      --feature-accent: var(--gold);
-      position: relative;
-      display: block;
-      width: 100%;
-      min-height: 340px;
-      padding: 0;
-      overflow: hidden;
-      color: #fff;
-      background: #071722;
-      border: 1px solid rgba(255,255,255,.25);
-      border-radius: 21px;
-      box-shadow: 0 24px 58px rgba(0, 0, 0, .34);
-      cursor: pointer;
-      isolation: isolate;
-      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-    }
-
-    .feature-card::before {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      content: "";
-      pointer-events: none;
-      background: linear-gradient(90deg, rgba(4,15,21,.97) 0%, rgba(4,15,21,.9) 43%, rgba(4,15,21,.48) 66%, rgba(4,15,21,.08) 100%);
-    }
-
-    .feature-card::after {
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      z-index: 5;
-      height: 5px;
-      content: "";
-      pointer-events: none;
-      background: var(--feature-accent);
-    }
-
-    .feature-card:hover {
-      border-color: rgba(255,255,255,.92);
-      box-shadow: 0 32px 72px rgba(0, 0, 0, .46), 0 0 42px color-mix(in srgb, var(--feature-accent) 28%, transparent);
-      transform: translateY(-7px) scale(1.01);
-    }
-
-    .feature-card:has(.feature-hitbox:focus-visible) { outline: 3px solid #fff; outline-offset: 3px; }
-    .tutorial-feature { --feature-accent: #ffd65a; }
-    .multiplayer-feature { --feature-accent: #4de3f1; }
-
-    .feature-art {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      transition: transform .6s cubic-bezier(.2,.72,.2,1), filter .3s ease;
-    }
-
-    .feature-card:hover .feature-art { filter: saturate(1.08) contrast(1.03); transform: scale(1.035); }
-
-    .feature-hitbox {
-      position: absolute;
-      inset: 0;
-      z-index: 4;
-      padding: 0;
-      background: transparent;
-      border: 0;
-      border-radius: inherit;
-      cursor: pointer;
-    }
-
-    .feature-content {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      width: 62%;
-      min-height: 340px;
-      padding: 32px;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .feature-eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-      color: var(--feature-accent);
-      font-size: 8px;
-      font-weight: 950;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-    }
-
-    .feature-eyebrow::before {
-      width: 19px;
-      height: 2px;
-      content: "";
-      background: var(--feature-accent);
-    }
-
-    .feature-card h2 {
-      max-width: 430px;
-      margin: 0;
-      font-size: clamp(28px, 3vw, 44px);
-      line-height: .96;
-      letter-spacing: -.045em;
-      text-transform: uppercase;
-    }
-
-    .feature-card p {
-      max-width: 420px;
-      margin: 14px 0 23px;
-      color: #d3dfdb;
-      font-size: 12px;
-      line-height: 1.55;
-    }
-
-    .feature-open {
-      display: inline-flex;
-      width: fit-content;
-      min-height: 42px;
-      padding: 0 15px;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      color: #071722;
-      background: var(--feature-accent);
-      border-radius: 9px;
-      box-shadow: 0 10px 26px color-mix(in srgb, var(--feature-accent) 24%, transparent);
-      font-size: 9px;
-      font-weight: 950;
-      letter-spacing: .09em;
-      text-transform: uppercase;
-    }
-
-    .feature-open::after {
-      content: "→";
-      font-size: 14px;
-      transition: transform .2s ease;
-    }
-
-    .feature-card:hover .feature-open::after { transform: translateX(4px); }
-
-    .portal-dialog {
-      width: min(880px, calc(100% - 28px));
-      max-height: min(820px, calc(100vh - 28px));
-      padding: 0;
-      overflow: auto;
-      color: #153326;
-      background: #fbf8ef;
-      border: 0;
-      border-radius: 24px;
-      box-shadow: 0 40px 100px rgba(0, 0, 0, .45);
-    }
-
-    .portal-dialog::backdrop {
-      background: rgba(4, 24, 15, .72);
-      backdrop-filter: blur(7px);
-    }
-
-    .dialog-inner { position: relative; padding: 34px; }
-
-    .dialog-close {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      display: flex;
-      width: 36px;
-      height: 36px;
-      padding: 0;
-      align-items: center;
-      justify-content: center;
-      color: #17382a;
-      background: #e7eee8;
-      border: 0;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 22px;
-    }
-
-    .dialog-kicker {
-      display: block;
-      margin-bottom: 9px;
-      color: #277755;
-      font-size: 9px;
-      font-weight: 900;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-
-    .portal-dialog h2 { max-width: 680px; padding-right: 50px; color: #10291d; }
-    .portal-dialog > .dialog-inner > p {
-      max-width: 650px;
-      margin: 12px 0 24px;
-      color: #567064;
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    .sport-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
-
-    .sport-choice {
-      position: relative;
-      display: grid;
-      min-height: 126px;
-      padding: 13px;
-      overflow: hidden;
-      grid-template-columns: 92px 1fr auto;
-      align-items: center;
-      gap: 14px;
-      color: #153326;
-      background: #eef3ec;
-      border: 1px solid #d9e4dc;
-      border-radius: 15px;
-      text-decoration: none;
-      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
-    }
-
-    a.sport-choice:hover,
-    a.sport-choice:focus-visible {
-      border-color: #47a679;
-      box-shadow: 0 15px 32px rgba(25, 83, 57, .14);
-      outline: none;
-      transform: translateY(-3px);
-    }
-
-    .sport-choice img {
-      width: 92px;
-      height: 98px;
-      object-fit: cover;
-      object-position: 50% 66%;
-      border-radius: 11px;
-    }
-
-    .choice-copy small,
-    .choice-copy strong { display: block; }
-    .choice-copy small {
-      margin-bottom: 6px;
-      color: #668074;
-      font-size: 8px;
-      font-weight: 900;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-    }
-    .choice-copy strong { font-size: 22px; letter-spacing: -.03em; text-transform: uppercase; }
-    .choice-action {
-      padding: 8px 10px;
-      color: #fff;
-      background: #1d6848;
-      border-radius: 8px;
-      font-size: 8px;
-      font-style: normal;
-      font-weight: 950;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .sport-choice.coming { opacity: .58; }
-    .sport-choice.coming .choice-action { color: #617268; background: #dbe4de; }
-
-    .editions { padding-top: 54px; }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: flex-start;
-      gap: 30px;
-      margin-bottom: 20px;
-    }
-
-    .section-head p {
-      max-width: 430px;
-      margin: 0;
-      color: #9aaca2;
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    h2 {
-      margin: 0;
-      font-size: clamp(27px, 3.4vw, 45px);
-      line-height: 1;
-      letter-spacing: -.035em;
-      text-transform: uppercase;
-    }
-
-    .edition-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .edition {
-      position: relative;
-      aspect-ratio: 2 / 3;
-      padding: 0;
-      overflow: hidden;
-      color: var(--cream);
-      background: #08120d;
-      border: 1px solid var(--line);
-      border-radius: 17px;
-      box-shadow: 0 16px 34px rgba(0, 0, 0, .18);
-      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease,
-        filter .25s ease, opacity .25s ease;
-    }
-
-    .edition::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      content: "";
-      background: var(--accent, var(--gold));
-      opacity: .9;
-      z-index: 5;
-    }
-
-    .edition:hover,
-    .edition.is-open,
-    .edition:has(.edition-visual:focus-visible),
-    .edition:has(.edition-body:focus-within) {
-      z-index: 8;
-      border-color: rgba(255, 225, 139, .92);
-      transform: translateY(-10px) scale(1.04);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, .55), 0 0 0 2px rgba(244, 201, 93, .18);
-    }
-
-    .edition-visual {
-      position: absolute;
-      inset: 0;
-      display: block;
-      width: 100%;
-      height: 100%;
-      padding: 0;
-      overflow: hidden;
-      color: inherit;
-      background: #0a160f;
-      border: 0;
-      cursor: pointer;
-      font: inherit;
-      text-align: left;
-    }
-
-    .edition-visual::after {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      content: "";
-      pointer-events: none;
-      background:
-        linear-gradient(180deg, rgba(2,8,5,.24), transparent 30%),
-        linear-gradient(0deg, rgba(2,8,5,.28), transparent 30%);
-      transition: background .25s ease;
-    }
-
-    .edition-visual img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .35s ease, filter .25s ease;
-    }
-
-    .edition:hover .edition-visual img,
-    .edition:focus-within .edition-visual img { transform: scale(1.025); }
-
-    .edition-body {
-      position: absolute;
-      right: 13px;
-      bottom: 13px;
-      left: 13px;
-      z-index: 6;
-      padding: 21px;
-      color: #102118;
-      background: linear-gradient(145deg, rgba(255, 255, 255, .66), rgba(255, 255, 255, .45));
-      border: 1px solid rgba(255, 255, 255, .72);
-      border-radius: 14px;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, .38);
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(18px);
-      backdrop-filter: blur(8px) saturate(1.08);
-      -webkit-backdrop-filter: blur(8px) saturate(1.08);
-      transition: opacity .24s ease, transform .24s ease;
-    }
-
-    .edition:hover .edition-body,
-    .edition-visual:focus-visible + .edition-body,
-    .edition-body:focus-within,
-    .edition.is-open .edition-body {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    .edition:hover .edition-visual::after,
-    .edition:has(.edition-visual:focus-visible) .edition-visual::after,
-    .edition.is-open .edition-visual::after {
-      background: rgba(2, 8, 5, .12);
-    }
-
-    .edition-top {
-      position: absolute;
-      top: 13px;
-      right: 13px;
-      left: 13px;
-      z-index: 3;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .edition-number {
-      display: grid;
-      width: 29px;
-      height: 29px;
-      place-items: center;
-      color: white;
-      background: rgba(3, 10, 6, .65);
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 7px;
-      backdrop-filter: blur(7px);
-      font-size: 9px;
-      font-weight: 900;
-      letter-spacing: .08em;
-    }
-
-    .status {
-      padding: 5px 7px;
-      color: #0a1c12;
-      background: #7cd9a8;
-      border-radius: 999px;
-      box-shadow: 0 5px 15px rgba(0,0,0,.24);
-      font-size: 7px;
-      font-weight: 950;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .status.soon {
-      color: #e4e9e6;
-      background: rgba(5, 11, 7, .7);
-      border: 1px solid rgba(255,255,255,.18);
-      backdrop-filter: blur(7px);
-    }
-
-    .card-stack {
-      position: absolute;
-      right: 16px;
-      bottom: 14px;
-      z-index: 3;
-      width: 23px;
-      height: 32px;
-      background: var(--accent, var(--gold));
-      border: 2px solid rgba(255,255,255,.78);
-      border-radius: 4px;
-      box-shadow: -6px 3px 0 rgba(5,13,8,.76), -6px 3px 0 1px rgba(255,255,255,.34);
-      transform: rotate(6deg);
-      transition: opacity .2s ease;
-    }
-
-    .card-stack::after {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 7px;
-      height: 7px;
-      content: "";
-      background: #152219;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    .tap-hint {
-      position: absolute;
-      bottom: 14px;
-      left: 16px;
-      z-index: 3;
-      padding: 7px 9px;
-      color: #fff;
-      background: rgba(3, 10, 6, .62);
-      border: 1px solid rgba(255, 255, 255, .2);
-      border-radius: 999px;
-      backdrop-filter: blur(8px);
-      font-size: 7px;
-      font-weight: 900;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      transition: opacity .2s ease;
-    }
-
-    .edition:hover .tap-hint,
-    .edition:hover .card-stack,
-    .edition:has(.edition-visual:focus-visible) .tap-hint,
-    .edition:has(.edition-visual:focus-visible) .card-stack,
-    .edition.is-open .tap-hint,
-    .edition.is-open .card-stack { opacity: 0; }
-
-    .edition small {
-      display: block;
-      margin: 0 0 7px;
-      color: #52665b;
-      font-size: 9px;
-      font-weight: 850;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .edition h3 {
-      margin: 0;
-      font-size: clamp(21px, 2vw, 28px);
-      line-height: 1;
-      letter-spacing: -.035em;
-      text-transform: uppercase;
-    }
-
-    .edition p {
-      min-height: 0;
-      margin: 10px 0 17px;
-      color: #42564b;
-      font-size: 11px;
-      line-height: 1.5;
-    }
-
-    .edition-cta {
-      display: inline-flex;
-      align-items: center;
-      width: fit-content;
-      padding: 9px 11px;
-      color: #fff;
-      background: #102c1e;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 9px;
-      font-weight: 900;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    a.edition-cta:hover,
-    a.edition-cta:focus-visible { background: #1d5639; outline: none; }
-
-    .edition.soon-card { border-color: rgba(255,255,255,.1); }
-    .edition.soon-card .edition-cta {
-      color: #6a5743;
-      background: rgba(200, 134, 70, .15);
-    }
-    .edition.soccer-card { --accent: #e4c354; }
-    .edition.football-card { --accent: #c86f45; }
-    .edition.online-card { --accent: #59b887; }
-    .edition.basketball-card { --accent: #d98146; }
-    .edition.baseball-card { --accent: #9eb6c9; }
-
-    @media (hover: hover) and (pointer: fine) {
-      .edition-grid:has(.edition:hover) .edition:not(:hover) {
-        z-index: 1;
-        filter: brightness(.48) saturate(.52);
-        opacity: .67;
-        transform: scale(.955);
-      }
-    }
-
-    footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      min-height: 92px;
-      color: #81958a;
-      border-top: 1px solid var(--line);
-      font-size: 10px;
-    }
-
-    footer strong { color: #caba86; letter-spacing: .12em; }
-
-    @media (max-width: 1000px) {
-      .hero-slide {
-        min-height: 530px;
-        padding: 50px 54px 68px;
-        grid-template-columns: minmax(0, 1fr) minmax(300px, .75fr);
-        gap: 18px;
-      }
-      .hero-title { font-size: clamp(48px, 6.7vw, 72px); }
-      .hero-art { min-height: 410px; }
-      .hero-athlete-card { width: min(274px, 78%); }
-      .hero-back-card { width: 168px; }
-      .lead {
-        padding: 32px;
-        grid-template-columns: minmax(0, 1fr) 300px;
-        gap: 20px;
-      }
-      h1 { font-size: clamp(43px, 6vw, 62px); }
-      .hero-deck { width: 290px; transform: scale(.82); transform-origin: center; }
-      .feature-grid { grid-template-columns: 1fr; }
-      .edition-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 720px) {
-      .shell { width: min(100% - 20px, 1380px); }
-      header { min-height: 62px; padding: 0 2px; }
-      .brand { gap: 9px; }
-      .brand-card { width: 36px; height: 36px; box-shadow: 0 6px 13px rgba(4,18,24,.2); }
-      .brand-copy strong { font-size: 11px; }
-      .brand-copy span, .site-nav { display: none; }
-      .hero-carousel { margin-top: 10px; border-radius: 19px; box-shadow: 0 22px 48px rgba(23,72,87,.2); }
-      .hero-slide {
-        display: grid;
-        min-height: 760px;
-        padding: 34px 22px 71px;
-        grid-template-columns: 1fr;
-        grid-template-rows: auto 1fr;
-        gap: 19px;
-      }
-      .hero-slide::before { top: auto; right: -190px; bottom: -185px; width: 480px; height: 480px; transform: none; }
-      .hero-slide::after { bottom: 55px; font-size: 31vw; }
-      .hero-kicker { min-height: 25px; font-size: 7px; }
-      .hero-title { margin-top: 14px; font-size: clamp(42px, 12.2vw, 58px); line-height: .88; }
-      .hero-description { margin-top: 15px; font-size: 13px; line-height: 1.45; }
-      .hero-actions { margin-top: 18px; }
-      .hero-button, .hero-coming { min-height: 43px; padding: 0 15px; font-size: 8px; }
-      .hero-art { min-height: 390px; }
-      .hero-athlete-card { width: 240px; border-radius: 18px; }
-      .hero-athlete-card img { border-radius: 12px; }
-      .hero-athlete-label { right: 15px; bottom: 15px; left: 15px; min-height: 37px; }
-      .hero-back-card { width: 146px; border-width: 5px; }
-      .hero-back-card.card-left { left: 4%; }
-      .hero-back-card.card-right { right: 4%; }
-      .hero-arrow { top: auto; bottom: 17px; width: 37px; height: 37px; font-size: 18px; transform: none; }
-      .hero-arrow:hover, .hero-arrow:focus-visible { transform: scale(1.06); }
-      .hero-arrow.prev { left: 14px; }
-      .hero-arrow.next { right: 14px; }
-      .hero-navigation { bottom: 18px; }
-      .hero-counter { display: none; }
-      .lead {
-        display: block;
-        min-height: 488px;
-        margin-top: 12px;
-        padding: 31px 22px 214px;
-        background:
-          radial-gradient(circle at 90% 78%, rgba(255,190,82,.42), transparent 17rem),
-          linear-gradient(145deg, #095268 0%, #0b7480 58%, #d9673b 100%);
-        border-radius: 17px;
-      }
-      .lead::before { top: auto; right: -190px; bottom: -230px; opacity: .55; }
-      .lead::after { bottom: -28px; left: -60px; }
-      .eyebrow { margin-bottom: 11px; font-size: 8px; }
-      h1 { max-width: 580px; font-size: clamp(43px, 13vw, 58px); line-height: .92; }
-      .lead-summary { margin-top: 13px; font-size: 13px; }
-      .lead-actions { margin-top: 18px; }
-      .hero-deck {
-        position: absolute;
-        right: 50%;
-        bottom: -13px;
-        width: 300px;
-        height: 205px;
-        margin: 0;
-        transform: translateX(50%) scale(.78);
-        transform-origin: center bottom;
-      }
-      .arena { height: 470px; margin-right: -10px; }
-      .sport-panels {
-        overflow-x: auto;
-        overflow-y: hidden;
-        padding: 10px 10px 18px 0;
-        grid-template-columns: none;
-        grid-auto-flow: column;
-        grid-auto-columns: minmax(245px, 78vw);
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
-      }
-      .sport-panels::-webkit-scrollbar { display: none; }
-      .sport-panel { scroll-snap-align: center; }
-      .sport-panels:hover .sport-panel:not(:hover) { filter: none; }
-      .sport-panel:hover,
-      .sport-panel:focus-visible { transform: none; }
-      .arena-kicker { top: 22px; left: 10px; padding: 6px 8px; font-size: 7px; }
-      .feature-grid { padding-top: 25px; gap: 10px; }
-      .feature-card { min-height: 520px; }
-      .feature-card::before {
-        background: linear-gradient(0deg, rgba(4,15,21,.98) 0%, rgba(4,15,21,.9) 47%, rgba(4,15,21,.54) 68%, rgba(4,15,21,.08) 100%);
-      }
-      .feature-card:hover { transform: none; }
-      .feature-art { object-position: 68% center; }
-      .feature-content { width: 100%; min-height: 520px; padding: 26px 22px; justify-content: flex-end; }
-      .feature-card h2 { font-size: 34px; }
-      .feature-card p { max-width: none; margin: 11px 0 17px; }
-      .dialog-inner { padding: 27px 17px 20px; }
-      .portal-dialog h2 { padding-right: 42px; font-size: 32px; }
-      .sport-choice-grid { grid-template-columns: 1fr; }
-      .sport-choice { min-height: 104px; grid-template-columns: 74px 1fr; gap: 11px; }
-      .sport-choice img { width: 74px; height: 78px; }
-      .choice-copy strong { font-size: 19px; }
-      .choice-action { grid-column: 2; width: fit-content; margin-top: -4px; }
-      .editions { padding-top: 38px; }
-      .section-head { display: block; }
-      .section-head p { margin-top: 10px; }
-      .edition-grid { grid-template-columns: 1fr; gap: 9px; }
-      .edition { width: 100%; max-width: 430px; min-height: 0; margin: 0 auto; }
-      .edition-body { right: 11px; bottom: 11px; left: 11px; }
-      footer { align-items: flex-start; flex-direction: column; justify-content: center; gap: 6px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .sport-panel, .sport-panel img, .feature-card, .feature-art,
-      .sport-choice, .edition, .edition-visual img, .edition-body,
-      .hero-track, .hero-copy, .hero-art { transition: none; }
-      .hero-athlete-card { animation: none; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="theme-color" content="#071923">
+<meta name="description" content="Goal-Scoring Moment sports card games. Choose your sport, learn the game, and play your moment.">
+<title>Goal-Scoring Moment | Sports Card Games</title>
+<style>
+:root{
+  --navy:#071923;
+  --navy2:#0b2631;
+  --ink:#06141c;
+  --cream:#fff8e7;
+  --white:#fffdf5;
+  --yellow:#ffd93d;
+  --green:#42d173;
+  --blue:#55b8ff;
+  --orange:#ff8d42;
+  --red:#f05e62;
+  --line:#dff8e8;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  overflow-x:hidden;
+  color:var(--white);
+  font-family:Impact,Haettenschweiler,"Arial Narrow Bold","Segoe UI",Arial,sans-serif;
+  background:
+    radial-gradient(circle at 50% 0,rgba(63,215,117,.22),transparent 30rem),
+    radial-gradient(circle at 8% 65%,rgba(255,217,61,.12),transparent 24rem),
+    linear-gradient(180deg,#0b2530 0%,#071923 46%,#041017 100%);
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:.17;
+  background:
+    repeating-radial-gradient(circle at 52% 13%,rgba(255,255,255,.42) 0 1px,transparent 1px 7px),
+    repeating-linear-gradient(118deg,transparent 0 38px,rgba(255,255,255,.06) 39px 41px,transparent 42px 78px);
+  mask-image:linear-gradient(to bottom,#000 0%,transparent 72%);
+}
+a{color:inherit}
+.shell{position:relative;z-index:1;width:min(1380px,calc(100% - 34px));margin:auto}
+
+/* HEADER */
+.topbar{
+  min-height:78px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  border-bottom:2px solid rgba(255,255,255,.12);
+}
+.brand{display:flex;align-items:center;gap:13px;text-decoration:none}
+.brand-card{
+  position:relative;
+  display:grid;
+  width:48px;height:58px;
+  place-items:center;
+  overflow:hidden;
+  color:#09231d;
+  background:linear-gradient(145deg,#f8ff9d 0,#ffd83f 48%,#9ce552 100%);
+  border:4px solid #fff;
+  border-radius:10px;
+  box-shadow:0 0 0 3px #154e37,0 8px 0 #03110c,0 13px 22px #0007;
+  transform:rotate(-4deg);
+  font-size:12px;
+  letter-spacing:.05em;
+}
+.brand-card:before{
+  content:"";position:absolute;inset:5px;border:2px solid #236d46;border-radius:5px;
+}
+.brand-card:after{
+  content:"";position:absolute;inset:auto -18px -7px 12px;height:30px;background:#1c8b50;transform:rotate(-11deg);opacity:.5
+}
+.brand-copy b{display:block;font-size:17px;letter-spacing:.055em;text-transform:uppercase;text-shadow:0 3px 0 #000}
+.brand-copy span{display:block;margin-top:4px;color:#9fd7bd;font-family:Arial,sans-serif;font-size:9px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+.nav{display:flex;align-items:center;gap:9px}
+.nav a{
+  min-height:36px;display:inline-flex;align-items:center;padding:0 13px;
+  color:#d9efe4;background:#0e3040;border:2px solid #2d6e78;border-radius:9px;
+  text-decoration:none;font-family:Arial,sans-serif;font-size:9px;font-weight:950;letter-spacing:.09em;text-transform:uppercase;
+  box-shadow:0 4px 0 #031018;
+}
+.nav a:hover{background:var(--yellow);color:#162113;border-color:#fff}
+
+/* HERO */
+.hero{
+  position:relative;
+  display:grid;
+  min-height:610px;
+  margin-top:22px;
+  padding:56px 58px;
+  overflow:hidden;
+  align-items:center;
+  grid-template-columns:minmax(0,1fr) minmax(470px,.95fr);
+  gap:28px;
+  background:
+    radial-gradient(circle at 80% 30%,rgba(249,255,128,.26),transparent 19rem),
+    linear-gradient(118deg,#127148 0%,#179154 46%,#105f45 70%,#0b3b32 100%);
+  border:5px solid #f9fff3;
+  border-radius:30px;
+  box-shadow:0 0 0 5px #183f32,0 28px 70px #0008;
+  isolation:isolate;
+}
+.hero:before{
+  content:"";position:absolute;inset:-15%;z-index:-1;opacity:.23;
+  background:repeating-conic-gradient(from 192deg at 69% 42%,rgba(255,255,255,.78) 0 3deg,transparent 3deg 8deg);
+}
+.hero:after{
+  content:"";position:absolute;right:-110px;bottom:-160px;width:520px;height:520px;z-index:-1;border:5px solid rgba(255,255,255,.22);border-radius:50%;box-shadow:inset 0 0 0 90px rgba(255,255,255,.035),inset 0 0 0 180px rgba(255,255,255,.025)
+}
+.hero-copy{position:relative;z-index:5}
+.kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;background:#092f24;border:2px solid #fff;border-radius:8px;color:#ffe75a;font-family:Arial,sans-serif;font-size:9px;font-weight:950;letter-spacing:.14em;text-transform:uppercase;box-shadow:0 5px 0 #04130e}
+.kicker:before{content:"";width:8px;height:8px;border-radius:50%;background:#ffe75a;box-shadow:0 0 0 3px rgba(255,231,90,.18)}
+.hero h1{margin:20px 0 0;font-size:clamp(64px,7.3vw,112px);line-height:.79;letter-spacing:-.045em;text-transform:uppercase;color:#fff;text-shadow:4px 5px 0 #0c472f,8px 10px 0 #041810,0 0 22px rgba(255,255,255,.12);-webkit-text-stroke:2px rgba(4,37,25,.52)}
+.hero h1 em{display:block;color:#f9e64f;font-style:normal;text-shadow:4px 5px 0 #726500,8px 10px 0 #041810}
+.hero p{max-width:570px;margin:22px 0 0;color:#daf7e6;font-family:Arial,sans-serif;font-size:15px;font-weight:750;line-height:1.6}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}
+.cta{display:inline-flex;min-height:48px;align-items:center;gap:10px;padding:0 19px;color:#1c280d;background:linear-gradient(#fff584,#ffd438);border:3px solid #fff;border-radius:10px;box-shadow:0 6px 0 #7a6510,0 11px 20px #0005;text-decoration:none;font-family:Arial,sans-serif;font-size:10px;font-weight:950;letter-spacing:.08em;text-transform:uppercase}
+.cta:after{content:"→";font-size:18px}.cta.secondary{color:#fff;background:#0c3e35;border-color:#8ae2b2;box-shadow:0 6px 0 #051d17,0 11px 20px #0004}.cta:hover{transform:translateY(-2px)}
+
+.card-fan{position:relative;height:470px;z-index:4}
+.athlete-card{
+  --accent:#ffe14e;
+  position:absolute;
+  width:220px;height:348px;
+  padding:8px;
+  overflow:hidden;
+  background:#0f6d3d;
+  border:6px solid #fff;
+  border-radius:18px;
+  box-shadow:0 0 0 4px #174d34,0 25px 45px #0008;
+  transform-origin:50% 90%;
+  transition:transform .3s ease;
+}
+.athlete-card:before{content:"";position:absolute;inset:5px;border:3px solid var(--accent);border-radius:10px;z-index:4;pointer-events:none}
+.athlete-card img{width:100%;height:100%;object-fit:cover;border-radius:9px;filter:saturate(1.06) contrast(1.04)}
+.athlete-card .label{position:absolute;left:15px;right:15px;bottom:17px;z-index:5;padding:9px 10px;background:#06271dE8;border:2px solid #fff;border-radius:7px;color:#fff;font-family:Arial,sans-serif;font-size:9px;font-weight:950;letter-spacing:.09em;text-transform:uppercase;box-shadow:0 4px 0 #0008}
+.athlete-card .label b{color:var(--accent)}
+.card-soccer{--accent:#ffe34d;left:42px;top:66px;transform:rotate(-13deg)}
+.card-football{--accent:#b8ec57;left:155px;top:18px;z-index:2;transform:rotate(-3deg)}
+.card-basketball{--accent:#ff9c48;right:66px;top:34px;z-index:3;transform:rotate(7deg)}
+.card-baseball{--accent:#8ed8ff;right:-18px;top:94px;transform:rotate(15deg)}
+.hero:hover .card-soccer{transform:rotate(-16deg) translate(-8px,-3px)}
+.hero:hover .card-football{transform:rotate(-3deg) translateY(-7px)}
+.hero:hover .card-basketball{transform:rotate(9deg) translate(5px,-4px)}
+.hero:hover .card-baseball{transform:rotate(18deg) translateX(7px)}
+
+/* SPORT SELECT */
+.section{padding-top:55px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:20px}
+.section-head small{display:block;color:#ffdf46;font-family:Arial,sans-serif;font-size:9px;font-weight:950;letter-spacing:.16em;text-transform:uppercase}
+.section-head h2{margin:7px 0 0;font-size:clamp(36px,4.2vw,62px);line-height:.88;text-transform:uppercase;text-shadow:3px 4px 0 #000}
+.section-head p{max-width:470px;margin:0;color:#9db8ad;font-family:Arial,sans-serif;font-size:12px;line-height:1.55}
+.sport-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.sport-card{
+  --accent:#ffe34d;
+  position:relative;
+  display:grid;
+  min-height:400px;
+  overflow:hidden;
+  grid-template-columns:minmax(0,1fr) 44%;
+  color:#fff;
+  background:
+    radial-gradient(circle at 83% 24%,color-mix(in srgb,var(--accent) 25%,transparent),transparent 16rem),
+    linear-gradient(135deg,#103a2b,#071a16 70%);
+  border:5px solid #fff;
+  border-radius:22px;
+  box-shadow:0 0 0 4px #174936,0 20px 45px #0007;
+  text-decoration:none;
+  isolation:isolate;
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.sport-card:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.18;background:repeating-conic-gradient(from 220deg at 76% 46%,rgba(255,255,255,.7) 0 2deg,transparent 2deg 8deg)}
+.sport-card:after{content:"";position:absolute;top:0;bottom:0;left:56%;width:5px;background:var(--accent);box-shadow:0 0 0 2px rgba(255,255,255,.9)}
+.sport-card:hover{transform:translateY(-6px);box-shadow:0 0 0 4px var(--accent),0 30px 60px #0009}
+.sport-card.soccer{--accent:#ffe14d}.sport-card.football{--accent:#b7ea56}.sport-card.basketball{--accent:#ff9343}.sport-card.baseball{--accent:#75c9ff}
+.sport-info{position:relative;z-index:3;padding:31px 30px;display:flex;flex-direction:column}
+.mode-no{font-family:Arial,sans-serif;font-size:9px;font-weight:950;letter-spacing:.17em;color:var(--accent);text-transform:uppercase}
+.sport-info h3{margin:11px 0 11px;font-size:clamp(40px,4vw,64px);line-height:.84;text-transform:uppercase;text-shadow:3px 4px 0 #000}
+.sport-info p{max-width:450px;margin:0;color:#c6ded4;font-family:Arial,sans-serif;font-size:12px;line-height:1.55}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:16px}.tag{padding:6px 8px;border:1px solid #497564;border-radius:999px;background:#09241d;color:#dff4e8;font-family:Arial,sans-serif;font-size:8px;font-weight:900;letter-spacing:.06em}
+.enter{margin-top:auto;padding-top:20px;display:flex;align-items:center;gap:10px;color:var(--accent);font-family:Arial,sans-serif;font-size:10px;font-weight:950;letter-spacing:.08em;text-transform:uppercase}.enter i{display:grid;width:34px;height:34px;place-items:center;color:#13200d;background:var(--accent);border:2px solid #fff;border-radius:50%;box-shadow:0 4px 0 #0007;font-style:normal;font-size:17px}
+.sport-art{position:relative;overflow:hidden}.sport-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#071a16 0,transparent 23%),linear-gradient(0deg,#071a16 0,transparent 35%);pointer-events:none}.sport-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 30%;transition:transform .4s ease}.sport-card:hover .sport-art img{transform:scale(1.045)}
+.sport-card.coming{cursor:default;filter:saturate(.78)}.sport-card.coming:hover{transform:none}.status{position:absolute;top:18px;right:18px;z-index:5;padding:7px 9px;color:#11210f;background:var(--accent);border:2px solid #fff;border-radius:8px;box-shadow:0 4px 0 #0007;font-family:Arial,sans-serif;font-size:8px;font-weight:950;letter-spacing:.08em;text-transform:uppercase}
+
+/* SUPPORT CARDS */
+.tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.tool-card{position:relative;min-height:390px;overflow:hidden;border:5px solid #fff;border-radius:22px;box-shadow:0 0 0 4px #174936,0 22px 48px #0007;background:#0b1d25;color:#fff}
+.tool-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.tool-card:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,18,23,.98) 0%,rgba(4,18,23,.89) 49%,rgba(4,18,23,.26) 78%,transparent)}
+.tool-copy{position:relative;z-index:3;width:58%;min-height:390px;padding:31px;display:flex;flex-direction:column;justify-content:center}.tool-copy small{color:#ffe24d;font-family:Arial,sans-serif;font-size:9px;font-weight:950;letter-spacing:.15em;text-transform:uppercase}.tool-copy h3{margin:9px 0 12px;font-size:clamp(35px,3.4vw,50px);line-height:.9;text-transform:uppercase;text-shadow:3px 4px 0 #000}.tool-copy p{margin:0 0 18px;color:#c1d5df;font-family:Arial,sans-serif;font-size:12px;line-height:1.55}.mini-actions{display:flex;gap:8px;flex-wrap:wrap}.mini{display:inline-flex;min-height:38px;align-items:center;padding:0 12px;color:#14210e;background:#ffe24d;border:2px solid #fff;border-radius:8px;box-shadow:0 4px 0 #75620c;text-decoration:none;font-family:Arial,sans-serif;font-size:8px;font-weight:950;letter-spacing:.06em;text-transform:uppercase}.mini.alt{color:#fff;background:#11644c;box-shadow:0 4px 0 #042a20}
+
+footer{margin-top:55px;min-height:95px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:2px solid rgba(255,255,255,.1);color:#8da99e;font-family:Arial,sans-serif;font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}footer b{color:#ffe24d}
+
+@media(max-width:1050px){
+  .hero{grid-template-columns:1fr;min-height:780px;padding-bottom:410px}.card-fan{position:absolute;left:50%;bottom:4px;width:650px;height:390px;transform:translateX(-50%) scale(.85);transform-origin:center bottom}.sport-grid{grid-template-columns:1fr}.sport-card{min-height:370px}.tool-grid{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .shell{width:min(100% - 20px,1380px)}.topbar{min-height:66px}.brand-card{width:39px;height:48px;border-width:3px}.brand-copy b{font-size:13px}.brand-copy span,.nav{display:none}
+  .hero{min-height:735px;margin-top:12px;padding:31px 20px 345px;border-width:4px;border-radius:20px}.hero h1{font-size:clamp(54px,15.4vw,73px)}.hero p{font-size:13px}.card-fan{width:540px;height:330px;bottom:-6px;transform:translateX(-50%) scale(.72)}
+  .section{padding-top:42px}.section-head{display:block}.section-head p{margin-top:10px}.sport-grid{gap:14px}.sport-card{display:block;min-height:565px;border-width:4px;border-radius:18px}.sport-card:after{display:none}.sport-info{padding:23px 20px 250px}.sport-info h3{font-size:45px}.sport-art{position:absolute;left:0;right:0;bottom:0;height:255px;border-top:4px solid var(--accent)}.sport-art:after{background:linear-gradient(0deg,#071a16 0,transparent 38%)}.status{top:14px;right:14px}.enter{padding-top:17px}
+  .tool-card{min-height:520px;border-width:4px}.tool-card:after{background:linear-gradient(0deg,rgba(4,18,23,.98) 0%,rgba(4,18,23,.91) 49%,rgba(4,18,23,.25) 76%,transparent)}.tool-copy{width:100%;min-height:520px;padding:24px 20px;justify-content:flex-end}.tool-copy h3{font-size:39px}.tool-copy p{max-width:460px}
+  footer{align-items:flex-start;justify-content:center;flex-direction:column;gap:6px;padding:22px 0}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
 </head>
 <body>
-  <div class="shell">
-    <header>
-      <a class="brand" href="./" aria-label="Goal-Scoring Moment home">
-        <span class="brand-card" aria-hidden="true">GSM</span>
-        <span class="brand-copy">
-          <strong>Goal-Scoring Moment</strong>
-          <span>Sports Card Game Series</span>
-        </span>
-      </a>
-      <nav class="site-nav" aria-label="Primary navigation">
-        <a href="#sport-select">Games</a>
-        <a href="#tutorial-card-title">Tutorials</a>
-        <a href="#multiplayer-card-title">Multiplayer</a>
-      </nav>
-    </header>
+<div class="shell">
+<header class="topbar">
+  <a class="brand" href="./" aria-label="Goal-Scoring Moment home">
+    <span class="brand-card" aria-hidden="true">GSM</span>
+    <span class="brand-copy"><b>Goal-Scoring Moment</b><span>Sports Card Game Series</span></span>
+  </a>
+  <nav class="nav" aria-label="Main navigation"><a href="#sports">Games</a><a href="#learn">Learn & Play</a></nav>
+</header>
 
-    <main>
-      <section class="hero-carousel" id="sport-select" aria-labelledby="main-heading" aria-roledescription="carousel">
-        <div class="hero-viewport" data-hero-viewport tabindex="0" aria-label="Swipe or use the arrow keys to browse sports">
-          <div class="hero-track" data-hero-track>
-            <article class="hero-slide slide-soccer is-active" data-sport="Soccer" aria-label="Soccer, slide 1 of 4">
-              <div class="hero-copy">
-                <span class="hero-kicker">GSM Soccer · Available Now</span>
-                <h1 class="hero-title" id="main-heading">Make the pass.<br>Hide the plan.</h1>
-                <p class="hero-description">A social strategy card game of hidden roles, quick reads, and game-changing plays.</p>
-                <div class="hero-actions">
-                  <a class="hero-button" href="https://lu20140621-png.github.io/goal-scoring-moment/">Explore Soccer</a>
-                </div>
-              </div>
-              <div class="hero-art">
-                <span class="hero-back-card card-left" aria-hidden="true">GSM</span>
-                <span class="hero-back-card card-right" aria-hidden="true">GSM</span>
-                <div class="hero-athlete-card">
-                  <img src="assets/hero-soccer-highschool-v3.webp" alt="White American high-school varsity soccer captain adjusting his armband on the field">
-                  <span class="hero-athlete-label"><span>Varsity Soccer</span><em>Live</em></span>
-                </div>
-              </div>
-            </article>
-
-            <article class="hero-slide slide-football" data-sport="Football" aria-label="Football, slide 2 of 4" aria-hidden="true">
-              <div class="hero-copy">
-                <span class="hero-kicker">GSM Football · Available Now</span>
-                <h2 class="hero-title">Read the defense.<br>Call the play.</h2>
-                <p class="hero-description">Build the drive, outthink the defense, and take your team into the end zone.</p>
-                <div class="hero-actions">
-                  <a class="hero-button" href="https://lu20140621-png.github.io/goal-scoring-moment-football/">Explore Football</a>
-                </div>
-              </div>
-              <div class="hero-art">
-                <span class="hero-back-card card-left" aria-hidden="true">GSM</span>
-                <span class="hero-back-card card-right" aria-hidden="true">GSM</span>
-                <div class="hero-athlete-card">
-                  <img src="assets/hero-football-highschool-v3.webp" alt="Black American high-school varsity football captain walking from the tunnel onto the field">
-                  <span class="hero-athlete-label"><span>Varsity Football</span><em>Live</em></span>
-                </div>
-              </div>
-            </article>
-
-            <article class="hero-slide slide-basketball" data-sport="Basketball" aria-label="Basketball, slide 3 of 4" aria-hidden="true">
-              <div class="hero-copy">
-                <span class="hero-kicker">GSM Basketball · Coming Next</span>
-                <h2 class="hero-title">Control the ball.<br>Own the moment.</h2>
-                <p class="hero-description">A fast-break card game built around rotations, shots, blocks, and team decisions.</p>
-                <div class="hero-actions"><span class="hero-coming">Coming Next</span></div>
-              </div>
-              <div class="hero-art">
-                <span class="hero-back-card card-left" aria-hidden="true">GSM</span>
-                <span class="hero-back-card card-right" aria-hidden="true">GSM</span>
-                <div class="hero-athlete-card">
-                  <img src="assets/hero-basketball-highschool-v3.webp" alt="Black American high-school varsity basketball captain laughing and high-fiving a teammate">
-                  <span class="hero-athlete-label"><span>Varsity Basketball</span><em>Coming Next</em></span>
-                </div>
-              </div>
-            </article>
-
-            <article class="hero-slide slide-baseball" data-sport="Baseball" aria-label="Baseball, slide 4 of 4" aria-hidden="true">
-              <div class="hero-copy">
-                <span class="hero-kicker">GSM Baseball · In Development</span>
-                <h2 class="hero-title">Build the inning.<br>Change the game.</h2>
-                <p class="hero-description">A tactical card-game edition inspired by pressure, timing, and dugout strategy.</p>
-                <div class="hero-actions"><span class="hero-coming">In Development</span></div>
-              </div>
-              <div class="hero-art">
-                <span class="hero-back-card card-left" aria-hidden="true">GSM</span>
-                <span class="hero-back-card card-right" aria-hidden="true">GSM</span>
-                <div class="hero-athlete-card">
-                  <img src="assets/hero-baseball-highschool-v3.webp" alt="White American high-school varsity baseball captain laughing with teammates beside the dugout">
-                  <span class="hero-athlete-label"><span>Varsity Baseball</span><em>In Development</em></span>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <button class="hero-arrow prev" type="button" data-hero-prev aria-label="Previous sport">‹</button>
-        <button class="hero-arrow next" type="button" data-hero-next aria-label="Next sport">›</button>
-        <div class="hero-navigation" role="group" aria-label="Choose a sport slide">
-          <button class="hero-dot is-active" type="button" data-hero-dot="0" aria-label="Show Soccer" aria-current="true"></button>
-          <button class="hero-dot" type="button" data-hero-dot="1" aria-label="Show Football"></button>
-          <button class="hero-dot" type="button" data-hero-dot="2" aria-label="Show Basketball"></button>
-          <button class="hero-dot" type="button" data-hero-dot="3" aria-label="Show Baseball"></button>
-        </div>
-        <span class="hero-counter" data-hero-counter aria-live="polite">01 / 04</span>
-      </section>
-
-      <section class="feature-grid" aria-label="Learn the game and play online">
-        <article class="feature-card tutorial-feature">
-          <img class="feature-art" src="assets/tutorial-hub-v2.webp" alt="Sports tutorial command center with tactical playbooks, game cards and four sports balls" loading="lazy">
-          <div class="feature-content">
-            <span class="feature-eyebrow">Learn the game</span>
-            <h2 id="tutorial-card-title">Interactive Tutorials</h2>
-            <p>Choose your sport, then learn by playing through guided, step-by-step lessons. No app or account required.</p>
-            <span class="feature-open">Choose a tutorial</span>
-          </div>
-          <button class="feature-hitbox" type="button" data-open-dialog="tutorial-dialog" aria-haspopup="dialog" aria-labelledby="tutorial-card-title"></button>
-        </article>
-
-        <article class="feature-card multiplayer-feature">
-          <img class="feature-art" src="assets/multiplayer-hub-v2.webp" alt="Online sports multiplayer lobby with four sport portals, connected game tables and room-code slots" loading="lazy">
-          <div class="feature-content">
-            <span class="feature-eyebrow">Play with a friend</span>
-            <h2 id="multiplayer-card-title">Online Multiplayer</h2>
-            <p>Choose a sport, create a private room, and share the room code to play head-to-head with a friend.</p>
-            <span class="feature-open">Choose multiplayer</span>
-          </div>
-          <button class="feature-hitbox" type="button" data-open-dialog="multiplayer-dialog" aria-haspopup="dialog" aria-labelledby="multiplayer-card-title"></button>
-        </article>
-      </section>
-
-      <dialog class="portal-dialog" id="tutorial-dialog" aria-labelledby="tutorial-dialog-title">
-        <div class="dialog-inner">
-          <button class="dialog-close" type="button" data-close-dialog aria-label="Close tutorial selection">×</button>
-          <span class="dialog-kicker">Learn by playing</span>
-          <h2 id="tutorial-dialog-title">Choose a Tutorial</h2>
-          <p>Select a sport to open its interactive, step-by-step tutorial.</p>
-          <div class="sport-choice-grid">
-            <a class="sport-choice" href="https://lu20140621-png.github.io/goal-scoring-moment/strategy-cards.html">
-              <img src="assets/edition-soccer-ball.webp" alt="Soccer ball on a soccer field">
-              <span class="choice-copy"><small>Interactive Tutorial</small><strong>Soccer</strong></span>
-              <em class="choice-action">Open →</em>
-            </a>
-            <article class="sport-choice coming" aria-label="Basketball tutorial coming soon">
-              <img src="assets/edition-basketball-ball.webp" alt="Basketball on a basketball court">
-              <span class="choice-copy"><small>Interactive Tutorial</small><strong>Basketball</strong></span>
-              <em class="choice-action">Coming Soon</em>
-            </article>
-            <a class="sport-choice" href="https://lu20140621-png.github.io/goal-scoring-moment-football/strategy-tutorial-en.html">
-              <img src="assets/edition-football-ball.webp" alt="American football on a football field">
-              <span class="choice-copy"><small>Interactive Tutorial</small><strong>Football</strong></span>
-              <em class="choice-action">Open →</em>
-            </a>
-            <article class="sport-choice coming" aria-label="Baseball tutorial coming soon">
-              <img src="assets/edition-baseball-ball.webp" alt="Baseball on a baseball field">
-              <span class="choice-copy"><small>Interactive Tutorial</small><strong>Baseball</strong></span>
-              <em class="choice-action">Coming Soon</em>
-            </article>
-          </div>
-        </div>
-      </dialog>
-
-      <dialog class="portal-dialog" id="multiplayer-dialog" aria-labelledby="multiplayer-dialog-title">
-        <div class="dialog-inner">
-          <button class="dialog-close" type="button" data-close-dialog aria-label="Close multiplayer selection">×</button>
-          <span class="dialog-kicker">Create a private room</span>
-          <h2 id="multiplayer-dialog-title">Choose Multiplayer</h2>
-          <p>Select a sport, create a private room, and share the room code with a friend.</p>
-          <div class="sport-choice-grid">
-            <article class="sport-choice coming" aria-label="Soccer multiplayer coming soon">
-              <img src="assets/edition-soccer-ball.webp" alt="Soccer ball on a soccer field">
-              <span class="choice-copy"><small>Online Multiplayer</small><strong>Soccer</strong></span>
-              <em class="choice-action">Coming Soon</em>
-            </article>
-            <article class="sport-choice coming" aria-label="Basketball multiplayer coming soon">
-              <img src="assets/edition-basketball-ball.webp" alt="Basketball on a basketball court">
-              <span class="choice-copy"><small>Online Multiplayer</small><strong>Basketball</strong></span>
-              <em class="choice-action">Coming Soon</em>
-            </article>
-            <a class="sport-choice" href="https://lu20140621-png.github.io/goal-scoring-moment-football-online/">
-              <img src="assets/edition-football-ball.webp" alt="American football on a football field">
-              <span class="choice-copy"><small>Online Multiplayer</small><strong>Football</strong></span>
-              <em class="choice-action">Create Room →</em>
-            </a>
-            <article class="sport-choice coming" aria-label="Baseball multiplayer coming soon">
-              <img src="assets/edition-baseball-ball.webp" alt="Baseball on a baseball field">
-              <span class="choice-copy"><small>Online Multiplayer</small><strong>Baseball</strong></span>
-              <em class="choice-action">Coming Soon</em>
-            </article>
-          </div>
-        </div>
-      </dialog>
-
-      <section class="editions" aria-labelledby="editions-heading">
-        <div class="section-head">
-          <h2 id="editions-heading">Choose your edition</h2>
-        </div>
-
-        <div class="edition-grid">
-          <article class="edition soccer-card">
-            <button class="edition-visual" type="button" aria-expanded="false" aria-controls="soccer-details">
-              <img src="assets/edition-soccer-ball.webp" alt="Soccer ball on a floodlit soccer field with a goal in the background" loading="lazy">
-              <span class="edition-top"><span class="edition-number">01</span><span class="status">Live</span></span>
-              <span class="tap-hint">View details</span>
-              <span class="card-stack" aria-hidden="true"></span>
-            </button>
-            <div class="edition-body" id="soccer-details">
-              <small>Sports Card Game</small>
-              <h3>Soccer</h3>
-              <p>Hidden roles, teamwork and bluffing around the world’s game.</p>
-              <a class="edition-cta" href="https://lu20140621-png.github.io/goal-scoring-moment/">Explore the edition →</a>
-            </div>
-          </article>
-
-          <article class="edition soon-card basketball-card" aria-label="Basketball Card Game coming soon">
-            <button class="edition-visual" type="button" aria-expanded="false" aria-controls="basketball-details">
-              <img src="assets/edition-basketball-ball.webp" alt="Basketball on a polished indoor court with a hoop in the background" loading="lazy">
-              <span class="edition-top"><span class="edition-number">02</span><span class="status soon">Coming soon</span></span>
-              <span class="tap-hint">View details</span>
-              <span class="card-stack" aria-hidden="true"></span>
-            </button>
-            <div class="edition-body" id="basketball-details">
-              <small>Sports Card Game</small>
-              <h3>Basketball</h3>
-              <p>The next competitive sport to join the GSM card-game collection.</p>
-              <span class="edition-cta">In development</span>
-            </div>
-          </article>
-
-          <article class="edition football-card">
-            <button class="edition-visual" type="button" aria-expanded="false" aria-controls="football-details">
-              <img src="assets/edition-football-ball.webp" alt="American football on a marked field with goalposts in the background" loading="lazy">
-              <span class="edition-top"><span class="edition-number">03</span><span class="status">Live</span></span>
-              <span class="tap-hint">View details</span>
-              <span class="card-stack" aria-hidden="true"></span>
-            </button>
-            <div class="edition-body" id="football-details">
-              <small>Sports Card Game</small>
-              <h3>Football</h3>
-              <p>A tactical card-game experience inspired by American football.</p>
-              <a class="edition-cta" href="https://lu20140621-png.github.io/goal-scoring-moment-football/">Explore the edition →</a>
-            </div>
-          </article>
-
-          <article class="edition soon-card baseball-card" aria-label="Baseball Card Game coming soon">
-            <button class="edition-visual" type="button" aria-expanded="false" aria-controls="baseball-details">
-              <img src="assets/edition-baseball-ball.webp" alt="Baseball on home plate beside a bat and glove in a floodlit stadium" loading="lazy">
-              <span class="edition-top"><span class="edition-number">04</span><span class="status soon">Coming soon</span></span>
-              <span class="tap-hint">View details</span>
-              <span class="card-stack" aria-hidden="true"></span>
-            </button>
-            <div class="edition-body" id="baseball-details">
-              <small>Sports Card Game</small>
-              <h3>Baseball</h3>
-              <p>A future GSM edition built around baseball strategy and rivalry.</p>
-              <span class="edition-cta">In development</span>
-            </div>
-          </article>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <strong>GOAL-SCORING MOMENT</strong>
-      <span>One sports card-game universe. More ways to play.</span>
-    </footer>
+<main>
+<section class="hero">
+  <div class="hero-copy">
+    <span class="kicker">Sports Card Game Series</span>
+    <h1>Pick a sport.<em>Play the moment.</em></h1>
+    <p>One card-game universe built around the sports people already love. Choose your edition, learn through an interactive tutorial, and bring the table to life.</p>
+    <div class="hero-actions"><a class="cta" href="#sports">Choose Your Sport</a><a class="cta secondary" href="#learn">Learn the Games</a></div>
   </div>
-  <script>
-    const heroViewport = document.querySelector('[data-hero-viewport]');
-    const heroTrack = document.querySelector('[data-hero-track]');
-    const heroSlides = [...document.querySelectorAll('.hero-slide')];
-    const heroDots = [...document.querySelectorAll('[data-hero-dot]')];
-    const heroCounter = document.querySelector('[data-hero-counter]');
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let heroIndex = 0;
-    let heroTimer = null;
-    let dragStartX = null;
-    let dragDeltaX = 0;
+  <div class="card-fan" aria-hidden="true">
+    <div class="athlete-card card-soccer"><img src="assets/hero-soccer-highschool-v3.webp" alt=""><span class="label"><b>Soccer</b> · Strategy</span></div>
+    <div class="athlete-card card-football"><img src="assets/hero-football-highschool-v3.webp" alt=""><span class="label"><b>Football</b> · Drive</span></div>
+    <div class="athlete-card card-basketball"><img src="assets/hero-basketball-highschool-v3.webp" alt=""><span class="label"><b>Basketball</b> · Court</span></div>
+    <div class="athlete-card card-baseball"><img src="assets/hero-baseball-highschool-v3.webp" alt=""><span class="label"><b>Baseball</b> · Inning</span></div>
+  </div>
+</section>
 
-    function showHeroSlide(nextIndex, restart = false) {
-      heroIndex = (nextIndex + heroSlides.length) % heroSlides.length;
-      heroTrack?.style.setProperty('--hero-index', String(heroIndex));
-      heroTrack?.style.removeProperty('transform');
-      heroSlides.forEach((slide, index) => {
-        const active = index === heroIndex;
-        slide.classList.toggle('is-active', active);
-        slide.setAttribute('aria-hidden', String(!active));
-        slide.toggleAttribute('inert', !active);
-      });
-      heroDots.forEach((dot, index) => {
-        const active = index === heroIndex;
-        dot.classList.toggle('is-active', active);
-        if (active) dot.setAttribute('aria-current', 'true');
-        else dot.removeAttribute('aria-current');
-      });
-      if (heroCounter) heroCounter.textContent = `${String(heroIndex + 1).padStart(2, '0')} / ${String(heroSlides.length).padStart(2, '0')}`;
-      if (restart) startHeroAutoplay();
-    }
+<section class="section" id="sports">
+  <div class="section-head"><div><small>Choose your edition</small><h2>Four sports.<br>One game-night family.</h2></div><p>The layout stays consistent across the series, while every edition brings its own plays, tempo, and sports identity.</p></div>
+  <div class="sport-grid">
+    <a class="sport-card soccer" href="https://lu20140621-png.github.io/goal-scoring-moment/">
+      <div class="sport-info"><span class="mode-no">Edition 01 · Available Now</span><h3>Soccer</h3><p>Hidden roles, team strategy, attack and defense. Start with the original Goal-Scoring Moment experience.</p><div class="tags"><span class="tag">2–8 PLAYERS</span><span class="tag">HIDDEN ROLES</span><span class="tag">INTERACTIVE TUTORIAL</span></div><span class="enter">Explore Soccer <i>→</i></span></div>
+      <div class="sport-art"><img src="assets/hero-soccer-highschool-v3.webp" alt="High-school soccer player"></div><span class="status">Live</span>
+    </a>
+    <a class="sport-card football" href="https://lu20140621-png.github.io/goal-scoring-moment-football/">
+      <div class="sport-info"><span class="mode-no">Edition 02 · Available Now</span><h3>Football</h3><p>Build the drive, counter the defense, and turn every card into the next play on the field.</p><div class="tags"><span class="tag">TEAM PLAY</span><span class="tag">TACTICAL</span><span class="tag">INTERACTIVE TUTORIAL</span></div><span class="enter">Explore Football <i>→</i></span></div>
+      <div class="sport-art"><img src="assets/hero-football-highschool-v3.webp" alt="High-school football player"></div><span class="status">Live</span>
+    </a>
+    <article class="sport-card basketball coming" aria-label="Basketball edition coming next">
+      <div class="sport-info"><span class="mode-no">Edition 03 · Coming Next</span><h3>Basketball</h3><p>Rotations, shots, blocks, steals and team decisions built around the rhythm of a possession.</p><div class="tags"><span class="tag">2v2 / 3v3 / 4v4</span><span class="tag">ROTATION</span><span class="tag">TACTICAL</span></div><span class="enter">Coming Next <i>•</i></span></div>
+      <div class="sport-art"><img src="assets/hero-basketball-highschool-v3.webp" alt="High-school basketball player"></div><span class="status">Next</span>
+    </article>
+    <article class="sport-card baseball coming" aria-label="Baseball edition in development">
+      <div class="sport-info"><span class="mode-no">Edition 04 · In Development</span><h3>Baseball</h3><p>Pressure, timing, pitcher-versus-batter decisions and inning momentum brought to the card table.</p><div class="tags"><span class="tag">INNINGS</span><span class="tag">TIMING</span><span class="tag">TACTICAL</span></div><span class="enter">In Development <i>•</i></span></div>
+      <div class="sport-art"><img src="assets/hero-baseball-highschool-v3.webp" alt="High-school baseball player"></div><span class="status">Soon</span>
+    </article>
+  </div>
+</section>
 
-    function stopHeroAutoplay() {
-      if (heroTimer) window.clearInterval(heroTimer);
-      heroTimer = null;
-    }
+<section class="section" id="learn">
+  <div class="section-head"><div><small>Learn & play</small><h2>From the box<br>to the table.</h2></div><p>Jump into a guided tutorial or open the online football room. The same sports-card visual language carries through the whole experience.</p></div>
+  <div class="tool-grid">
+    <article class="tool-card"><img src="assets/tutorial-hub-v2.webp" alt="Sports tutorial hub"><div class="tool-copy"><small>Interactive tutorials</small><h3>Learn by playing.</h3><p>No app and no account. Choose an available sport and follow the cards step by step.</p><div class="mini-actions"><a class="mini" href="https://lu20140621-png.github.io/goal-scoring-moment/strategy-cards.html">Soccer Tutorial</a><a class="mini alt" href="https://lu20140621-png.github.io/goal-scoring-moment-football/strategy-tutorial-en.html">Football Tutorial</a></div></div></article>
+    <article class="tool-card"><img src="assets/multiplayer-hub-v2.webp" alt="Sports multiplayer hub"><div class="tool-copy"><small>Online multiplayer</small><h3>Bring a friend.</h3><p>Create a private room, share the room code, and play Football online with a friend.</p><div class="mini-actions"><a class="mini" href="https://lu20140621-png.github.io/goal-scoring-moment-football-online/">Football Multiplayer</a><span class="mini alt">More Sports Coming</span></div></div></article>
+  </div>
+</section>
+</main>
 
-    function startHeroAutoplay() {
-      stopHeroAutoplay();
-      if (!reduceMotion && !document.hidden) {
-        heroTimer = window.setInterval(() => showHeroSlide(heroIndex + 1), 5800);
-      }
-    }
-
-    document.querySelector('[data-hero-prev]')?.addEventListener('click', () => showHeroSlide(heroIndex - 1, true));
-    document.querySelector('[data-hero-next]')?.addEventListener('click', () => showHeroSlide(heroIndex + 1, true));
-    heroDots.forEach((dot) => dot.addEventListener('click', () => showHeroSlide(Number(dot.dataset.heroDot), true)));
-
-    heroViewport?.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowLeft') showHeroSlide(heroIndex - 1, true);
-      if (event.key === 'ArrowRight') showHeroSlide(heroIndex + 1, true);
-    });
-
-    heroViewport?.addEventListener('pointerdown', (event) => {
-      if (event.target.closest('a, button')) return;
-      dragStartX = event.clientX;
-      dragDeltaX = 0;
-      heroViewport.classList.add('is-dragging');
-      heroViewport.setPointerCapture?.(event.pointerId);
-      stopHeroAutoplay();
-    });
-
-    heroViewport?.addEventListener('pointermove', (event) => {
-      if (dragStartX === null || !heroTrack) return;
-      dragDeltaX = event.clientX - dragStartX;
-      heroTrack.style.transform = `translate3d(calc(${-heroIndex * 100}% + ${dragDeltaX}px), 0, 0)`;
-    });
-
-    function finishHeroDrag() {
-      if (dragStartX === null) return;
-      heroViewport?.classList.remove('is-dragging');
-      heroTrack?.style.removeProperty('transform');
-      if (Math.abs(dragDeltaX) > 55) showHeroSlide(heroIndex + (dragDeltaX < 0 ? 1 : -1));
-      else showHeroSlide(heroIndex);
-      dragStartX = null;
-      dragDeltaX = 0;
-      startHeroAutoplay();
-    }
-
-    heroViewport?.addEventListener('pointerup', finishHeroDrag);
-    heroViewport?.addEventListener('pointercancel', finishHeroDrag);
-    heroViewport?.addEventListener('mouseenter', stopHeroAutoplay);
-    heroViewport?.addEventListener('mouseleave', () => { if (dragStartX === null) startHeroAutoplay(); });
-    heroViewport?.addEventListener('focusin', stopHeroAutoplay);
-    heroViewport?.addEventListener('focusout', startHeroAutoplay);
-    document.addEventListener('visibilitychange', () => document.hidden ? stopHeroAutoplay() : startHeroAutoplay());
-
-    showHeroSlide(0);
-    startHeroAutoplay();
-
-    const editionCards = [...document.querySelectorAll('.edition')];
-
-    function closeEditionCards(except = null) {
-      editionCards.forEach((card) => {
-        if (card === except) return;
-        card.classList.remove('is-open');
-        card.querySelector('.edition-visual')?.setAttribute('aria-expanded', 'false');
-      });
-    }
-
-    editionCards.forEach((card) => {
-      const trigger = card.querySelector('.edition-visual');
-      trigger?.addEventListener('click', () => {
-        const shouldOpen = !card.classList.contains('is-open');
-        closeEditionCards(card);
-        card.classList.toggle('is-open', shouldOpen);
-        trigger.setAttribute('aria-expanded', String(shouldOpen));
-      });
-    });
-
-    document.addEventListener('click', (event) => {
-      if (!event.target.closest('.edition')) closeEditionCards();
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') closeEditionCards();
-    });
-
-    document.querySelectorAll('[data-open-dialog]').forEach((trigger) => {
-      trigger.addEventListener('click', () => {
-        const dialog = document.getElementById(trigger.dataset.openDialog);
-        if (dialog && !dialog.open) dialog.showModal();
-      });
-    });
-
-    document.querySelectorAll('.portal-dialog').forEach((dialog) => {
-      dialog.querySelector('[data-close-dialog]')?.addEventListener('click', () => dialog.close());
-      dialog.addEventListener('click', (event) => {
-        if (event.target === dialog) dialog.close();
-      });
-    });
-  </script>
+<footer><span><b>Goal-Scoring Moment</b> · Sports Card Game Series</span><span>Soccer · Football · Basketball · Baseball</span></footer>
+</div>
 </body>
 </html>
